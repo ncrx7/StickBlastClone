@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using NodeGridSystem.Controllers;
 using UnityEngine;
 
 namespace NodeGridSystem.Models
 {
-    public class GridNodeObject<T>
+    public class GridNodeObject<T> where T : NodeManager
     {
         /// <summary>
         /// EN: We made this class generic so that it would be more dynamic and convenient for us to put another object instead of a node or another type of node.
@@ -14,6 +15,9 @@ namespace NodeGridSystem.Models
         private int _x;
         private int _y;
         private T _nodeManager;
+
+        private GridNodeObject<T> _rightNodeObject;
+        private GridNodeObject<T> _downNodeObject;
 
         public GridNodeObject(NodeGridSystem2D<GridNodeObject<T>> grid, int x, int y)
         {
@@ -30,6 +34,12 @@ namespace NodeGridSystem.Models
         public T GetValue()
         {
             return _nodeManager;
+        }
+
+        public void InitNeighbourGridObjects()
+        {
+            _rightNodeObject = _grid.GetValue(_x + 1, _y);
+            _downNodeObject = _grid.GetValue(_x, _y - 1);
         }
     }
 }

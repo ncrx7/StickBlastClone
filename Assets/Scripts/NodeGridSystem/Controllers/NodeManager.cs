@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using NodeGridSystem.Models;
 using UnityEngine;
 
 namespace NodeGridSystem.Controllers
@@ -9,10 +10,20 @@ namespace NodeGridSystem.Controllers
     {
         #region References
         [SerializeField] private SpriteRenderer _nodeSpriteRenderer;
-        #endregion
+        public GridNodeObject<NodeManager> GridNodeObject {get; private set;}
 
-        //TODO: I CAN ADD NODE TYPE TO ACCEPT SAME TYPE OF BLOCK DRAGGED IN THE FUTURE
-        //..type, SetType(set sprite renderer), GetType
+
+        #endregion
         
+        #region Public Methods
+        public void SetGridObjectOnNode(GridNodeObject<NodeManager> gridNodeObject)
+        {
+            GridNodeObject = gridNodeObject;
+        }
+        #endregion
     }
 }
+
+
+//TODO: I CAN ADD NODE TYPE TO ACCEPT SAME TYPE OF BLOCK DRAGGED IN THE FUTURE
+        //..type, SetType(set sprite renderer), GetType

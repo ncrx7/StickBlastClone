@@ -20,7 +20,7 @@ namespace NodeGridSystem.View
         protected override void CreateEntity(int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> grid, int nodePoolId)
         {
             base.CreateEntity(x, y, grid, nodePoolId);
-            
+
             //TODO: PULL NODE OBJECT FROM OBJECT POOLER
             NodeManager node = Instantiate(_entityPrefab, grid.GetWorldPositionCenter(x, y), Quaternion.identity, transform); 
 
@@ -28,8 +28,12 @@ namespace NodeGridSystem.View
             node.transform.SetParent(transform);
 
             var gridObject = new GridNodeObject<NodeManager>(grid, x, y);
+            gridObject.InitNeighbourGridObjects();
+
             gridObject.SetValue(node); 
             grid.SetValue(x, y, gridObject); 
+
+            node.SetGridObjectOnNode(gridObject);
         }
         #endregion
     }
