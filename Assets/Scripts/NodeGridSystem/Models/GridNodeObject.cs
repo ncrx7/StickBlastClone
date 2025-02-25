@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using NodeGridSystem.Controllers;
 using UnityEngine;
+using Enums;
 
 namespace NodeGridSystem.Models
 {
-    public class GridNodeObject<T> where T : NodeManager
+    public class GridNodeObject<T>
     {
         /// <summary>
         /// EN: We made this class generic so that it would be more dynamic and convenient for us to put another object instead of a node or another type of node.
@@ -18,6 +19,9 @@ namespace NodeGridSystem.Models
 
         private GridNodeObject<T> _rightNodeObject;
         private GridNodeObject<T> _downNodeObject;
+        private GridNodeObject<T> _upNodeObject;
+        private GridNodeObject<T> _leftNodeObject;
+        private Dictionary<NeighbourDirection, GridNodeObject<T>> _neighborNodes = new();
 
         public GridNodeObject(NodeGridSystem2D<GridNodeObject<T>> grid, int x, int y)
         {
@@ -40,6 +44,16 @@ namespace NodeGridSystem.Models
         {
             _rightNodeObject = _grid.GetValue(_x + 1, _y);
             _downNodeObject = _grid.GetValue(_x, _y - 1);
+
+            _neighborNodes[NeighbourDirection.Right] = _grid.GetValue(_x + 1, _y);
+            _neighborNodes[NeighbourDirection.Left] = _grid.GetValue(_x - 1, _y);
+            _neighborNodes[NeighbourDirection.Up] = _downNodeObject = _grid.GetValue(_x, _y + 1);
+            _neighborNodes[NeighbourDirection.Down] = _downNodeObject = _grid.GetValue(_x, _y - 1);
+        }
+
+        public GridNodeObject<T> GetNeighbourGridObject(NeighbourDirection neighbourDirection)
+        {
+            return _neighborNodes[neighbourDirection];
         }
     }
 }
