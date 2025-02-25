@@ -12,7 +12,7 @@ namespace NodeGridSystem.Controllers
         [SerializeField] private SpriteRenderer _nodeSpriteRenderer;
         public GridNodeObject<NodeManager> GridNodeObject {get; private set;}
 
-
+        
         #endregion
         
         #region Public Methods

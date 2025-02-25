@@ -133,6 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 336230711}
   - component: {fileID: 336230712}
+  - component: {fileID: 336230713}
   m_Layer: 0
   m_Name: LevelCreator
   m_TagString: Untagged
@@ -168,6 +169,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 4330924498566011489, guid: a8437b443d7c2a1448778593f0ad7548, type: 3}
+--- !u!114 &336230713
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336230710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a703c977167e53b449656ea50ac597c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityPrefab: {fileID: 650367425749872645, guid: e1e203968a8a05143b2743e2faef95d3, type: 3}
 --- !u!1 &339569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -330,7 +344,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -4.3}
+  m_LocalPosition: {x: 0, y: 0, z: -10}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -498,8 +512,9 @@ MonoBehaviour:
   _width: 6
   _height: 6
   _cellSize: 1
-  _originPosition: {x: 0, y: 0, z: 0}
-  _debug: 1
+  _originPosition: {x: -3, y: -3, z: 0}
+  _debug: 0
+  edgePrefab: {fileID: 650367425749872645, guid: e1e203968a8a05143b2743e2faef95d3, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

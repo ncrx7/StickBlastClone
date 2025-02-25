@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NodeGridSystem.Controllers;
 using NodeGridSystem.Models;
 using UnityEngine;
+using Enums;
 
 namespace NodeGridSystem.View
 {
@@ -17,9 +18,12 @@ namespace NodeGridSystem.View
         #endregion
 
         #region Private Methods
-        protected override void CreateEntity(int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> grid, int nodePoolId)
+        protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> grid, int nodePoolId)
         {
-            base.CreateEntity(x, y, grid, nodePoolId);
+            if(entityType != EntityType.NodeGrid)
+                return;
+
+            base.CreateEntity(entityType, x, y, grid, nodePoolId);
 
             //TODO: PULL NODE OBJECT FROM OBJECT POOLER
             NodeManager node = Instantiate(_entityPrefab, grid.GetWorldPositionCenter(x, y), Quaternion.identity, transform); 

@@ -55,5 +55,10 @@ namespace NodeGridSystem.Models
         {
             return _neighborNodes[neighbourDirection];
         }
+
+        public Dictionary<NeighbourDirection, GridNodeObject<T>> GetAllNeighbourGridObjects => _neighborNodes;
+        public int GetX => _x;
+        public int GetY => _y;
+        public NodeGridSystem2D<GridNodeObject<T>> GetGridSystem => _grid;
     }
 }

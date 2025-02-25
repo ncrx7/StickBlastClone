@@ -5,6 +5,7 @@ using NodeGridSystem.Models;
 using UnityEngine;
 using Cysharp;
 using Cysharp.Threading.Tasks;
+using Enums;
 
 namespace NodeGridSystem.Controllers
 {
@@ -18,6 +19,7 @@ namespace NodeGridSystem.Controllers
         [SerializeField] private bool _debug = true;
 
         private NodeGridSystem2D<GridNodeObject<NodeManager>> _nodeGrid;
+        [SerializeField] private EdgeManager edgePrefab;
 
         private void Start()
         {
@@ -39,7 +41,7 @@ namespace NodeGridSystem.Controllers
                 for (int y = 0; y < _height; y++)
                 {
                     //Match3Events.CreateGemObject?.Invoke(x, y, _grid, GemTypes, _gemPoolId);
-                    MiniEventSystem.OnCreateNode?.Invoke(x, y, _nodeGrid, 1);
+                    MiniEventSystem.OnCreateNode?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, 1);
                 }
             }
 
@@ -52,12 +54,16 @@ namespace NodeGridSystem.Controllers
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    var gridObject = _nodeGrid.GetValue(x, y);
-                    gridObject.InitNeighbourGridObjects();
+                    var gridNodeObject = _nodeGrid.GetValue(x, y);
+                    gridNodeObject.InitNeighbourGridObjects();
+
+                    //await InitEdges(x, y, gridNodeObject);
+                    MiniEventSystem.OnCreateNode?.Invoke(EntityType.Edge, x, y, _nodeGrid, 1);
                 }
             }
 
             await UniTask.DelayFrame(1);
+            //TODO: Board has been inited, write here a flag to disappear loading panel (use wait until)
         }
     }
 }
