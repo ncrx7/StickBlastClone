@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Enums
 {
-    public enum NeighbourDirection
+    public enum Direction
     {
         Right,
         Left,

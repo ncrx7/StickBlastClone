@@ -16,12 +16,12 @@ namespace NodeGridSystem.View
         #region MonoBehaviour Callbacks
         private void OnEnable()
         {
-            MiniEventSystem.OnCreateNode += CreateEntity;
+            MiniEventSystem.OnCreateEntity += CreateEntity;
         }
 
         private void OnDisable()
         {
-            MiniEventSystem.OnCreateNode -= CreateEntity;
+            MiniEventSystem.OnCreateEntity -= CreateEntity;
         }
         #endregion
 

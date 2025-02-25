@@ -21,7 +21,7 @@ namespace NodeGridSystem.Models
         private GridNodeObject<T> _downNodeObject;
         private GridNodeObject<T> _upNodeObject;
         private GridNodeObject<T> _leftNodeObject;
-        private Dictionary<NeighbourDirection, GridNodeObject<T>> _neighborNodes = new();
+        private Dictionary<Direction, GridNodeObject<T>> _neighborNodes = new();
 
         public GridNodeObject(NodeGridSystem2D<GridNodeObject<T>> grid, int x, int y)
         {
@@ -45,18 +45,18 @@ namespace NodeGridSystem.Models
             _rightNodeObject = _grid.GetValue(_x + 1, _y);
             _downNodeObject = _grid.GetValue(_x, _y - 1);
 
-            _neighborNodes[NeighbourDirection.Right] = _grid.GetValue(_x + 1, _y);
-            _neighborNodes[NeighbourDirection.Left] = _grid.GetValue(_x - 1, _y);
-            _neighborNodes[NeighbourDirection.Up] = _downNodeObject = _grid.GetValue(_x, _y + 1);
-            _neighborNodes[NeighbourDirection.Down] = _downNodeObject = _grid.GetValue(_x, _y - 1);
+            _neighborNodes[Direction.Right] = _grid.GetValue(_x + 1, _y);
+            _neighborNodes[Direction.Left] = _grid.GetValue(_x - 1, _y);
+            _neighborNodes[Direction.Up] = _downNodeObject = _grid.GetValue(_x, _y + 1);
+            _neighborNodes[Direction.Down] = _downNodeObject = _grid.GetValue(_x, _y - 1);
         }
 
-        public GridNodeObject<T> GetNeighbourGridObject(NeighbourDirection neighbourDirection)
+        public GridNodeObject<T> GetNeighbourGridObject(Direction neighbourDirection)
         {
             return _neighborNodes[neighbourDirection];
         }
 
-        public Dictionary<NeighbourDirection, GridNodeObject<T>> GetAllNeighbourGridObjects => _neighborNodes;
+        public Dictionary<Direction, GridNodeObject<T>> GetAllNeighbourGridObjects => _neighborNodes;
         public int GetX => _x;
         public int GetY => _y;
         public NodeGridSystem2D<GridNodeObject<T>> GetGridSystem => _grid;

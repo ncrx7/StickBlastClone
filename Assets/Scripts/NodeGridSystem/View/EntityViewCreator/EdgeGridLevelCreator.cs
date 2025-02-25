@@ -17,26 +17,35 @@ namespace NodeGridSystem.View
 
             base.CreateEntity(entityType, x, y, grid, entityPoolId);
 
-            var gridNodeObject = grid.GetValue(x, y);
+            var startNodeObject = grid.GetValue(x, y);
+            NodeManager startNode = startNodeObject.GetValue();
 
-            if (gridNodeObject.GetNeighbourGridObject(Enums.NeighbourDirection.Right) != null)
+            if (startNodeObject.GetNeighbourGridObject(Enums.Direction.Right) != null)
             {
-                var rightGridNodeObject = gridNodeObject.GetNeighbourGridObject(Enums.NeighbourDirection.Right);
+                var rightGridNodeObject = startNodeObject.GetNeighbourGridObject(Direction.Right);
+                NodeManager rightNode = rightGridNodeObject.GetValue();
                 
                 EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity);
 
+                startNode.SetEdge(Direction.Right, edgeManager);
+                rightNode.SetEdge(Direction.Left, edgeManager);
+
                 if (edgeManager != null)
-                    edgeManager.Setup(gridNodeObject, rightGridNodeObject, grid);
+                    edgeManager.Setup(startNodeObject, rightGridNodeObject, grid);
             }
 
-            if (gridNodeObject.GetNeighbourGridObject(Enums.NeighbourDirection.Down) != null)
+            if (startNodeObject.GetNeighbourGridObject(Enums.Direction.Down) != null)
             {
-                var downGridNodeObject = gridNodeObject.GetNeighbourGridObject(Enums.NeighbourDirection.Down);
+                var downGridNodeObject = startNodeObject.GetNeighbourGridObject(Enums.Direction.Down);
+                NodeManager downNode = downGridNodeObject.GetValue();
 
                 EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity);
 
+                startNode.SetEdge(Direction.Down, edgeManager);
+                downNode.SetEdge(Direction.Up, edgeManager);
+
                 if (edgeManager != null)
-                    edgeManager.Setup(gridNodeObject, downGridNodeObject, grid);
+                    edgeManager.Setup(startNodeObject, downGridNodeObject, grid);
             }
 
             //await UniTask.DelayFrame(1);

@@ -8,5 +8,5 @@ using Enums;
 
 public static class MiniEventSystem 
 {
-    public static Action<EntityType, int, int, NodeGridSystem2D<GridNodeObject<NodeManager>>, int> OnCreateNode;
+    public static Action<EntityType, int, int, NodeGridSystem2D<GridNodeObject<NodeManager>>, int> OnCreateEntity;
 }

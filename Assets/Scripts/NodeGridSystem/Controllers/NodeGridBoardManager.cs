@@ -41,7 +41,7 @@ namespace NodeGridSystem.Controllers
                 for (int y = 0; y < _height; y++)
                 {
                     //Match3Events.CreateGemObject?.Invoke(x, y, _grid, GemTypes, _gemPoolId);
-                    MiniEventSystem.OnCreateNode?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, 1);
+                    MiniEventSystem.OnCreateEntity?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, 1);
                 }
             }
 
@@ -58,7 +58,7 @@ namespace NodeGridSystem.Controllers
                     gridNodeObject.InitNeighbourGridObjects();
 
                     //await InitEdges(x, y, gridNodeObject);
-                    MiniEventSystem.OnCreateNode?.Invoke(EntityType.Edge, x, y, _nodeGrid, 1);
+                    MiniEventSystem.OnCreateEntity?.Invoke(EntityType.Edge, x, y, _nodeGrid, 1);
                 }
             }
 
