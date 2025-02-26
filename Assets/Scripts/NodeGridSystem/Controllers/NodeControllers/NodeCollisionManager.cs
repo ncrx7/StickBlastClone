@@ -10,20 +10,19 @@ namespace NodeGridSystem.Controllers
         #region References
         [SerializeField] private NodeManager _mainNodeManager;
         private NodeManager _currentNodeManager;
-        private List<EdgeManager> _edgesMatching = new(); //TODO: This reference will hold in shape manager
+         //TODO: This reference will hold in shape manager
         #endregion
 
         #region MonoBehaviour Callbacks
         private void OnTriggerEnter2D(Collider2D other)
         {
-            _edgesMatching.Clear();
-
             _currentNodeManager = _mainNodeManager;
 
 
             if (other.TryGetComponent<ShapeManager>(out ShapeManager shapeManager))
             {
-                CheckShapePath(shapeManager, _edgesMatching);
+                shapeManager.GetEdgesMatching.Clear();
+                CheckShapePath(shapeManager, shapeManager.GetEdgesMatching);
             }
         }
 
@@ -31,7 +30,8 @@ namespace NodeGridSystem.Controllers
         {
             if (other.TryGetComponent<ShapeManager>(out ShapeManager shapeManager))
             {
-                HideBlockShapeSlotSign();
+                if(shapeManager.IsDragging)
+                    HideBlockShapeSlotSign(shapeManager);
             }
         }
         #endregion
@@ -45,6 +45,7 @@ namespace NodeGridSystem.Controllers
 
                 if (currentEdge == null)
                 {
+                    edges.Clear();
                     shapeManager.SetCanPlaceFlag(false);
                     return;
                 }
@@ -53,6 +54,7 @@ namespace NodeGridSystem.Controllers
 
                 if (currentEdge.IsEmpty == false)
                 {
+                    edges.Clear();
                     Debug.LogError("Edge is not empty, cant place!!" + currentEdge.gameObject.name);
                     shapeManager.SetCanPlaceFlag(false);
                     return;
@@ -63,24 +65,30 @@ namespace NodeGridSystem.Controllers
 
             Debug.Log("Can Place Shape!!");
 
-            ShowBlockShapeSlotSign();
+            ShowBlockShapeSlotSign(shapeManager);
 
             shapeManager.SetCanPlaceFlag(true);
         }
 
-        private void ShowBlockShapeSlotSign()
+        private void ShowBlockShapeSlotSign(ShapeManager shapeManager)
         {
-            foreach (var edge in _edgesMatching)
+            if(shapeManager.GetEdgesMatching.Count == 0)
+                return;
+
+            foreach (var edge in shapeManager.GetEdgesMatching)
             {
                 Color targetDisplayColor = edge.GetBlockShapeSpriteRenderer.color;
-                targetDisplayColor.a = 0.33f;
+                targetDisplayColor.a = 0.25f;
                 edge.GetBlockShapeSpriteRenderer.color = targetDisplayColor;
             }
         }
 
-        private void HideBlockShapeSlotSign()
+        private void HideBlockShapeSlotSign(ShapeManager shapeManager)
         {
-            foreach (var edge in _edgesMatching)
+            if(shapeManager.GetEdgesMatching.Count == 0)
+                return;
+                
+            foreach (var edge in shapeManager.GetEdgesMatching)
             {
                 Color targetDisplayColor = edge.GetBlockShapeSpriteRenderer.color;
                 targetDisplayColor.a = 0f;

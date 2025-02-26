@@ -27,6 +27,7 @@ namespace Shapes
         #region Interface Methods
         public void OnPointerDown(PointerEventData eventData)
         {
+            _shapeManager.IsDragging = true;
             SetOffset(eventData);
         }
         public void OnDrag(PointerEventData eventData)
@@ -36,7 +37,13 @@ namespace Shapes
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            throw new System.NotImplementedException();
+            _shapeManager.IsDragging = false;
+
+            if(_shapeManager.GetCanPlaceFlag)
+            {
+                _shapeManager.PlaceShape();
+                transform.parent.gameObject.SetActive(false);
+            }
         }
         #endregion
 
