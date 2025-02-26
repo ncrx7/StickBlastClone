@@ -10,14 +10,12 @@ namespace NodeGridSystem.Controllers
         #region References
         [SerializeField] private NodeManager _mainNodeManager;
         private NodeManager _currentNodeManager;
-        public bool CanPlace = false;
-        private List<EdgeManager> _edgesMatching = new();
+        private List<EdgeManager> _edgesMatching = new(); //TODO: This reference will hold in shape manager
         #endregion
 
         #region MonoBehaviour Callbacks
         private void OnTriggerEnter2D(Collider2D other)
         {
-            Debug.Log("COLLISION WORKED!!!!!");
             _edgesMatching.Clear();
 
             _currentNodeManager = _mainNodeManager;
@@ -46,14 +44,17 @@ namespace NodeGridSystem.Controllers
                 EdgeManager currentEdge = _currentNodeManager.GetNodeEdge(direction);
 
                 if (currentEdge == null)
+                {
+                    shapeManager.SetCanPlaceFlag(false);
                     return;
+                }
 
                 edges.Add(currentEdge);
 
                 if (currentEdge.IsEmpty == false)
                 {
                     Debug.LogError("Edge is not empty, cant place!!" + currentEdge.gameObject.name);
-                    CanPlace = false;
+                    shapeManager.SetCanPlaceFlag(false);
                     return;
                 }
 
@@ -64,7 +65,7 @@ namespace NodeGridSystem.Controllers
 
             ShowBlockShapeSlotSign();
 
-            CanPlace = true;
+            shapeManager.SetCanPlaceFlag(true);
         }
 
         private void ShowBlockShapeSlotSign()
