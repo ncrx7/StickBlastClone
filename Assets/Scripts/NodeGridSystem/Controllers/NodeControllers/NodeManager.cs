@@ -11,11 +11,11 @@ namespace NodeGridSystem.Controllers
     {
         #region References
         [SerializeField] private SpriteRenderer _nodeSpriteRenderer;
-        public GridNodeObject<NodeManager> OnGridNodeObject {get; private set;}
+        public GridNodeObject<NodeManager> OnGridNodeObject { get; private set; }
 
         public Dictionary<Direction, EdgeManager> _nodeEdges = new();
         #endregion
-        
+
         #region Public Methods
         public void SetGridObjectOnNode(GridNodeObject<NodeManager> gridNodeObject)
         {
@@ -29,7 +29,12 @@ namespace NodeGridSystem.Controllers
 
         public EdgeManager GetNodeEdge(Direction direction)
         {
-            return _nodeEdges[direction];
+            if (_nodeEdges.TryGetValue(direction, out EdgeManager edge))
+            {
+                return edge;
+            }
+
+            return null; 
         }
 
         public Dictionary<Direction, EdgeManager> GetAllNodeEdges => _nodeEdges;
@@ -39,4 +44,4 @@ namespace NodeGridSystem.Controllers
 
 
 //TODO: I CAN ADD NODE TYPE TO ACCEPT SAME TYPE OF BLOCK DRAGGED IN THE FUTURE
-        //..type, SetType(set sprite renderer), GetType
+//..type, SetType(set sprite renderer), GetType

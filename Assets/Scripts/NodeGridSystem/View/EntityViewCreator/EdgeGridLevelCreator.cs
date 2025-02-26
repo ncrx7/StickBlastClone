@@ -39,7 +39,7 @@ namespace NodeGridSystem.View
                 var downGridNodeObject = startNodeObject.GetNeighbourGridObject(Enums.Direction.Down);
                 NodeManager downNode = downGridNodeObject.GetValue();
 
-                EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity);
+                EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity, transform);
 
                 startNode.SetEdge(Direction.Down, edgeManager);
                 downNode.SetEdge(Direction.Up, edgeManager);
