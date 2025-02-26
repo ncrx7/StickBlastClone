@@ -7,22 +7,38 @@ namespace NodeGridSystem.Controllers
 {
     public class NodeCollisionManager : MonoBehaviour
     {
+        #region References
         [SerializeField] private NodeManager _mainNodeManager;
         private NodeManager _currentNodeManager;
         public bool CanPlace = false;
+        private List<EdgeManager> _edgesMatching = new();
+        #endregion
 
+        #region MonoBehaviour Callbacks
         private void OnTriggerEnter2D(Collider2D other)
         {
             Debug.Log("COLLISION WORKED!!!!!");
+            _edgesMatching.Clear();
+
             _currentNodeManager = _mainNodeManager;
-            List<EdgeManager> edges = new();
+
 
             if (other.TryGetComponent<ShapeManager>(out ShapeManager shapeManager))
             {
-                CheckShapePath(shapeManager, edges);
+                CheckShapePath(shapeManager, _edgesMatching);
             }
         }
 
+        private void OnTriggerExit2D(Collider2D other)
+        {
+            if (other.TryGetComponent<ShapeManager>(out ShapeManager shapeManager))
+            {
+                HideBlockShapeSlotSign();
+            }
+        }
+        #endregion
+
+        #region Private Methods
         private void CheckShapePath(ShapeManager shapeManager, List<EdgeManager> edges)
         {
             foreach (var direction in shapeManager.GetShapeData.ShapeDirections)
@@ -45,7 +61,31 @@ namespace NodeGridSystem.Controllers
             }
 
             Debug.Log("Can Place Shape!!");
+
+            ShowBlockShapeSlotSign();
+
             CanPlace = true;
         }
+
+        private void ShowBlockShapeSlotSign()
+        {
+            foreach (var edge in _edgesMatching)
+            {
+                Color targetDisplayColor = edge.GetBlockShapeSpriteRenderer.color;
+                targetDisplayColor.a = 0.33f;
+                edge.GetBlockShapeSpriteRenderer.color = targetDisplayColor;
+            }
+        }
+
+        private void HideBlockShapeSlotSign()
+        {
+            foreach (var edge in _edgesMatching)
+            {
+                Color targetDisplayColor = edge.GetBlockShapeSpriteRenderer.color;
+                targetDisplayColor.a = 0f;
+                edge.GetBlockShapeSpriteRenderer.color = targetDisplayColor;
+            }
+        }
+        #endregion
     }
 }
