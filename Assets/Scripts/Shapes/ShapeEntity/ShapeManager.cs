@@ -13,6 +13,16 @@ namespace Shapes
         [SerializeField] private bool _canPlace;
         public bool IsDragging;
 
+        private void OnEnable()
+        {
+            MiniEventSystem.OnPlaceShape += PlaceShape;
+        }
+
+        private void OnDisable()
+        {
+            MiniEventSystem.OnPlaceShape -= PlaceShape;
+        }
+
         public void SetCanPlaceFlag(bool flag)
         {
             _canPlace = flag;
