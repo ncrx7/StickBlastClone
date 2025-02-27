@@ -45,7 +45,7 @@ namespace NodeGridSystem.Controllers
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    MiniEventSystem.OnCreateEntity?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, 1);
+                    MiniEventSystem.OnCreateEntity?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, _middleObjectGrid, 1);
                 }
             }
 
@@ -62,7 +62,7 @@ namespace NodeGridSystem.Controllers
                     gridNodeObject.InitNeighbourGridObjects();
 
                     //await InitEdges(x, y, gridNodeObject);
-                    MiniEventSystem.OnCreateEntity?.Invoke(EntityType.Edge, x, y, _nodeGrid, 1);
+                    MiniEventSystem.OnCreateEntity?.Invoke(EntityType.Edge, x, y, _nodeGrid, _middleObjectGrid, 1);
                 }
             }
 
@@ -76,26 +76,13 @@ namespace NodeGridSystem.Controllers
             {
                 for (int y = 0; y < _height - 1; y++)
                 {
-                    MiddleFillAreaManager middleArea = Instantiate(_middleFillAreaPrefab, _middleObjectGrid.GetWorldPositionCenter(x, y), Quaternion.identity, transform);
-
-                    middleArea.transform.position = _middleObjectGrid.GetWorldPositionCenter(x, y) + new Vector3(_cellSize / 2, _cellSize / 2 + 0);
-                    middleArea.transform.SetParent(transform);
-
-                    var gridObject = new GridNodeObject<MiddleFillAreaManager>(_middleObjectGrid, x, y);
-                    gridObject.InitNeighbourGridObjects();
-
-                    gridObject.SetValue(middleArea);
-                    _middleObjectGrid.SetValue(x, y, gridObject);
-
-                    middleArea.SetGridObjectOnMiddleArea(gridObject);
-
-                    middleArea.Setup(x, y, _nodeGrid);
-
-                    //MiniEventSystem.OnCreateEntity?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, 1);
+                    MiniEventSystem.OnCreateEntity?.Invoke(EntityType.MidCell, x, y, _nodeGrid, _middleObjectGrid, 1);
                 }
             }
 
             await UniTask.DelayFrame(1);
         }
+
+        public float GetCellSize => _cellSize;
     }
 }

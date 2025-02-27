@@ -18,24 +18,24 @@ namespace NodeGridSystem.View
         #endregion
 
         #region Private Methods
-        protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> grid, int nodePoolId)
+        protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> middCellGrid, int nodePoolId)
         {
             if(entityType != EntityType.NodeGrid)
                 return;
 
-            base.CreateEntity(entityType, x, y, grid, nodePoolId);
+            base.CreateEntity(entityType, x, y, nodeGrid, middCellGrid, nodePoolId);
 
             //TODO: PULL NODE OBJECT FROM OBJECT POOLER
-            NodeManager node = Instantiate(_entityPrefab, grid.GetWorldPositionCenter(x, y), Quaternion.identity, transform); 
+            NodeManager node = Instantiate(_entityPrefab, nodeGrid.GetWorldPositionCenter(x, y), Quaternion.identity, transform); 
 
-            node.transform.position = grid.GetWorldPositionCenter(x, y);
+            node.transform.position = nodeGrid.GetWorldPositionCenter(x, y);
             node.transform.SetParent(transform);
 
-            var gridObject = new GridNodeObject<NodeManager>(grid, x, y);
+            var gridObject = new GridNodeObject<NodeManager>(nodeGrid, x, y);
             gridObject.InitNeighbourGridObjects();
 
             gridObject.SetValue(node); 
-            grid.SetValue(x, y, gridObject); 
+            nodeGrid.SetValue(x, y, gridObject); 
 
             node.SetGridObjectOnNode(gridObject);
         }

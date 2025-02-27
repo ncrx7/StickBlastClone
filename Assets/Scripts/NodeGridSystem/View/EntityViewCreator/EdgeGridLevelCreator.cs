@@ -10,14 +10,14 @@ namespace NodeGridSystem.View
 {
     public class EdgeGridLevelCreator : EntityLevelCreator<EdgeManager>
     {
-        protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> grid, int entityPoolId)
+        protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> midCellGrid, int entityPoolId)
         {
             if (entityType != EntityType.Edge)
                 return;
 
-            base.CreateEntity(entityType, x, y, grid, entityPoolId);
+            base.CreateEntity(entityType, x, y, nodeGrid, midCellGrid, entityPoolId);
 
-            var startNodeObject = grid.GetValue(x, y);
+            var startNodeObject = nodeGrid.GetValue(x, y);
             NodeManager startNode = startNodeObject.GetValue();
 
             if (startNodeObject.GetNeighbourGridObject(Enums.Direction.Right) != null)
@@ -31,7 +31,7 @@ namespace NodeGridSystem.View
                 rightNode.SetEdge(Direction.Left, edgeManager);
 
                 if (edgeManager != null)
-                    edgeManager.Setup(startNodeObject, rightGridNodeObject, grid);
+                    edgeManager.Setup(startNodeObject, rightGridNodeObject, nodeGrid);
             }
 
             if (startNodeObject.GetNeighbourGridObject(Enums.Direction.Down) != null)
@@ -45,7 +45,7 @@ namespace NodeGridSystem.View
                 downNode.SetEdge(Direction.Up, edgeManager);
 
                 if (edgeManager != null)
-                    edgeManager.Setup(startNodeObject, downGridNodeObject, grid);
+                    edgeManager.Setup(startNodeObject, downGridNodeObject, nodeGrid);
             }
 
             //await UniTask.DelayFrame(1);

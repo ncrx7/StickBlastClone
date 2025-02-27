@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 336230711}
   - component: {fileID: 336230712}
   - component: {fileID: 336230713}
+  - component: {fileID: 336230715}
   - component: {fileID: 336230714}
   m_Layer: 0
   m_Name: LevelCreator
@@ -205,6 +206,19 @@ MonoBehaviour:
   _queueEndPoint: {fileID: 1410631186}
   _margin: 1.5
   _animationTime: 0.5
+--- !u!114 &336230715
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336230710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c0d8d8d4397cc341b84293b81f779d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entityPrefab: {fileID: 1944705445209255371, guid: 4fc0715847b1ed0409e74540724c7bff, type: 3}
 --- !u!1 &339569514
 GameObject:
   m_ObjectHideFlags: 0

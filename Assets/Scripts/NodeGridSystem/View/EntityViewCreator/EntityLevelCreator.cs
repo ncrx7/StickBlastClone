@@ -26,7 +26,7 @@ namespace NodeGridSystem.View
         #endregion
 
         #region Private Methods
-        protected virtual void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> grid, int entityPoolId)
+        protected virtual void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> middCellGrid, int entityPoolId)
         {
             Debug.Log("Entity creating..");
         }
