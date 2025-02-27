@@ -83,6 +83,58 @@ namespace NodeGridSystem.Controllers
             await UniTask.DelayFrame(1);
         }
 
+        public void CheckMidCellFullnessOnBoard()
+        {
+
+            /*             var rightGridObject = _middleObjectGrid.GetValue(x, y - 1);
+                        var leftGridObject = _middleObjectGrid.GetValue(x - 1, y - 1);
+                        var topGridObject = _middleObjectGrid.GetValue(x, y);
+                        var downGridObject = _middleObjectGrid.GetValue(x, y - 1);
+
+                        List<MiddleFillAreaManager> midCells = new()
+                        {
+                            rightGridObject?.GetValue(),
+                            leftGridObject?.GetValue(),
+                            topGridObject?.GetValue(),
+                            downGridObject?.GetValue()
+                        }; */
+
+            /* foreach (var midCell in midCells)
+            {
+                bool checkResponse = midCell.CheckEdges();
+
+                if (checkResponse)
+                {
+                    midCell.GetSpriteRenderer.enabled = true;
+                    midCell.transform.localScale = new Vector3(7, 7, 7);
+                }
+            } */
+
+            for (int x = 0; x < _width - 1; x++)
+            {
+                for (int y = 0; y < _height - 1; y++)
+                {
+                    var midCellGridObject = _middleObjectGrid.GetValue(x, y);
+                    MiddleFillAreaManager midCell = midCellGridObject.GetValue();
+
+                    bool checkResponse = midCell.CheckEdges();
+
+                    if (checkResponse)
+                    {
+                        midCell.GetSpriteRenderer.enabled = true;
+                        midCell.transform.localScale = new Vector3(7, 7, 7);
+                    }
+                }
+            }
+
+
+
+            /* MiddleFillAreaManager rightMidCell = rightGridObject.GetValue();
+            MiddleFillAreaManager leftMidCell = leftGridObject.GetValue();
+            MiddleFillAreaManager topMidCell = topGridObject.GetValue();
+            MiddleFillAreaManager downMidCell = downGridObject.GetValue(); */
+        }
+
         public float GetCellSize => _cellSize;
     }
 }

@@ -66,7 +66,7 @@ namespace Shapes
                 {
                     if (index == 0)
                         shape.SetCanMoveFlag(true);
-                        
+
                     index++;
                 }
                 );
@@ -90,7 +90,7 @@ namespace Shapes
 
         private ShapeManager GetRandomShape()
         {
-            return _shapePrefaps[Random.Range(0, _shapePrefaps.Count - 1)];
+            return _shapePrefaps[Random.Range(0, _shapePrefaps.Count)];
         }
     }
 }

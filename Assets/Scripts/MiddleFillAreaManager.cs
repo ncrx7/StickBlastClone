@@ -54,4 +54,19 @@ public class MiddleFillAreaManager : MonoBehaviour
         AddEdgeToList(edges[^1].StartNode.GetNodeEdge(Direction.Left));
         AddEdgeToList(edges[^1].StartNode.GetNodeEdge(Direction.Down));
     }
+
+    public bool CheckEdges()
+    {
+        foreach (var edge in edges)
+        {
+            if(edge.IsEmpty == true)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    public SpriteRenderer GetSpriteRenderer => _rectangleSprite;
 }
