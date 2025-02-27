@@ -123,16 +123,90 @@ namespace NodeGridSystem.Controllers
                     {
                         midCell.GetSpriteRenderer.enabled = true;
                         midCell.transform.localScale = new Vector3(7, 7, 7);
+                        midCell.IsFilled = true;
+
+                        ColumnCheckerOnBoard();
+                        RowCheckerOnBoard();
                     }
                 }
             }
-
-
 
             /* MiddleFillAreaManager rightMidCell = rightGridObject.GetValue();
             MiddleFillAreaManager leftMidCell = leftGridObject.GetValue();
             MiddleFillAreaManager topMidCell = topGridObject.GetValue();
             MiddleFillAreaManager downMidCell = downGridObject.GetValue(); */
+        }
+
+        private async void RowCheckerOnBoard()
+        {
+            List<MiddleFillAreaManager> midCells = new();
+
+            for (int y = 0; y < _height - 1; y++)
+            {
+                midCells.Clear();
+                bool rowCanDestroy = true;
+
+                for (int x = 0; x < _width - 1; x++)
+                {
+                    var midCellGridObject = _middleObjectGrid.GetValue(x, y);
+                    MiddleFillAreaManager midCell = midCellGridObject.GetValue();
+
+                    if (!midCell.IsFilled)
+                    {
+                        rowCanDestroy = false;
+                        break;
+                    }
+
+                    midCells.Add(midCell);
+                }
+
+                if (rowCanDestroy)
+                {
+                    foreach (var midCell in midCells)
+                    {
+                        midCell.GetSpriteRenderer.enabled = false;
+                        midCell.IsFilled = false;
+                        midCell.ResetEdges();
+                        await UniTask.Delay(50);
+                    }
+                }
+            }
+        }
+
+        private async void ColumnCheckerOnBoard()
+        {
+            List<MiddleFillAreaManager> midCells = new();
+
+            for (int x = 0; x < _width - 1; x++)
+            {
+                midCells.Clear();
+                bool columnCanDestroy = true;
+
+                for (int y = 0; y < _height - 1; y++)
+                {
+                    var midCellGridObject = _middleObjectGrid.GetValue(x, y);
+                    MiddleFillAreaManager midCell = midCellGridObject.GetValue();
+
+                    if (!midCell.IsFilled)
+                    {
+                        columnCanDestroy = false;
+                        break;
+                    }
+
+                    midCells.Add(midCell);
+                }
+
+                if (columnCanDestroy)
+                {
+                    foreach (var midCell in midCells)
+                    {
+                        midCell.GetSpriteRenderer.enabled = false;
+                        midCell.IsFilled = false;
+                        midCell.ResetEdges();
+                        await UniTask.Delay(50);
+                    }
+                }
+            }
         }
 
         public float GetCellSize => _cellSize;

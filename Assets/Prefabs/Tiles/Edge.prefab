@@ -98,7 +98,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9c3a1bc91973ad04f9785a5ff935cde2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _edgeSprite: {fileID: 1652591754946761236}
   _blockShapeSprite: {fileID: 1218442144212233322}
+  StartNode: {fileID: 0}
+  EndNode: {fileID: 0}
   IsEmpty: 1
 --- !u!1 &9222721317181906386
 GameObject:

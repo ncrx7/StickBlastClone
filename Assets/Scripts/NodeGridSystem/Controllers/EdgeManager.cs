@@ -9,11 +9,19 @@ namespace NodeGridSystem.Controllers
 {
     public class EdgeManager : MonoBehaviour
     {
+        [SerializeField] private SpriteRenderer _edgeSprite;
         [SerializeField] private SpriteRenderer _blockShapeSprite;
+        private Color _blockShapeDefaultColor;
         public NodeManager StartNode;
         public NodeManager EndNode;
 
+
         public bool IsEmpty = true;
+
+        private void Start()
+        {
+            _blockShapeDefaultColor = _blockShapeSprite.color;
+        }
 
         public void Setup(GridNodeObject<NodeManager> startGridNodeObject, GridNodeObject<NodeManager> endGridNodeObject, NodeGridSystem2D<GridNodeObject<NodeManager>> gridNodeSystem) //Vector2 start, Vector2 end
         {
@@ -30,6 +38,13 @@ namespace NodeGridSystem.Controllers
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
+        public void ResetEdge()
+        {
+            _blockShapeSprite.color = _blockShapeDefaultColor;
+            IsEmpty = true;
+        }
+
         public SpriteRenderer GetBlockShapeSpriteRenderer => _blockShapeSprite;
+        public Color GetDefaultColor => _blockShapeDefaultColor;
     }
 }

@@ -11,6 +11,7 @@ public class MiddleFillAreaManager : MonoBehaviour
     [SerializeField] private SpriteRenderer _rectangleSprite;
     public GridNodeObject<MiddleFillAreaManager> OnGridNodeObject { get; private set; }
     public List<EdgeManager> edges = new();
+    public bool IsFilled = false;
 
     public void AddEdgeToList(EdgeManager edgeManager)
     {
@@ -66,6 +67,14 @@ public class MiddleFillAreaManager : MonoBehaviour
         }
 
         return true;
+    }
+
+    public void ResetEdges()
+    {
+        foreach (EdgeManager edge in edges)
+        {
+            edge.ResetEdge();
+        }
     }
 
     public SpriteRenderer GetSpriteRenderer => _rectangleSprite;
