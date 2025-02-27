@@ -14,6 +14,7 @@ namespace Shapes
         [SerializeField] private Transform _queueStartingPoint;
         [SerializeField] private Transform _queueEndPoint;
         [SerializeField] private float _margin;
+        [SerializeField] private float _animationTime;
 
         private Vector3 _currentPosition;
 
@@ -57,10 +58,18 @@ namespace Shapes
         private async UniTask RelocationShapes()
         {
             _currentPosition = _queueStartingPoint.position;
+            int index = 0;
 
             foreach (ShapeManager shape in _shapeQueue)
             {
-                shape.transform.DOMove(_currentPosition, 0.5f);
+                shape.transform.DOMove(_currentPosition, _animationTime).OnComplete(() =>
+                {
+                    if (index == 0)
+                        shape.SetCanMoveFlag(true);
+                        
+                    index++;
+                }
+                );
                 //shape.transform.position = _currentPosition;
                 _currentPosition.x -= _margin;
 
@@ -72,9 +81,9 @@ namespace Shapes
         {
             _shapeQueue.Dequeue();
 
-            ShapeManager shape = Instantiate(GetRandomShape(), _queueEndPoint.transform.position, Quaternion.identity, transform);
-            _shapeQueue.Enqueue(shape);
-            
+            ShapeManager shapeSpawned = Instantiate(GetRandomShape(), _queueEndPoint.transform.position, Quaternion.identity, transform);
+            _shapeQueue.Enqueue(shapeSpawned);
+
             await RelocationShapes();
 
         }

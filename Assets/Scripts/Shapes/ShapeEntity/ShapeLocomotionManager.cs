@@ -27,16 +27,25 @@ namespace Shapes
         #region Interface Methods
         public void OnPointerDown(PointerEventData eventData)
         {
+            if(_shapeManager.GetCanMoveFlag == false)
+                return;
+
             _shapeManager.IsDragging = true;
             SetOffset(eventData);
         }
         public void OnDrag(PointerEventData eventData)
         {
+            if(_shapeManager.GetCanMoveFlag == false)
+                return;
+                
             Move(eventData);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
+            if(_shapeManager.GetCanMoveFlag == false)
+                return;
+
             _shapeManager.IsDragging = false;
 
             if(_shapeManager.GetCanPlaceFlag)

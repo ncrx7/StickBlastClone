@@ -11,6 +11,7 @@ namespace Shapes
         [SerializeField] private ShapeData _shapeData;
         private List<EdgeManager> _edgesMatching = new();
         [SerializeField] private bool _canPlace;
+        [SerializeField] private bool _canMove = false;
         public bool IsDragging;
 
         private void OnEnable()
@@ -26,6 +27,11 @@ namespace Shapes
         public void SetCanPlaceFlag(bool flag)
         {
             _canPlace = flag;
+        }
+
+        public void SetCanMoveFlag(bool flag)
+        {
+            _canMove = flag;
         }
 
         public void PlaceShape()
@@ -44,5 +50,6 @@ namespace Shapes
         public ShapeData GetShapeData => _shapeData;
         public List<EdgeManager> GetEdgesMatching => _edgesMatching;
         public bool GetCanPlaceFlag => _canPlace;
+        public bool GetCanMoveFlag => _canMove;
     }
 }
