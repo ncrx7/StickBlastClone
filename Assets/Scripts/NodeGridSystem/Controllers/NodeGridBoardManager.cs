@@ -19,7 +19,10 @@ namespace NodeGridSystem.Controllers
         [SerializeField] private bool _debug = true;
 
         private NodeGridSystem2D<GridNodeObject<NodeManager>> _nodeGrid;
+        private NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> _middleObjectGrid;
         [SerializeField] private EdgeManager edgePrefab;
+
+        [SerializeField] private MiddleFillAreaManager _middleFillAreaPrefab;
 
         private void Start()
         {
@@ -29,9 +32,11 @@ namespace NodeGridSystem.Controllers
         private async void InitializeBoard()
         {
             _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_width, _height, _cellSize, _originPosition, _debug);
+            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_width - 1, _height - 1, _cellSize, _originPosition, true);
 
             await InitNodes();
             await InitNeigbours();
+            await InitMiddleArea();
         }
 
         private async UniTask InitNodes()
@@ -40,7 +45,6 @@ namespace NodeGridSystem.Controllers
             {
                 for (int y = 0; y < _height; y++)
                 {
-                    //Match3Events.CreateGemObject?.Invoke(x, y, _grid, GemTypes, _gemPoolId);
                     MiniEventSystem.OnCreateEntity?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, 1);
                 }
             }
@@ -64,6 +68,34 @@ namespace NodeGridSystem.Controllers
 
             await UniTask.DelayFrame(1);
             //TODO: Board has been inited, write here a flag to disappear loading panel (use wait until)
+        }
+
+        private async UniTask InitMiddleArea()
+        {
+            for (int x = 0; x < _width - 1; x++)
+            {
+                for (int y = 0; y < _height - 1; y++)
+                {
+                    MiddleFillAreaManager middleArea = Instantiate(_middleFillAreaPrefab, _middleObjectGrid.GetWorldPositionCenter(x, y), Quaternion.identity, transform);
+
+                    middleArea.transform.position = _middleObjectGrid.GetWorldPositionCenter(x, y) + new Vector3(_cellSize / 2, _cellSize / 2 + 0);
+                    middleArea.transform.SetParent(transform);
+
+                    var gridObject = new GridNodeObject<MiddleFillAreaManager>(_middleObjectGrid, x, y);
+                    gridObject.InitNeighbourGridObjects();
+
+                    gridObject.SetValue(middleArea);
+                    _middleObjectGrid.SetValue(x, y, gridObject);
+
+                    middleArea.SetGridObjectOnMiddleArea(gridObject);
+
+                    middleArea.Setup(x, y, _nodeGrid);
+
+                    //MiniEventSystem.OnCreateEntity?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, 1);
+                }
+            }
+
+            await UniTask.DelayFrame(1);
         }
     }
 }

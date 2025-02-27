@@ -654,6 +654,7 @@ MonoBehaviour:
   _originPosition: {x: -3, y: -3, z: 0}
   _debug: 0
   edgePrefab: {fileID: 650367425749872645, guid: e1e203968a8a05143b2743e2faef95d3, type: 3}
+  _middleFillAreaPrefab: {fileID: 1944705445209255371, guid: 4fc0715847b1ed0409e74540724c7bff, type: 3}
 --- !u!1 &1970185950
 GameObject:
   m_ObjectHideFlags: 0

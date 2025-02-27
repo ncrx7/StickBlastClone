@@ -10,15 +10,15 @@ namespace NodeGridSystem.Controllers
     public class EdgeManager : MonoBehaviour
     {
         [SerializeField] private SpriteRenderer _blockShapeSprite;
-        private NodeManager _startNode;
-        private NodeManager _endNode;
+        public NodeManager StartNode;
+        public NodeManager EndNode;
 
         public bool IsEmpty = true;
 
         public void Setup(GridNodeObject<NodeManager> startGridNodeObject, GridNodeObject<NodeManager> endGridNodeObject, NodeGridSystem2D<GridNodeObject<NodeManager>> gridNodeSystem) //Vector2 start, Vector2 end
         {
-            _startNode = startGridNodeObject.GetValue();
-            _endNode = endGridNodeObject.GetValue();
+            StartNode = startGridNodeObject.GetValue();
+            EndNode = endGridNodeObject.GetValue();
 
             Vector2 startPos = gridNodeSystem.GetWorldPositionCenter(startGridNodeObject.GetX, startGridNodeObject.GetY);
             Vector2 endPos = gridNodeSystem.GetWorldPositionCenter(endGridNodeObject.GetX, endGridNodeObject.GetY);
