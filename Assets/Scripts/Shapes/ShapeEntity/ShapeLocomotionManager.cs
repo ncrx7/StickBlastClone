@@ -32,12 +32,13 @@ namespace Shapes
 
             _shapeManager.IsDragging = true;
             SetOffset(eventData);
+            _homePosition = _parentTransform.position;
         }
         public void OnDrag(PointerEventData eventData)
         {
             if(_shapeManager.GetCanMoveFlag == false)
                 return;
-                
+
             Move(eventData);
         }
 
@@ -53,6 +54,10 @@ namespace Shapes
                 //_shapeManager.PlaceShape();
                 MiniEventSystem.OnPlaceShape?.Invoke();
                 transform.parent.gameObject.SetActive(false);
+            }
+            else
+            {
+                _parentTransform.position = _homePosition;
             }
         }
         #endregion
