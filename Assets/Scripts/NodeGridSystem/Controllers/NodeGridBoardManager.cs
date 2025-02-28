@@ -165,6 +165,7 @@ namespace NodeGridSystem.Controllers
                         midCell.GetSpriteRenderer.enabled = false;
                         midCell.IsFilled = false;
                         midCell.ResetEdges();
+                        MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
                         await UniTask.Delay(50);
                     }
                 }
@@ -201,6 +202,7 @@ namespace NodeGridSystem.Controllers
                         midCell.GetSpriteRenderer.enabled = false;
                         midCell.IsFilled = false;
                         midCell.ResetEdges();
+                        MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
                         await UniTask.Delay(50);
                     }
                 }

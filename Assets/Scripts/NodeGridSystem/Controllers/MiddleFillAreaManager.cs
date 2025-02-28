@@ -71,6 +71,8 @@ namespace NodeGridSystem.Controllers
             IsFilled = true;
 
             PaintMidCell();
+
+            MiniEventSystem.PlaySoundClip?.Invoke(SoundType.CellFilling);
         }
 
         public bool CheckEdges()

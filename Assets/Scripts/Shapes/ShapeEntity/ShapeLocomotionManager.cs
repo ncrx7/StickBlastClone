@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Enums;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -31,6 +32,8 @@ namespace Shapes
                 return;
 
             _shapeManager.IsDragging = true;
+            MiniEventSystem.PlaySoundClip?.Invoke(SoundType.SelectShape);
+
             SetOffset(eventData);
             _homePosition = _parentTransform.position;
         }
@@ -53,6 +56,7 @@ namespace Shapes
             {
                 //_shapeManager.PlaceShape();
                 MiniEventSystem.OnPlaceShape?.Invoke();
+                MiniEventSystem.PlaySoundClip?.Invoke(SoundType.PlaceShape);
                 transform.parent.gameObject.SetActive(false);
             }
             else
