@@ -165,6 +165,8 @@ namespace NodeGridSystem.Controllers
 
                 if (rowCanDestroy)
                 {
+                    CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
+
                     foreach (var midCell in midCells)
                     {
                         midCell.GetSpriteRenderer.enabled = false;
@@ -207,6 +209,8 @@ namespace NodeGridSystem.Controllers
 
                 if (columnCanDestroy)
                 {
+                    CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
+
                     foreach (var midCell in midCells)
                     {
                         midCell.GetSpriteRenderer.enabled = false;
