@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Enums;
 using TMPro;
 using UnityEditor.Rendering;
 using UnityEngine;
@@ -15,6 +17,7 @@ namespace UI
         [SerializeField] private GameObject _gameSuccessPanel;
         [SerializeField] private TextMeshProUGUI _levelReachScore;
         [SerializeField] private TextMeshProUGUI _score;
+        [SerializeField] private TextMeshProUGUI _timer;
         [SerializeField] private Slider _slider;
 
 
@@ -27,6 +30,7 @@ namespace UI
             MiniEventSystem.IncreaseScore += UpdateScoreUI;
             MiniEventSystem.ActivateLoadingUI += HandleActivaiateLoadingUI;
             MiniEventSystem.DeactivateLoadingUI += DeActivaiteLoadingUI;
+            MiniEventSystem.OnTimerWork += UpdateTimer;
 
             UpdateScoreUI(0);
         }
@@ -39,6 +43,12 @@ namespace UI
             MiniEventSystem.IncreaseScore -= UpdateScoreUI;
             MiniEventSystem.ActivateLoadingUI -= HandleActivaiateLoadingUI;
             MiniEventSystem.DeactivateLoadingUI -= DeActivaiteLoadingUI;
+            MiniEventSystem.OnTimerWork -= UpdateTimer;
+        }
+
+        private void UpdateTimer(int time)
+        {
+            _timer.text = time.ToString();
         }
 
         private void ActivateGameOverPanel(bool success)
@@ -47,6 +57,7 @@ namespace UI
                 return;
 
             _gameOverPanel.SetActive(true);
+            MiniEventSystem.PlaySoundClip?.Invoke(SoundType.End);
         }
 
         private void ActivateGameSuccesPanel(bool success)
@@ -55,6 +66,7 @@ namespace UI
                 return;
 
             _gameSuccessPanel.SetActive(true);
+            MiniEventSystem.PlaySoundClip?.Invoke(SoundType.SucessEnd);
         }
 
         private void SetInitialTextsOnScene()

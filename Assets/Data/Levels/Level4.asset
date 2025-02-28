@@ -14,3 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelColor: {r: 1, g: 0.6334346, b: 0, a: 1}
   LevelReachScore: 180
+  Timer: 20

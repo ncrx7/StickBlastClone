@@ -9,5 +9,6 @@ namespace EntitiesData.Levels
     {
         public Color LevelColor;
         public int LevelReachScore;
+        public int Timer;
     }
 }

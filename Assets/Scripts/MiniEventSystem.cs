@@ -17,4 +17,5 @@ public static class MiniEventSystem
     public static Action<int> IncreaseScore;
     public static Action ActivateLoadingUI;
     public static Action DeactivateLoadingUI;
+    public static Action<int> OnTimerWork;
 }

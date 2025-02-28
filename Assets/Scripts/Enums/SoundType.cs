@@ -6,6 +6,8 @@ namespace Enums
         PlaceShape,
         CellFilling,
         QueueCellsExplosion,
-        End
+        End,
+        Timer,
+        SucessEnd
     }
 }
