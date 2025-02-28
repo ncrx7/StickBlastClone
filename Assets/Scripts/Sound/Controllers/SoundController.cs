@@ -18,7 +18,7 @@ namespace Sounds.Controllers
 
         private void OnDisable()
         {
-            MiniEventSystem.PlaySoundClip += HanlePlaySoundClip;
+            MiniEventSystem.PlaySoundClip -= HanlePlaySoundClip;
         }
 
         private void HanlePlaySoundClip(SoundType soundType)

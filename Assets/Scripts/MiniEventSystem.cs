@@ -12,5 +12,7 @@ public static class MiniEventSystem
     public static Action OnPlaceShape;
     public static Action<SoundType> PlaySoundClip;
     public static Action<Vector2, VfxType> PlayVfx;
-    public static Action OnEndGame;
+    public static Action OnStartGame;
+    public static Action<bool> OnEndGame;
+    public static Action<int> IncreaseScore;
 }
