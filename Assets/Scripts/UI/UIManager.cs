@@ -56,6 +56,9 @@ namespace UI
             if (success)
                 return;
 
+            if(GameManager.Instance.IsGamePaused)
+                return;
+
             _gameOverPanel.SetActive(true);
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.End);
             GameManager.Instance.IsGamePaused = true;
@@ -64,6 +67,9 @@ namespace UI
         private void ActivateGameSuccesPanel(bool success)
         {
             if (!success)
+                return;
+                
+            if(GameManager.Instance.IsGamePaused)
                 return;
 
             _gameSuccessPanel.SetActive(true);
