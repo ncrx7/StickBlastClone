@@ -65,12 +65,17 @@ namespace Shapes
                 shape.transform.DOMove(_currentPosition, _animationTime).OnComplete(() =>
                 {
                     if (index == 0)
-                        shape.SetCanMoveFlag(true);
+                    {
+                        if(!shape.CheckRelativeMatchExist())
+                            MiniEventSystem.OnEndGame?.Invoke();
 
+                        shape.SetCanMoveFlag(true);
+                    }
+                    
                     index++;
                 }
                 );
-                //shape.transform.position = _currentPosition;
+                
                 _currentPosition.x -= _margin;
 
                 await UniTask.Delay(50);

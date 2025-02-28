@@ -100,6 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce7a99edd48c5743bdb66ee40ba188b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _nodeCollisionManager: {fileID: 1353402131668023912}
   _nodeSpriteRenderer: {fileID: 1163289047943036770}
 --- !u!114 &1353402131668023912
 MonoBehaviour:

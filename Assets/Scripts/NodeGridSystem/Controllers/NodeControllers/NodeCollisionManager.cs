@@ -22,7 +22,7 @@ namespace NodeGridSystem.Controllers
             if (other.TryGetComponent<ShapeManager>(out ShapeManager shapeManager))
             {
                 shapeManager.GetEdgesMatching.Clear();
-                CheckShapePath(shapeManager, shapeManager.GetEdgesMatching);
+                CheckShapePath(shapeManager, shapeManager.GetEdgesMatching, false);
             }
         }
 
@@ -37,27 +37,29 @@ namespace NodeGridSystem.Controllers
         #endregion
 
         #region Private Methods
-        private void CheckShapePath(ShapeManager shapeManager, List<EdgeManager> edges)
+        public bool CheckShapePath(ShapeManager shapeManager, List<EdgeManager> edges, bool onlyCheck)
         {
+            _currentNodeManager = _mainNodeManager;
             foreach (var direction in shapeManager.GetShapeData.ShapeDirections)
             {
+                Debug.Log("current node: " + _currentNodeManager.gameObject.name);
                 EdgeManager currentEdge = _currentNodeManager.GetNodeEdge(direction);
 
                 if (currentEdge == null)
                 {
                     edges.Clear();
                     shapeManager.SetCanPlaceFlag(false);
-                    return;
+                    return false;
                 }
 
-                edges.Add(currentEdge);
+                if(!onlyCheck) edges.Add(currentEdge);
 
                 if (currentEdge.IsEmpty == false)
                 {
                     edges.Clear();
                     Debug.LogError("Edge is not empty, cant place!!" + currentEdge.gameObject.name);
                     shapeManager.SetCanPlaceFlag(false);
-                    return;
+                    return false;
                 }
 
                 _currentNodeManager = _currentNodeManager.OnGridNodeObject.GetNeighbourGridObject(direction).GetValue();
@@ -68,6 +70,8 @@ namespace NodeGridSystem.Controllers
             ShowBlockShapeSlotSign(shapeManager);
 
             shapeManager.SetCanPlaceFlag(true);
+
+            return true;
         }
 
         private void ShowBlockShapeSlotSign(ShapeManager shapeManager)

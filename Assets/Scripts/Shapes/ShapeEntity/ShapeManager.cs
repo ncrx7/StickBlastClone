@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using EntitiesData.Shapes;
 using Enums;
 using NodeGridSystem.Controllers;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace Shapes
@@ -54,8 +55,29 @@ namespace Shapes
 
             NodeGridBoardManager.Instance.CheckMidCellFullnessOnBoard();
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.PlaceShape);
-            
+
             Destroy(this.gameObject);
+        }
+
+        public bool CheckRelativeMatchExist()
+        {
+            for (int x = 0; x < NodeGridBoardManager.Instance.GetWidth; x++)
+            {
+                for (int y = 0; y < NodeGridBoardManager.Instance.GetHeight; y++)
+                {
+                    var gridNodeObject = NodeGridBoardManager.Instance.GetNodeGridSystem2D.GetValue(x, y);
+
+                    NodeManager nodeManager = gridNodeObject.GetValue();
+
+                    if(nodeManager.GetNodeCollisionManager.CheckShapePath(this, GetEdgesMatching, true))
+                    {
+                        return true;
+                    }
+                    
+                }
+            }
+
+            return false;
         }
 
         public ShapeData GetShapeData => _shapeData;

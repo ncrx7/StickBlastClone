@@ -11,6 +11,7 @@ namespace NodeGridSystem.Controllers
     public class NodeManager : MonoBehaviour
     {
         #region References
+        [SerializeField] private NodeCollisionManager _nodeCollisionManager;
         [SerializeField] private SpriteRenderer _nodeSpriteRenderer;
         public GridNodeObject<NodeManager> OnGridNodeObject { get; private set; }
 
@@ -60,6 +61,7 @@ namespace NodeGridSystem.Controllers
 
         public Dictionary<Direction, EdgeManager> GetAllNodeEdges => _nodeEdges;
         public SpriteRenderer GetSpriteRenderer => _nodeSpriteRenderer;
+        public NodeCollisionManager GetNodeCollisionManager => _nodeCollisionManager;
         #endregion
     }
 }

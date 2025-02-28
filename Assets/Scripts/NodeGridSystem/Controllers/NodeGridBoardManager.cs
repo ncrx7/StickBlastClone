@@ -214,5 +214,9 @@ namespace NodeGridSystem.Controllers
         }
 
         public float GetCellSize => _cellSize;
+        public int GetWidth => _width;
+        public int GetHeight => _height;
+        public NodeGridSystem2D<GridNodeObject<NodeManager>> GetNodeGridSystem2D => _nodeGrid;
+
     }
 }
