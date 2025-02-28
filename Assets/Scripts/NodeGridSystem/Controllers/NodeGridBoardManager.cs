@@ -35,12 +35,14 @@ namespace NodeGridSystem.Controllers
             _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_width - 1, _height - 1, _cellSize, _originPosition, _debug);
 
             MiniEventSystem.ActivateLoadingUI?.Invoke();
+            GameManager.Instance.IsGamePaused = true;
 
             await InitNodes();
             await InitNeigbours();
             await InitMiddleArea();
             await UniTask.Delay(1000);
-            
+
+            GameManager.Instance.IsGamePaused = false;
             MiniEventSystem.DeactivateLoadingUI?.Invoke();
         }
 

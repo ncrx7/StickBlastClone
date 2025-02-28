@@ -11,6 +11,8 @@ public class GameManager : SingletonBehavior<GameManager>
     [SerializeField] private int _score;
     [SerializeField] private int _scoreIncreaseAmountPerCellDestroy;
 
+    public bool IsGamePaused { get; set; } = false;
+
     private void OnEnable()
     {
         MiniEventSystem.IncreaseScore += HandleIncreaseScore;

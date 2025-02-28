@@ -38,7 +38,9 @@ public class TimeManager : MonoBehaviour
 
     private async UniTaskVoid StartCountdown(int duration, CancellationToken cancellationToken)
     {
-        while (duration >= 0)
+        await UniTask.WaitUntil(() => GameManager.Instance.IsGamePaused == false);
+
+        while (duration >= 0 && !GameManager.Instance.IsGamePaused)
         {
             if (cancellationToken.IsCancellationRequested)
                 return; 

@@ -58,6 +58,7 @@ namespace UI
 
             _gameOverPanel.SetActive(true);
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.End);
+            GameManager.Instance.IsGamePaused = true;
         }
 
         private void ActivateGameSuccesPanel(bool success)
@@ -67,6 +68,7 @@ namespace UI
 
             _gameSuccessPanel.SetActive(true);
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.SucessEnd);
+            GameManager.Instance.IsGamePaused = true;
         }
 
         private void SetInitialTextsOnScene()
