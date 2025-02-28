@@ -98,5 +98,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _rectangleSprite: {fileID: 356605403833450804}
+  _scaleAnimationTime: 0.4
   edges: []
   IsFilled: 0

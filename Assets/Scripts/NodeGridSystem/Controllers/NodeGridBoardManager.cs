@@ -121,10 +121,7 @@ namespace NodeGridSystem.Controllers
 
                     if (checkResponse)
                     {
-                        midCell.GetSpriteRenderer.enabled = true;
-                        midCell.transform.localScale = new Vector3(7, 7, 7);
-                        midCell.IsFilled = true;
-                        midCell.PaintMidCell();
+                        if(!midCell.IsFilled) midCell.OnAllEdgeFull();
 
                         ColumnCheckerOnBoard();
                         RowCheckerOnBoard();
