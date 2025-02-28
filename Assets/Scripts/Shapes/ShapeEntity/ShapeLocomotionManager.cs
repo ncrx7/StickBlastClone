@@ -56,8 +56,7 @@ namespace Shapes
             {
                 //_shapeManager.PlaceShape();
                 MiniEventSystem.OnPlaceShape?.Invoke();
-                MiniEventSystem.PlaySoundClip?.Invoke(SoundType.PlaceShape);
-                transform.parent.gameObject.SetActive(false);
+                //transform.parent.gameObject.SetActive(false);
             }
             else
             {

@@ -202,7 +202,11 @@ namespace NodeGridSystem.Controllers
                         midCell.GetSpriteRenderer.enabled = false;
                         midCell.IsFilled = false;
                         midCell.ResetEdges();
+
                         MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
+
+                        MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
+                        MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
                         await UniTask.Delay(50);
                     }
                 }

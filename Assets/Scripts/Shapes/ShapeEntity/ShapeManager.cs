@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using EntitiesData.Shapes;
+using Enums;
 using NodeGridSystem.Controllers;
 using UnityEngine;
 
@@ -47,9 +48,14 @@ namespace Shapes
                 edge.IsEmpty = false;
                 edge.StartNode.PaintNode();
                 edge.EndNode.PaintNode();
+
+                MiniEventSystem.PlayVfx?.Invoke(edge.transform.position, VfxType.Place);
             }
 
             NodeGridBoardManager.Instance.CheckMidCellFullnessOnBoard();
+            MiniEventSystem.PlaySoundClip?.Invoke(SoundType.PlaceShape);
+            
+            Destroy(this.gameObject);
         }
 
         public ShapeData GetShapeData => _shapeData;
