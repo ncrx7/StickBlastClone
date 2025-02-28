@@ -58,6 +58,11 @@ namespace NodeGridSystem.Controllers
             AddEdgeToList(edges[^1].EndNode.GetNodeEdge(Direction.Up));
             AddEdgeToList(edges[^1].StartNode.GetNodeEdge(Direction.Left));
             AddEdgeToList(edges[^1].StartNode.GetNodeEdge(Direction.Down));
+
+            foreach (EdgeManager edge in edges)
+            {
+                edge.AddMidCellToList(this);
+            }
         }
 
         public void OnAllEdgeFull()

@@ -15,6 +15,8 @@ namespace NodeGridSystem.Controllers
         public NodeManager StartNode;
         public NodeManager EndNode;
 
+        [SerializeField] private List<MiddleFillAreaManager> _midCellAreasBelongsTo; 
+
 
         public bool IsEmpty = true;
 
@@ -40,6 +42,12 @@ namespace NodeGridSystem.Controllers
 
         public void ResetEdge()
         {
+            foreach (var midCell in _midCellAreasBelongsTo)
+            {
+                if(midCell.IsFilled)
+                    return;
+            }
+
             _blockShapeSprite.color = _blockShapeDefaultColor;
 
             IsEmpty = true;
@@ -56,7 +64,13 @@ namespace NodeGridSystem.Controllers
             GetBlockShapeSpriteRenderer.color = new Color32(255, 0, 197, 255);;
         }
 
+        public void AddMidCellToList(MiddleFillAreaManager midCell)
+        {
+            _midCellAreasBelongsTo.Add(midCell);
+        }
+
         public SpriteRenderer GetBlockShapeSpriteRenderer => _blockShapeSprite;
         public Color GetDefaultColor => _blockShapeDefaultColor;
+        public List<MiddleFillAreaManager> GetMidCells => _midCellAreasBelongsTo;
     }
 }
