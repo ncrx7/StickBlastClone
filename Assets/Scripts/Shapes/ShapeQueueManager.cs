@@ -9,6 +9,7 @@ namespace Shapes
 {
     public class ShapeQueueManager : MonoBehaviour
     {
+        [SerializeField] private Transform _transformHolder;
         [SerializeField] private Queue<ShapeManager> _shapeQueue = new();
         [SerializeField] private List<ShapeManager> _shapePrefaps;
         [SerializeField] private Transform _queueStartingPoint;
@@ -48,7 +49,7 @@ namespace Shapes
         {
             for (int i = 0; i < 6; i++)
             {
-                ShapeManager shape = Instantiate(GetRandomShape(), _queueEndPoint.transform.position, Quaternion.identity, transform);
+                ShapeManager shape = Instantiate(GetRandomShape(), _queueEndPoint.transform.position, Quaternion.identity, _transformHolder);
                 _shapeQueue.Enqueue(shape);
             }
 
@@ -86,7 +87,7 @@ namespace Shapes
         {
             _shapeQueue.Dequeue();
 
-            ShapeManager shapeSpawned = Instantiate(GetRandomShape(), _queueEndPoint.transform.position, Quaternion.identity, transform);
+            ShapeManager shapeSpawned = Instantiate(GetRandomShape(), _queueEndPoint.transform.position, Quaternion.identity, _transformHolder);
             _shapeQueue.Enqueue(shapeSpawned);
 
             await RelocationShapes();

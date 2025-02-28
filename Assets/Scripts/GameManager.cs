@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class GameManager : SingletonBehavior<GameManager>
 {
+    [SerializeField] private List<LevelData> _levelDataList;
     [SerializeField] private LevelData _levelData;
     [SerializeField] private int _score;
     [SerializeField] private int _scoreIncreaseAmountPerCellDestroy;
@@ -20,6 +21,12 @@ public class GameManager : SingletonBehavior<GameManager>
         MiniEventSystem.IncreaseScore -= HandleIncreaseScore;
     }
 
+    protected void Awake()
+    {
+        Debug.Log("dklsajkldaskld");
+        _levelData = _levelDataList[Random.Range(0, _levelDataList.Count)];
+    }
+
     private void Start()
     {
         MiniEventSystem.OnStartGame?.Invoke();
@@ -29,7 +36,7 @@ public class GameManager : SingletonBehavior<GameManager>
     {
         _score = newScore;
 
-        if(_score >= _levelData.LevelReachScore)
+        if (_score >= _levelData.LevelReachScore)
         {
             MiniEventSystem.OnEndGame?.Invoke(true);
             Debug.Log("GAME END SUCESSS");

@@ -10,6 +10,8 @@ namespace NodeGridSystem.View
 {
     public class EdgeGridLevelCreator : EntityLevelCreator<EdgeManager>
     {
+        [SerializeField] private Transform _transformHolder;
+
         protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> midCellGrid, int entityPoolId)
         {
             if (entityType != EntityType.Edge)
@@ -25,7 +27,7 @@ namespace NodeGridSystem.View
                 var rightGridNodeObject = startNodeObject.GetNeighbourGridObject(Direction.Right);
                 NodeManager rightNode = rightGridNodeObject.GetValue();
                 
-                EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity);
+                EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity, _transformHolder);
 
                 startNode.SetEdge(Direction.Right, edgeManager);
                 rightNode.SetEdge(Direction.Left, edgeManager);
@@ -39,7 +41,7 @@ namespace NodeGridSystem.View
                 var downGridNodeObject = startNodeObject.GetNeighbourGridObject(Enums.Direction.Down);
                 NodeManager downNode = downGridNodeObject.GetValue();
 
-                EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity, transform);
+                EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity, _transformHolder);
 
                 startNode.SetEdge(Direction.Down, edgeManager);
                 downNode.SetEdge(Direction.Up, edgeManager);

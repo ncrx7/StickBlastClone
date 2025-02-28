@@ -15,4 +15,6 @@ public static class MiniEventSystem
     public static Action OnStartGame;
     public static Action<bool> OnEndGame;
     public static Action<int> IncreaseScore;
+    public static Action ActivateLoadingUI;
+    public static Action DeactivateLoadingUI;
 }

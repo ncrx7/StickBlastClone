@@ -69,7 +69,7 @@ namespace NodeGridSystem.Controllers
 
             ShowBlockShapeSlotSign(shapeManager);
 
-            shapeManager.SetCanPlaceFlag(true);
+            if(!onlyCheck) shapeManager.SetCanPlaceFlag(true);
 
             return true;
         }

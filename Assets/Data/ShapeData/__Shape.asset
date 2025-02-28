@@ -9,8 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20ab4d123ebcc2b4ab506d4e725ee7ec, type: 3}
-  m_Name: Level1
+  m_Script: {fileID: 11500000, guid: 8de0cf0321557824ea4a2be915e88e6c, type: 3}
+  m_Name: __Shape
   m_EditorClassIdentifier: 
-  LevelColor: {r: 1, g: 0, b: 0.92387056, a: 1}
-  LevelReachScore: 20
+  ShapeType: 0
+  ShapeDirections: 0000000000000000

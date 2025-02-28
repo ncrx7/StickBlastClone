@@ -10,7 +10,7 @@ namespace NodeGridSystem.View
     public class NodeGridLevelCreator : EntityLevelCreator<NodeManager>
     {
         #region References
-        
+        [SerializeField] private Transform _transformHolder;
         #endregion
 
         #region MonoBehaviour Callbacks
@@ -26,10 +26,10 @@ namespace NodeGridSystem.View
             base.CreateEntity(entityType, x, y, nodeGrid, middCellGrid, nodePoolId);
 
             //TODO: PULL NODE OBJECT FROM OBJECT POOLER
-            NodeManager node = Instantiate(_entityPrefab, nodeGrid.GetWorldPositionCenter(x, y), Quaternion.identity, transform); 
+            NodeManager node = Instantiate(_entityPrefab, nodeGrid.GetWorldPositionCenter(x, y), Quaternion.identity, _transformHolder); 
 
             node.transform.position = nodeGrid.GetWorldPositionCenter(x, y);
-            node.transform.SetParent(transform);
+            node.transform.SetParent(_transformHolder);
 
             var gridObject = new GridNodeObject<NodeManager>(nodeGrid, x, y);
             gridObject.InitNeighbourGridObjects();

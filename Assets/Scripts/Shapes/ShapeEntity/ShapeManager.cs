@@ -10,6 +10,7 @@ namespace Shapes
 {
     public class ShapeManager : MonoBehaviour
     {
+        [SerializeField] private List<SpriteRenderer> _spriteRendererList;
         [SerializeField] private ShapeData _shapeData;
         private List<EdgeManager> _edgesMatching = new();
         [SerializeField] private bool _canPlace;
@@ -24,6 +25,14 @@ namespace Shapes
         private void OnDisable()
         {
             MiniEventSystem.OnPlaceShape -= PlaceShape;
+        }
+
+        private void Start()
+        {
+            foreach (var spriteRenderer in _spriteRendererList)
+            {
+                spriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
+            }
         }
 
         public void SetCanPlaceFlag(bool flag)
@@ -69,11 +78,11 @@ namespace Shapes
 
                     NodeManager nodeManager = gridNodeObject.GetValue();
 
-                    if(nodeManager.GetNodeCollisionManager.CheckShapePath(this, GetEdgesMatching, true))
+                    if (nodeManager.GetNodeCollisionManager.CheckShapePath(this, GetEdgesMatching, true))
                     {
                         return true;
                     }
-                    
+
                 }
             }
 

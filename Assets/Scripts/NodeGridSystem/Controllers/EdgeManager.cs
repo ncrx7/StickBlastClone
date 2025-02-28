@@ -61,7 +61,7 @@ namespace NodeGridSystem.Controllers
 
         public void PaintEdge()
         {
-            GetBlockShapeSpriteRenderer.color = new Color32(255, 0, 197, 255);;
+            GetBlockShapeSpriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
         }
 
         public void AddMidCellToList(MiddleFillAreaManager midCell)

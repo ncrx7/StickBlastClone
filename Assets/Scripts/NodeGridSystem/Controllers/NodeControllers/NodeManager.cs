@@ -43,12 +43,12 @@ namespace NodeGridSystem.Controllers
         public void PaintNode()
         {
             NodePainted = true;
-            GetSpriteRenderer.color = new Color32(255, 0, 197, 255);
+            GetSpriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
         }
 
         public void IndicatorPaintNode()
         {
-            GetSpriteRenderer.color = new Color32(255, 0, 197, 255);
+            GetSpriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
         }
 
         public void ResetNode()

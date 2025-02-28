@@ -236,5 +236,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: abb5993a7a0699347a0f4ea6b5df1479, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _spriteRendererList:
+  - {fileID: 3286517771716417841}
   _shapeData: {fileID: 11400000, guid: c1f0915bedd6b274684b787473eb5e47, type: 2}
   _canPlace: 0
+  _canMove: 0
+  IsDragging: 0
