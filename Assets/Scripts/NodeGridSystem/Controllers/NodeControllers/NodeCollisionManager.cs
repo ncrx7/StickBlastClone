@@ -80,6 +80,9 @@ namespace NodeGridSystem.Controllers
                 Color targetDisplayColor = edge.GetBlockShapeSpriteRenderer.color;
                 targetDisplayColor.a = 0.25f;
                 edge.GetBlockShapeSpriteRenderer.color = targetDisplayColor;
+
+                edge.StartNode.IndicatorPaintNode();
+                edge.EndNode.IndicatorPaintNode();
             }
         }
 
@@ -93,6 +96,9 @@ namespace NodeGridSystem.Controllers
                 Color targetDisplayColor = edge.GetBlockShapeSpriteRenderer.color;
                 targetDisplayColor.a = 0f;
                 edge.GetBlockShapeSpriteRenderer.color = targetDisplayColor;
+
+                if(!edge.StartNode.NodePainted) edge.StartNode.ResetNode();
+                if(!edge.EndNode.NodePainted) edge.EndNode.ResetNode();
             }
         }
         #endregion

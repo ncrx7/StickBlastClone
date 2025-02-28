@@ -36,19 +36,17 @@ namespace Shapes
 
         public void PlaceShape()
         {
-            if(GetEdgesMatching.Count == 0)
+            if (GetEdgesMatching.Count == 0)
                 return;
 
             EdgeManager firstEdge = GetEdgesMatching[0];
 
             foreach (var edge in GetEdgesMatching)
             {
-                Color targetDisplayColor = edge.GetBlockShapeSpriteRenderer.color;
-                targetDisplayColor.a = 1f;
-                targetDisplayColor = new Color(255, 0, 197);
-                edge.GetBlockShapeSpriteRenderer.color = targetDisplayColor;
-
+                edge.PaintEdge();
                 edge.IsEmpty = false;
+                edge.StartNode.PaintNode();
+                edge.EndNode.PaintNode();
             }
 
             NodeGridBoardManager.Instance.CheckMidCellFullnessOnBoard();

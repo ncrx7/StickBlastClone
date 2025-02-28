@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using NodeGridSystem.Models;
 using UnityEngine;
 using Enums;
+using System.Linq;
 
 namespace NodeGridSystem.Controllers
 {
@@ -14,6 +15,7 @@ namespace NodeGridSystem.Controllers
         public GridNodeObject<NodeManager> OnGridNodeObject { get; private set; }
 
         public Dictionary<Direction, EdgeManager> _nodeEdges = new();
+        public bool NodePainted { get; set; }
         #endregion
 
         #region Public Methods
@@ -34,10 +36,30 @@ namespace NodeGridSystem.Controllers
                 return edge;
             }
 
-            return null; 
+            return null;
         }
 
+        public void PaintNode()
+        {
+            NodePainted = true;
+            GetSpriteRenderer.color = new Color32(255, 0, 197, 255);
+        }
+
+        public void IndicatorPaintNode()
+        {
+            GetSpriteRenderer.color = new Color32(255, 0, 197, 255);
+        }
+
+        public void ResetNode()
+        {
+            NodePainted = false;
+            _nodeSpriteRenderer.color = new Color32(65, 58, 154, 255);
+        }
+
+        public bool AllEdgesEmpty() => _nodeEdges.Values.All(edge => edge.IsEmpty);
+
         public Dictionary<Direction, EdgeManager> GetAllNodeEdges => _nodeEdges;
+        public SpriteRenderer GetSpriteRenderer => _nodeSpriteRenderer;
         #endregion
     }
 }

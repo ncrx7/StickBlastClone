@@ -32,7 +32,7 @@ namespace NodeGridSystem.Controllers
         private async void InitializeBoard()
         {
             _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_width, _height, _cellSize, _originPosition, _debug);
-            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_width - 1, _height - 1, _cellSize, _originPosition, true);
+            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_width - 1, _height - 1, _cellSize, _originPosition, _debug);
 
             await InitNodes();
             await InitNeigbours();
@@ -124,6 +124,7 @@ namespace NodeGridSystem.Controllers
                         midCell.GetSpriteRenderer.enabled = true;
                         midCell.transform.localScale = new Vector3(7, 7, 7);
                         midCell.IsFilled = true;
+                        midCell.PaintMidCell();
 
                         ColumnCheckerOnBoard();
                         RowCheckerOnBoard();

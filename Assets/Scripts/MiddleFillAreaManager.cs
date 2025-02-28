@@ -77,5 +77,10 @@ public class MiddleFillAreaManager : MonoBehaviour
         }
     }
 
+    public void PaintMidCell()
+    {
+        GetSpriteRenderer.color = new Color32(255, 0, 197, 255);
+    }
+
     public SpriteRenderer GetSpriteRenderer => _rectangleSprite;
 }

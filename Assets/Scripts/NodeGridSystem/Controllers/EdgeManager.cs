@@ -41,7 +41,19 @@ namespace NodeGridSystem.Controllers
         public void ResetEdge()
         {
             _blockShapeSprite.color = _blockShapeDefaultColor;
+
             IsEmpty = true;
+
+            if (StartNode.AllEdgesEmpty())
+                StartNode.ResetNode();
+
+            if (EndNode.AllEdgesEmpty())
+                EndNode.ResetNode();
+        }
+
+        public void PaintEdge()
+        {
+            GetBlockShapeSpriteRenderer.color = new Color32(255, 0, 197, 255);;
         }
 
         public SpriteRenderer GetBlockShapeSpriteRenderer => _blockShapeSprite;
