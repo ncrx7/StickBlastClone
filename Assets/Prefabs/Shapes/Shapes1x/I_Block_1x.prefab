@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 4903789777972384193}
   _parentTransform: {fileID: 389981037910921141}
+  _pointerYOffset: 1.75
 --- !u!1 &8439372901585894437
 GameObject:
   m_ObjectHideFlags: 0

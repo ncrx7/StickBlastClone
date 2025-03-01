@@ -14,6 +14,7 @@ namespace Shapes
         #endregion
 
         #region Variable
+        [SerializeField] private float _pointerYOffset;
         private Vector3 _offset;
         private Vector3 _homePosition;
         #endregion
@@ -36,6 +37,8 @@ namespace Shapes
 
             SetOffset(eventData);
             _homePosition = _parentTransform.position;
+
+            Move(eventData);
         }
         public void OnDrag(PointerEventData eventData)
         {
@@ -76,6 +79,7 @@ namespace Shapes
         {
             var target = Camera.main.ScreenToWorldPoint(eventData.position);
             target += _offset;
+            target +=  Vector3.up * _pointerYOffset;
             target.z = 0;
             _parentTransform.position = target;
         }

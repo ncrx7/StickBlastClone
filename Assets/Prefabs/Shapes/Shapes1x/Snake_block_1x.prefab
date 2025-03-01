@@ -100,6 +100,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 3985799703507218235}
   _parentTransform: {fileID: 8620782562169882817}
+  _pointerYOffset: 1.75
 --- !u!61 &7332077839821371582
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -346,6 +347,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 3985799703507218235}
   _parentTransform: {fileID: 8620782562169882817}
+  _pointerYOffset: 1.75
 --- !u!61 &4432370448237799057
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -536,3 +538,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 3985799703507218235}
   _parentTransform: {fileID: 8620782562169882817}
+  _pointerYOffset: 1.75

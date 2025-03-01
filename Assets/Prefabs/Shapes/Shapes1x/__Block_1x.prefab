@@ -244,6 +244,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 1373498106380250343}
   _parentTransform: {fileID: 3052698469989083724}
+  _pointerYOffset: 1.75
 --- !u!1 &5657338403218456021
 GameObject:
   m_ObjectHideFlags: 0
@@ -389,3 +390,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 1373498106380250343}
   _parentTransform: {fileID: 3052698469989083724}
+  _pointerYOffset: 1.75

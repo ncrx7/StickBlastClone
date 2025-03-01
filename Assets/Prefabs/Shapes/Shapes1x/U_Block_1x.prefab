@@ -145,6 +145,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 3708746280459013173}
   _parentTransform: {fileID: 3857945463295572917}
+  _pointerYOffset: 1.75
 --- !u!1 &4910490305579936139
 GameObject:
   m_ObjectHideFlags: 0
@@ -245,6 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 3708746280459013173}
   _parentTransform: {fileID: 3857945463295572917}
+  _pointerYOffset: 1.75
 --- !u!61 &5905902684309017002
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -390,6 +392,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _shapeManager: {fileID: 3708746280459013173}
   _parentTransform: {fileID: 3857945463295572917}
+  _pointerYOffset: 1.75
 --- !u!61 &5734105277788213160
 BoxCollider2D:
   m_ObjectHideFlags: 0
