@@ -52,6 +52,6 @@ public class TimeManager : MonoBehaviour
             duration--;
         }
 
-        MiniEventSystem.OnEndGame?.Invoke(false);
+        MiniEventSystem.OnEndGame?.Invoke(1);
     }
 }

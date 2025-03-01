@@ -68,7 +68,7 @@ namespace Shapes
                     if (index == 0)
                     {
                         if(!shape.CheckRelativeMatchExist() && !GameManager.Instance.IsGamePaused)
-                            MiniEventSystem.OnEndGame?.Invoke(false);
+                            MiniEventSystem.OnEndGame?.Invoke(0);
 
                         shape.SetCanMoveFlag(true);
                     }

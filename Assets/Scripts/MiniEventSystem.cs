@@ -13,7 +13,7 @@ public static class MiniEventSystem
     public static Action<SoundType> PlaySoundClip;
     public static Action<Vector2, VfxType> PlayVfx;
     public static Action OnStartGame;
-    public static Action<bool> OnEndGame;
+    public static Action<int> OnEndGame;
     public static Action<int> IncreaseScore;
     public static Action ActivateLoadingUI;
     public static Action DeactivateLoadingUI;

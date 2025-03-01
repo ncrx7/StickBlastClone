@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enums;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,7 +14,8 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         [SerializeField] private GameObject _loadingPanel;
-        [SerializeField] private GameObject _gameOverPanel;
+        [SerializeField] private GameObject _gameOverPanelNoMatching;
+        [SerializeField] private GameObject _gameOverPanelTimeOut;
         [SerializeField] private GameObject _gameSuccessPanel;
         [SerializeField] private TextMeshProUGUI _levelReachScore;
         [SerializeField] private TextMeshProUGUI _score;
@@ -25,8 +27,7 @@ namespace UI
         private void OnEnable()
         {
             MiniEventSystem.OnStartGame += SetInitialTextsOnScene;
-            MiniEventSystem.OnEndGame += ActivateGameOverPanel;
-            MiniEventSystem.OnEndGame += ActivateGameSuccesPanel;
+            MiniEventSystem.OnEndGame += ActivateGameEndPanel;
             MiniEventSystem.IncreaseScore += UpdateScoreUI;
             MiniEventSystem.ActivateLoadingUI += HandleActivaiateLoadingUI;
             MiniEventSystem.DeactivateLoadingUI += DeActivaiteLoadingUI;
@@ -37,8 +38,7 @@ namespace UI
 
         private void OnDisable()
         {
-            MiniEventSystem.OnEndGame -= ActivateGameOverPanel;
-            MiniEventSystem.OnEndGame -= ActivateGameSuccesPanel;
+            MiniEventSystem.OnEndGame -= ActivateGameEndPanel;
             MiniEventSystem.OnStartGame -= SetInitialTextsOnScene;
             MiniEventSystem.IncreaseScore -= UpdateScoreUI;
             MiniEventSystem.ActivateLoadingUI -= HandleActivaiateLoadingUI;
@@ -51,29 +51,31 @@ namespace UI
             _timer.text = time.ToString();
         }
 
-        private void ActivateGameOverPanel(bool success)
+        private void ActivateGameEndPanel(int gameEndID)
         {
-            if (success)
-                return;
-
             if(GameManager.Instance.IsGamePaused)
                 return;
 
-            _gameOverPanel.SetActive(true);
-            MiniEventSystem.PlaySoundClip?.Invoke(SoundType.End);
-            GameManager.Instance.IsGamePaused = true;
-        }
+            switch (gameEndID)
+            {
+                case 0:
+                    _gameOverPanelNoMatching.SetActive(true);
+                    MiniEventSystem.PlaySoundClip?.Invoke(SoundType.End);
+                    break;
+                case 1:
+                    _gameOverPanelTimeOut.SetActive(true);
+                    MiniEventSystem.PlaySoundClip?.Invoke(SoundType.End);
+                    break;
+                case 2:
+                    _gameSuccessPanel.SetActive(true);
+                    MiniEventSystem.PlaySoundClip?.Invoke(SoundType.SucessEnd);
+                    break;
+                default:
+                    Debug.LogWarning("Undefined gameEndId!!");
+                    break;
+            }
 
-        private void ActivateGameSuccesPanel(bool success)
-        {
-            if (!success)
-                return;
-                
-            if(GameManager.Instance.IsGamePaused)
-                return;
-
-            _gameSuccessPanel.SetActive(true);
-            MiniEventSystem.PlaySoundClip?.Invoke(SoundType.SucessEnd);
+            
             GameManager.Instance.IsGamePaused = true;
         }
 

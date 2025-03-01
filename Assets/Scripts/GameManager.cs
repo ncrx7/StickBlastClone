@@ -41,7 +41,7 @@ public class GameManager : SingletonBehavior<GameManager>
 
         if (_score >= _levelData.LevelReachScore)
         {
-            MiniEventSystem.OnEndGame?.Invoke(true);
+            MiniEventSystem.OnEndGame?.Invoke(2);
             Debug.Log("GAME END SUCESSS");
         }
     }
