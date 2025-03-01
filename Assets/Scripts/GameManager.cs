@@ -32,6 +32,7 @@ public class GameManager : SingletonBehavior<GameManager>
     private void Start()
     {
         MiniEventSystem.OnStartGame?.Invoke();
+        Application.targetFrameRate = 120;
     }
 
     private void HandleIncreaseScore(int newScore)

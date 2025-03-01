@@ -20,9 +20,6 @@ namespace NodeGridSystem.Controllers
 
         private NodeGridSystem2D<GridNodeObject<NodeManager>> _nodeGrid;
         private NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> _middleObjectGrid;
-        [SerializeField] private EdgeManager edgePrefab;
-
-        [SerializeField] private MiddleFillAreaManager _middleFillAreaPrefab;
 
         private void Start()
         {
