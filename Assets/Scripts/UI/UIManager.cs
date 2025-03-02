@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Enums;
+using Mainpanel;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
@@ -20,6 +21,7 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _levelReachScore;
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private TextMeshProUGUI _timer;
+        [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private Slider _slider;
 
 
@@ -32,6 +34,7 @@ namespace UI
             MiniEventSystem.ActivateLoadingUI += HandleActivaiateLoadingUI;
             MiniEventSystem.DeactivateLoadingUI += DeActivaiteLoadingUI;
             MiniEventSystem.OnTimerWork += UpdateTimer;
+            MiniEventSystem.OnStartGame += UpdateLevelText;
 
             UpdateScoreUI(0);
         }
@@ -44,11 +47,17 @@ namespace UI
             MiniEventSystem.ActivateLoadingUI -= HandleActivaiateLoadingUI;
             MiniEventSystem.DeactivateLoadingUI -= DeActivaiteLoadingUI;
             MiniEventSystem.OnTimerWork -= UpdateTimer;
+            MiniEventSystem.OnStartGame -= UpdateLevelText;
         }
 
         private void UpdateTimer(int time)
         {
             _timer.text = time.ToString();
+        }
+
+        private void UpdateLevelText()
+        {
+            _levelText.text = "Level " + (LevelManager.Instance.GetLevel + 1).ToString();
         }
 
         private void ActivateGameEndPanel(int gameEndID)
@@ -90,7 +99,13 @@ namespace UI
             _slider.value = (float)newScore / GameManager.Instance.GetLevelData.LevelReachScore;
         }
 
-        public void ResetSceneButton()
+        public void NextLevelButton()
+        {
+            LevelManager.Instance.NextLevel();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        }
+
+        public void RestartLevel()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }

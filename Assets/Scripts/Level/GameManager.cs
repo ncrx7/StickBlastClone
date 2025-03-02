@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using EntitiesData.Levels;
+using Mainpanel;
 using MyUtils.Base;
 using UnityEngine;
 
 public class GameManager : SingletonBehavior<GameManager>
 {
-    [SerializeField] private List<LevelData> _levelDataList;
     [SerializeField] private LevelData _levelData;
     [SerializeField] private int _score;
     [SerializeField] private int _scoreIncreaseAmountPerCellDestroy;
@@ -25,14 +25,18 @@ public class GameManager : SingletonBehavior<GameManager>
 
     protected void Awake()
     {
-        Debug.Log("dklsajkldaskld");
-        _levelData = _levelDataList[Random.Range(0, _levelDataList.Count)];
+        _levelData = LevelManager.Instance.GetCurrentLevelData();
     }
 
     private void Start()
     {
         MiniEventSystem.OnStartGame?.Invoke();
         Application.targetFrameRate = 120;
+    }
+
+    public void SetLevelData(LevelData levelData)
+    {
+        _levelData = levelData;
     }
 
     private void HandleIncreaseScore(int newScore)

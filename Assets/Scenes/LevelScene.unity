@@ -232,7 +232,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.46913493, y: 0}
   m_AnchorMax: {x: 0.9778505, y: 0.8727691}
-  m_AnchoredPosition: {x: -37.103, y: 3.6430054}
+  m_AnchoredPosition: {x: -37.103, y: -47}
   m_SizeDelta: {x: 74.207, y: 7.47}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &78378957
@@ -656,6 +656,7 @@ RectTransform:
   m_Children:
   - {fileID: 62429153}
   - {fileID: 943941611}
+  - {fileID: 1547805590}
   m_Father: {fileID: 907511729}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.80068874}
@@ -1654,11 +1655,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8c351bd173e82504086ec0cdb3fa9796, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _levelDataList:
-  - {fileID: 11400000, guid: e8a3e7971576c504d9bd3a08b0dac75e, type: 2}
-  - {fileID: 11400000, guid: 720a93a4017561d48900e4398c3695ae, type: 2}
-  - {fileID: 11400000, guid: 2ec2d05059133784d9b56db727dd13cd, type: 2}
-  - {fileID: 11400000, guid: 5e2aa018183bb2d41a4cd28b37f9092f, type: 2}
   _levelData: {fileID: 11400000, guid: e8a3e7971576c504d9bd3a08b0dac75e, type: 2}
   _score: 0
   _scoreIncreaseAmountPerCellDestroy: 10
@@ -2018,7 +2014,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1900465066}
         m_TargetAssemblyTypeName: UI.UIManager, Assembly-CSharp
-        m_MethodName: ResetSceneButton
+        m_MethodName: RestartLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2207,7 +2203,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.059000004, y: 0.24740517}
   m_AnchorMax: {x: 0.32433754, y: 0.5}
-  m_AnchoredPosition: {x: 2.5, y: 3.7626648}
+  m_AnchoredPosition: {x: 2.5, y: -46.880447}
   m_SizeDelta: {x: 0.049301147, y: 90.9715}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &943941612
@@ -2640,7 +2636,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1900465066}
         m_TargetAssemblyTypeName: UI.UIManager, Assembly-CSharp
-        m_MethodName: ResetSceneButton
+        m_MethodName: NextLevelButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2849,7 +2845,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1900465066}
         m_TargetAssemblyTypeName: UI.UIManager, Assembly-CSharp
-        m_MethodName: ResetSceneButton
+        m_MethodName: RestartLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3511,37 +3507,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1486236704}
   m_CullTransparentMesh: 1
---- !u!1 &1520190027
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1520190028}
-  m_Layer: 0
-  m_Name: UI
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1520190028
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1520190027}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.3300898, y: -2.7176464, z: 0.011493302}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1536640077
 GameObject:
   m_ObjectHideFlags: 0
@@ -3755,6 +3720,140 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1545315767}
+  m_CullTransparentMesh: 1
+--- !u!1 &1547805589
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1547805590}
+  - component: {fileID: 1547805592}
+  - component: {fileID: 1547805591}
+  m_Layer: 5
+  m_Name: LevelText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1547805590
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547805589}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 219957326}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.303325, y: 0.4442974}
+  m_AnchorMax: {x: 0.66818124, y: 0.6712811}
+  m_AnchoredPosition: {x: 0, y: 1}
+  m_SizeDelta: {x: 0.2889099, y: 1.3896027}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1547805591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547805589}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: Level 1
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 59.9
+  m_fontSizeBase: 59.9
+  m_fontWeight: 400
+  m_enableAutoSizing: 0
+  m_fontSizeMin: 18
+  m_fontSizeMax: 72
+  m_fontStyle: 1
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!222 &1547805592
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1547805589}
   m_CullTransparentMesh: 1
 --- !u!1 &1557276146
 GameObject:
@@ -4306,6 +4405,7 @@ MonoBehaviour:
   _levelReachScore: {fileID: 78378959}
   _score: {fileID: 1297936597}
   _timer: {fileID: 943941612}
+  _levelText: {fileID: 1547805591}
   _slider: {fileID: 1538591330}
 --- !u!1 &1970185950
 GameObject:
@@ -4613,7 +4713,6 @@ SceneRoots:
   - {fileID: 519420032}
   - {fileID: 339569515}
   - {fileID: 630723602}
-  - {fileID: 1520190028}
   - {fileID: 662371123}
   - {fileID: 907511729}
   - {fileID: 1446795361}
