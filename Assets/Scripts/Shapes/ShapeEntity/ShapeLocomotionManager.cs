@@ -42,15 +42,17 @@ namespace Shapes
         }
         public void OnDrag(PointerEventData eventData)
         {
-            if(_shapeManager.GetCanMoveFlag == false)
+            if(_shapeManager.GetCanMoveFlag == false || !_shapeManager.IsDragging)
+            {
+                Debug.LogWarning("CAN T ON DRAG BECAUSE MOVE FLAG FALSE");
                 return;
-
+            }
             Move(eventData);
         }
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if(_shapeManager.GetCanMoveFlag == false)
+            if(_shapeManager.GetCanMoveFlag == false || !_shapeManager.IsDragging)
                 return;
 
             _shapeManager.IsDragging = false;
