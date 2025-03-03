@@ -80,6 +80,8 @@ namespace NodeGridSystem.Controllers
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.CellFilling);
 
             MiniEventSystem.PlayVfx?.Invoke(transform.position, VfxType.CellFilling);
+
+            MiniEventSystem.OnMidCellFill?.Invoke();
         }
 
         public bool CheckEdges()

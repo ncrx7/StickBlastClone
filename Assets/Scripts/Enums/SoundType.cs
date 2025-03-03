@@ -8,6 +8,7 @@ namespace Enums
         QueueCellsExplosion,
         End,
         Timer,
-        SucessEnd
+        SucessEnd,
+        Combo
     }
 }

@@ -113,6 +113,7 @@ namespace NodeGridSystem.Controllers
                     midCell.transform.localScale = new Vector3(7, 7, 7);
                 }
             } */
+            bool MatchExist = false;
 
             for (int x = 0; x < _width - 1; x++)
             {
@@ -125,12 +126,23 @@ namespace NodeGridSystem.Controllers
 
                     if (checkResponse)
                     {
-                        if(!midCell.IsFilled) midCell.OnAllEdgeFull();
+                        if(!midCell.IsFilled)
+                        {
+                            MatchExist = true;
+
+                            midCell.OnAllEdgeFull();
+                        }
 
                         ColumnCheckerOnBoard();
+
                         RowCheckerOnBoard();
                     }
                 }
+            }
+
+            if (!MatchExist)
+            {
+                ComboManager.Instance.ResetCombo();
             }
 
             /* MiddleFillAreaManager rightMidCell = rightGridObject.GetValue();
@@ -165,6 +177,7 @@ namespace NodeGridSystem.Controllers
                 if (rowCanDestroy)
                 {
                     CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
+                    ComboManager.Instance.ResetCombo();
 
                     foreach (var midCell in midCells)
                     {
@@ -209,6 +222,7 @@ namespace NodeGridSystem.Controllers
                 if (columnCanDestroy)
                 {
                     CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
+                    ComboManager.Instance.ResetCombo();
 
                     foreach (var midCell in midCells)
                     {

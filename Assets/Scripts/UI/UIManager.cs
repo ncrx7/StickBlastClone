@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using Enums;
 using Mainpanel;
 using TMPro;
@@ -14,6 +15,7 @@ namespace UI
 {
     public class UIManager : MonoBehaviour
     {
+        [Header("References")]
         [SerializeField] private GameObject _loadingPanel;
         [SerializeField] private GameObject _gameOverPanelNoMatching;
         [SerializeField] private GameObject _gameOverPanelTimeOut;
@@ -22,8 +24,12 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private TextMeshProUGUI _timer;
         [SerializeField] private TextMeshProUGUI _levelText;
+        [SerializeField] private TextMeshProUGUI _comboText;
         [SerializeField] private Slider _slider;
 
+        [Header("Settings")]
+        [SerializeField] private float _comboTextAnimationTime;
+        [SerializeField] private Vector3 _comboTextScaleFactor;
 
 
         private void OnEnable()
@@ -35,6 +41,7 @@ namespace UI
             MiniEventSystem.DeactivateLoadingUI += DeActivaiteLoadingUI;
             MiniEventSystem.OnTimerWork += UpdateTimer;
             MiniEventSystem.OnStartGame += UpdateLevelText;
+            MiniEventSystem.OnComboIncrease += HandleComboText;
 
             UpdateScoreUI(0);
         }
@@ -48,6 +55,7 @@ namespace UI
             MiniEventSystem.DeactivateLoadingUI -= DeActivaiteLoadingUI;
             MiniEventSystem.OnTimerWork -= UpdateTimer;
             MiniEventSystem.OnStartGame -= UpdateLevelText;
+            MiniEventSystem.OnComboIncrease -= HandleComboText;
         }
 
         private void UpdateTimer(int time)
@@ -62,7 +70,7 @@ namespace UI
 
         private void ActivateGameEndPanel(int gameEndID)
         {
-            if(GameManager.Instance.IsGamePaused)
+            if (GameManager.Instance.IsGamePaused)
                 return;
 
             switch (gameEndID)
@@ -84,7 +92,7 @@ namespace UI
                     break;
             }
 
-            
+
             GameManager.Instance.IsGamePaused = true;
         }
 
@@ -97,6 +105,24 @@ namespace UI
         {
             _score.text = newScore.ToString();
             _slider.value = (float)newScore / GameManager.Instance.GetLevelData.LevelReachScore;
+        }
+
+        private void HandleComboText()
+        {
+            _comboText.gameObject.SetActive(true);
+            _comboText.transform.localScale = Vector3.zero; 
+            _comboText.text = "Combo " + ComboManager.Instance.GetCurrentComboAmount.ToString();
+            
+            MiniEventSystem.PlaySoundClip?.Invoke(SoundType.Combo);
+            
+            _comboText.transform.DOScale(_comboTextScaleFactor, _comboTextAnimationTime)
+                .SetEase(Ease.OutBack) 
+                .OnComplete(() =>
+                {
+                    _comboText.transform.DOScale(Vector3.zero, _comboTextAnimationTime)
+                        .SetEase(Ease.InBack) 
+                        .OnComplete(() => _comboText.gameObject.SetActive(false));
+                });
         }
 
         public void NextLevelButton()

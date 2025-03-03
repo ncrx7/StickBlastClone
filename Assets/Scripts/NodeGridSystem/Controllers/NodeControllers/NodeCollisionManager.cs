@@ -57,7 +57,7 @@ namespace NodeGridSystem.Controllers
                 if (currentEdge.IsEmpty == false)
                 {
                     edges.Clear();
-                    Debug.LogError("Edge is not empty, cant place!!" + currentEdge.gameObject.name);
+                    //Debug.LogError("Edge is not empty, cant place!!" + currentEdge.gameObject.name);
                     shapeManager.SetCanPlaceFlag(false);
                     return false;
                 }
