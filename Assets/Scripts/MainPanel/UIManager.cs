@@ -53,6 +53,7 @@ namespace Mainpanel
             MiniEventSystem.OnClickHomePanelButton += HomePanelButtonBehaviour;
             MiniEventSystem.OnClickLevelPanelButton += LevelPanelButtonBehaviour;
             MiniEventSystem.OnClickSettingsPanelButton += SettingsPanelButtonBehaviour;
+            MiniEventSystem.OnClickStartGameButton += StartGameButtonBehaviour;
         }
 
         private void UnRegisterUIActions()
@@ -61,6 +62,7 @@ namespace Mainpanel
             MiniEventSystem.OnClickHomePanelButton -= HomePanelButtonBehaviour;
             MiniEventSystem.OnClickLevelPanelButton -= LevelPanelButtonBehaviour;
             MiniEventSystem.OnClickSettingsPanelButton -= SettingsPanelButtonBehaviour;
+            MiniEventSystem.OnClickStartGameButton -= StartGameButtonBehaviour;
         }
 
         private void InitializeUI()
@@ -121,6 +123,14 @@ namespace Mainpanel
             {
                 BasePanelButtonBehaviour(overlayPanel.GetSettingsPanelButton.gameObject, _mainPanelMap[MainPanelType.SettingsPanel]);
             }
+        }
+
+        private void StartGameButtonBehaviour()
+        {
+
+            ExecuteUIAction(UIActionType.SetPanelVisibility, true, _mainPanelMap[MainPanelType.LoadingPanel].gameObject);
+            _levelManager.LoadSceneAsync(1).Forget();
+
         }
 
         private void BasePanelButtonBehaviour(GameObject buttonObject, BasePanel<MainPanelType, GameData> panelObject)
