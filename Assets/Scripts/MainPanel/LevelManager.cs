@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using EntitiesData.Levels;
-using MyUtils.Base;
+using UnityUtils.BaseClasses;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

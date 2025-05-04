@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
-using MyUtils.Base;
+using  UnityUtils.BaseClasses;
 using UnityEngine;
 
 public class CameraManager : SingletonBehavior<CameraManager>

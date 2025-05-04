@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using EntitiesData.Levels;
 using Mainpanel;
-using MyUtils.Base;
+using UnityUtils.BaseClasses;
 using UnityEngine;
 
 public class GameManager : SingletonBehavior<GameManager>
