@@ -71,8 +71,8 @@ namespace Shapes
 
                 MiniEventSystem.PlayVfx?.Invoke(edge.transform.position, VfxType.Place);
             }
-
-            NodeGridBoardManager.Instance.CheckMidCellFullnessOnBoard();
+            
+            NodeGridBoardManager.Instance.CheckMidCellFullnessOnBoard(_edgesMatching);
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.PlaceShape);
 
             _placeCallBack?.Invoke();
