@@ -5,12 +5,20 @@ using NodeGridSystem.Controllers;
 using NodeGridSystem.Models;
 using NodeGridSystem.View;
 using UnityEngine;
+using Zenject;
 
 namespace NodeGridSystem.View
 {
     public class MidCellLevelCreator : EntityLevelCreator<MiddleFillAreaManager>
     {
         [SerializeField] private Transform _transformHolder;
+        private NodeGridBoardManager _nodeGridBoardManager;
+
+        [Inject]
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager)
+        {
+            _nodeGridBoardManager = nodeGridBoardManager;
+        }
 
         protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> midCellGrid, int nodePoolId)
         {
@@ -22,7 +30,7 @@ namespace NodeGridSystem.View
             
             MiddleFillAreaManager middleArea = Instantiate(_entityPrefab, midCellGrid.GetWorldPositionCenter(x, y), Quaternion.identity, _transformHolder);
 
-            middleArea.transform.position = midCellGrid.GetWorldPositionCenter(x, y) + new Vector3(NodeGridBoardManager.Instance.GetCellSize / 2, NodeGridBoardManager.Instance.GetCellSize / 2 + 0);
+            middleArea.transform.position = midCellGrid.GetWorldPositionCenter(x, y) + new Vector3(_nodeGridBoardManager.GetCellSize / 2, _nodeGridBoardManager.GetCellSize / 2 + 0);
             middleArea.transform.SetParent(_transformHolder);
 
             var gridObject = new GridNodeObject<MiddleFillAreaManager>(midCellGrid, x, y);

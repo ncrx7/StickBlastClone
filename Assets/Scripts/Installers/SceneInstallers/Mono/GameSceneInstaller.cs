@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DataModel;
 using Enums;
+using NodeGridSystem.Controllers;
 using Shapes;
 using UnityEngine;
 using UnityUtils.Core.VfxSystem;
@@ -29,6 +30,8 @@ namespace Installers.Scene
 
             Container.Bind<VfxFactory<VfxType>>().AsSingle();
             Container.Bind<Dictionary<VfxType, VfxPool<VfxType>>>().FromInstance(_vfxPoolMap).AsSingle();
+
+            Container.Bind<NodeGridBoardManager>().FromComponentInHierarchy().AsSingle();
         }
 
         private void CreateShapePoolsBinding()

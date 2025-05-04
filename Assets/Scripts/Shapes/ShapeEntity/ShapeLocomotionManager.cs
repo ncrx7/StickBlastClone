@@ -4,6 +4,7 @@ using Enums;
 using NodeGridSystem.Controllers;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using Zenject;
 
 namespace Shapes
 {
@@ -12,14 +13,21 @@ namespace Shapes
         #region References
         [SerializeField] private ShapeManager _shapeManager;
         [SerializeField] private Transform _parentTransform;
+        private NodeGridBoardManager _nodeGridBoardManager;
         #endregion
 
-        #region Variable
+        #region Fields
         [SerializeField] private float _pointerYOffset;
         private Vector3 _offset;
         private Vector3 _homePosition;
         private Vector2Int _lastMousePositionOnGrid = new Vector2Int(-1, -1);
         #endregion
+
+        [Inject]
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager)
+        {
+            _nodeGridBoardManager = nodeGridBoardManager;
+        }
 
         #region MonoBeheviour Callbacks
         private void Start()
@@ -31,7 +39,7 @@ namespace Shapes
         #region Interface Methods
         public void OnPointerDown(PointerEventData eventData)
         {
-            if(_shapeManager.GetCanMoveFlag == false)
+            if (_shapeManager.GetCanMoveFlag == false)
                 return;
 
             _shapeManager.IsDragging = true;
@@ -44,7 +52,7 @@ namespace Shapes
         }
         public void OnDrag(PointerEventData eventData)
         {
-            if(_shapeManager.GetCanMoveFlag == false || !_shapeManager.IsDragging)
+            if (_shapeManager.GetCanMoveFlag == false || !_shapeManager.IsDragging)
             {
                 //Debug.LogWarning("CAN T ON DRAG BECAUSE MOVE FLAG FALSE");
                 return;
@@ -57,12 +65,12 @@ namespace Shapes
 
         public void OnPointerUp(PointerEventData eventData)
         {
-            if(_shapeManager.GetCanMoveFlag == false || !_shapeManager.IsDragging)
+            if (_shapeManager.GetCanMoveFlag == false || !_shapeManager.IsDragging)
                 return;
 
             _shapeManager.IsDragging = false;
 
-            if(_shapeManager.GetCanPlaceFlag)
+            if (_shapeManager.GetCanPlaceFlag)
             {
                 //_shapeManager.PlaceShape();
                 MiniEventSystem.OnPlaceShape?.Invoke();
@@ -86,28 +94,28 @@ namespace Shapes
         {
             var target = Camera.main.ScreenToWorldPoint(eventData.position);
             target += _offset;
-            target +=  Vector3.up * _pointerYOffset;
+            target += Vector3.up * _pointerYOffset;
             target.z = 0;
             _parentTransform.position = target;
         }
 
         private void FindNearestNode()
         {
-           // Vector2 pointerWorldPos = Camera.main.ScreenToWorldPoint(eventData.position);
+            // Vector2 pointerWorldPos = Camera.main.ScreenToWorldPoint(eventData.position);
 
-            Vector2Int closestNodeCordinate = NodeGridBoardManager.Instance.GetNodeGridSystem2D.GetXY(_shapeManager.GetHead.transform.position);
-            
+            Vector2Int closestNodeCordinate = _nodeGridBoardManager.GetNodeGridSystem2D.GetXY(_shapeManager.GetHead.transform.position);
 
-            if(closestNodeCordinate == _lastMousePositionOnGrid)
+
+            if (closestNodeCordinate == _lastMousePositionOnGrid)
             {
                 return;
             }
-            
+
             Debug.Log("closest cordinate -> " + closestNodeCordinate.x + " - " + closestNodeCordinate.y);
 
-            NodeManager closestNode = NodeGridBoardManager.Instance.GetNodeGridSystem2D.GetValue(closestNodeCordinate.x, closestNodeCordinate.y)?.GetValue();
+            NodeManager closestNode = _nodeGridBoardManager.GetNodeGridSystem2D.GetValue(closestNodeCordinate.x, closestNodeCordinate.y)?.GetValue();
 
-            if(closestNode == null)
+            if (closestNode == null)
                 return;
 
             //_shapeManager.GetEdgesMatching.Clear();

@@ -9,7 +9,7 @@ using Enums;
 
 namespace NodeGridSystem.Controllers
 {
-    public class NodeGridBoardManager : SingletonBehavior<NodeGridBoardManager>
+    public class NodeGridBoardManager : MonoBehaviour
     {
         [Header("Node Grid Settings")]
         [SerializeField] private int _width = 6;

@@ -7,11 +7,13 @@ using Enums;
 using NodeGridSystem.Controllers;
 using Unity.VisualScripting;
 using UnityEngine;
+using Zenject;
 
 namespace Shapes
 {
     public class ShapeManager : MonoBehaviour
     {
+        private NodeGridBoardManager _nodeGridBoardManager;
         [SerializeField] private List<SpriteRenderer> _spriteRendererList;
         [SerializeField] private ShapeData _shapeData;
         [SerializeField] private bool _canPlace;
@@ -22,6 +24,12 @@ namespace Shapes
         public bool IsDragging;
 
         public Action _placeCallBack;
+
+        [Inject]
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager)
+        {
+            _nodeGridBoardManager = nodeGridBoardManager;
+        }
 
 
         private void OnEnable()
@@ -75,7 +83,7 @@ namespace Shapes
                 MiniEventSystem.PlayVfx?.Invoke(edge.transform.position, VfxType.Place);
             }
             
-            NodeGridBoardManager.Instance.CheckMidCellFullnessOnBoard(_edgesMatching);
+            _nodeGridBoardManager.CheckMidCellFullnessOnBoard(_edgesMatching);
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.PlaceShape);
 
             _placeCallBack?.Invoke();
@@ -84,11 +92,11 @@ namespace Shapes
 
         public bool CheckRelativeMatchExist()
         {
-            for (int x = 0; x < NodeGridBoardManager.Instance.GetWidth; x++)
+            for (int x = 0; x < _nodeGridBoardManager.GetWidth; x++)
             {
-                for (int y = 0; y < NodeGridBoardManager.Instance.GetHeight; y++)
+                for (int y = 0; y < _nodeGridBoardManager.GetHeight; y++)
                 {
-                    var gridNodeObject = NodeGridBoardManager.Instance.GetNodeGridSystem2D.GetValue(x, y);
+                    var gridNodeObject = _nodeGridBoardManager.GetNodeGridSystem2D.GetValue(x, y);
 
                     NodeManager nodeManager = gridNodeObject.GetValue();
 
