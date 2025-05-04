@@ -23,4 +23,11 @@ public static class MiniEventSystem
     public static Action ActivateLoadingUI;
     public static Action DeactivateLoadingUI;
     public static Action<int> OnTimerWork;
+
+    #region BUTTON ACTIONS
+    public static Action OnClickHomePanelButton;
+    public static Action OnClickLevelPanelButton;
+    public static Action OnClickSettingsPanelButton;
+    public static Action OnClickStartGameButton;
+    #endregion
 }

@@ -74,5 +74,6 @@ namespace Mainpanel
         }
 
         public int GetLevel => _currentLevel;
+        public List<LevelData> GetAllLevelData => _levelDataList;
     }
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   LevelColor: {r: 0, g: 0.013357639, b: 1, a: 1}
   LevelReachScore: 100
   Timer: 150
+  Level: 3

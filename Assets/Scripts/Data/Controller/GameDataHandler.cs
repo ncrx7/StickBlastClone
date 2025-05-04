@@ -27,6 +27,8 @@ namespace Data.Controllers
         private async void InitializeData()
         {
             await LoadGameDataFile();
+
+            await UniTask.Delay(1000); //fake waiting
            
             IsDataLoadFinished = true;
             MiniEventSystem.OnCompleteGameDataLoad?.Invoke(_gameData);
