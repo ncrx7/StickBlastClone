@@ -31,7 +31,10 @@ namespace NodeGridSystem.Controllers
             if (other.TryGetComponent<ShapeManager>(out ShapeManager shapeManager))
             {
                 if(shapeManager.IsDragging)
+                {
                     HideBlockShapeSlotSign(shapeManager);
+                    shapeManager.SetCanPlaceFlag(false);
+                }
             }
         }
         #endregion
