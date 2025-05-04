@@ -190,6 +190,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f726e1fbe16ac340b04d340a6874649, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1 &3234411669998910537
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7828779882884051412}
+  m_Layer: 0
+  m_Name: HeadTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7828779882884051412
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3234411669998910537}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.485, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 389981037910921141}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8439372901585894437
 GameObject:
   m_ObjectHideFlags: 0
@@ -224,6 +255,7 @@ Transform:
   m_Children:
   - {fileID: 1375476213658637742}
   - {fileID: 3861955857575601654}
+  - {fileID: 7828779882884051412}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &1272504745898523351
@@ -306,4 +338,5 @@ MonoBehaviour:
   _shapeData: {fileID: 11400000, guid: c1f0915bedd6b274684b787473eb5e47, type: 2}
   _canPlace: 0
   _canMove: 0
+  _headTransform: {fileID: 7828779882884051412}
   IsDragging: 0

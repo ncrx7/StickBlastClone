@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Enums;
+using NodeGridSystem.Controllers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -17,6 +18,7 @@ namespace Shapes
         [SerializeField] private float _pointerYOffset;
         private Vector3 _offset;
         private Vector3 _homePosition;
+        private Vector2Int _lastMousePositionOnGrid = new Vector2Int(-1, -1);
         #endregion
 
         #region MonoBeheviour Callbacks
@@ -47,7 +49,10 @@ namespace Shapes
                 //Debug.LogWarning("CAN T ON DRAG BECAUSE MOVE FLAG FALSE");
                 return;
             }
+
             Move(eventData);
+
+            FindNearestNode();
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -84,6 +89,32 @@ namespace Shapes
             target +=  Vector3.up * _pointerYOffset;
             target.z = 0;
             _parentTransform.position = target;
+        }
+
+        private void FindNearestNode()
+        {
+           // Vector2 pointerWorldPos = Camera.main.ScreenToWorldPoint(eventData.position);
+
+            Vector2Int closestNodeCordinate = NodeGridBoardManager.Instance.GetNodeGridSystem2D.GetXY(_shapeManager.GetHead.transform.position);
+            
+
+            if(closestNodeCordinate == _lastMousePositionOnGrid)
+            {
+                return;
+            }
+            
+            Debug.Log("closest cordinate -> " + closestNodeCordinate.x + " - " + closestNodeCordinate.y);
+
+            NodeManager closestNode = NodeGridBoardManager.Instance.GetNodeGridSystem2D.GetValue(closestNodeCordinate.x, closestNodeCordinate.y)?.GetValue();
+
+            if(closestNode == null)
+                return;
+
+            //_shapeManager.GetEdgesMatching.Clear();
+
+            _lastMousePositionOnGrid = closestNodeCordinate;
+
+            PathChecker.CheckPath(_shapeManager, closestNode, _shapeManager.GetEdgesMatching, false);
         }
         #endregion
     }

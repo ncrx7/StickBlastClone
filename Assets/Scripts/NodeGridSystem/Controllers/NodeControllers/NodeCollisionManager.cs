@@ -21,8 +21,8 @@ namespace NodeGridSystem.Controllers
 
             if (other.TryGetComponent<ShapeManager>(out ShapeManager shapeManager))
             {
-                shapeManager.GetEdgesMatching.Clear();
-                CheckShapePath(shapeManager, shapeManager.GetEdgesMatching, false);
+                //shapeManager.GetEdgesMatching.Clear();
+                //CheckShapePath(shapeManager, shapeManager.GetEdgesMatching, false);
             }
         }
 
@@ -32,8 +32,8 @@ namespace NodeGridSystem.Controllers
             {
                 if(shapeManager.IsDragging)
                 {
-                    HideBlockShapeSlotSign(shapeManager);
-                    shapeManager.SetCanPlaceFlag(false);
+                    //HideBlockShapeSlotSign(shapeManager);
+                    //shapeManager.SetCanPlaceFlag(false);
                 }
             }
         }

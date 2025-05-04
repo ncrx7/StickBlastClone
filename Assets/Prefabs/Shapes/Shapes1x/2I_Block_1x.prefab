@@ -146,6 +146,37 @@ MonoBehaviour:
   _shapeManager: {fileID: 9202095058957374721}
   _parentTransform: {fileID: 4539515784171508591}
   _pointerYOffset: 1.75
+--- !u!1 &4460074182428792150
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 160124922737221440}
+  m_Layer: 0
+  m_Name: HeadTransform
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &160124922737221440
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4460074182428792150}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 3.079, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4539515784171508591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4795693117456475501
 GameObject:
   m_ObjectHideFlags: 0
@@ -371,6 +402,7 @@ Transform:
   - {fileID: 7093409824584170485}
   - {fileID: 5733101502099952600}
   - {fileID: 8894363226224593995}
+  - {fileID: 160124922737221440}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &505644954597829991
@@ -436,6 +468,7 @@ MonoBehaviour:
   _shapeData: {fileID: 11400000, guid: 27120896e3d9f304cad15a5dae91bcaf, type: 2}
   _canPlace: 0
   _canMove: 0
+  _headTransform: {fileID: 160124922737221440}
   IsDragging: 0
 --- !u!114 &-4962687344636564710
 MonoBehaviour:

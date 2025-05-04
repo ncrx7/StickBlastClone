@@ -14,12 +14,15 @@ namespace Shapes
     {
         [SerializeField] private List<SpriteRenderer> _spriteRendererList;
         [SerializeField] private ShapeData _shapeData;
-        private List<EdgeManager> _edgesMatching = new();
         [SerializeField] private bool _canPlace;
         [SerializeField] private bool _canMove = false;
+        [SerializeField] private Transform _headTransform;
+
+        private List<EdgeManager> _edgesMatching = new();
         public bool IsDragging;
 
         public Action _placeCallBack;
+
 
         private void OnEnable()
         {
@@ -112,5 +115,6 @@ namespace Shapes
         public List<EdgeManager> GetEdgesMatching => _edgesMatching;
         public bool GetCanPlaceFlag => _canPlace;
         public bool GetCanMoveFlag => _canMove;
+        public Transform GetHead => _headTransform;
     }
 }
