@@ -11,7 +11,7 @@ namespace Shapes
     public class ShapeLocomotionManager : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         #region References
-        [SerializeField] private ShapeManager _shapeManager;
+        private ShapeManager _shapeManager;
         [SerializeField] private Transform _parentTransform;
         private NodeGridBoardManager _nodeGridBoardManager;
         #endregion
@@ -24,9 +24,10 @@ namespace Shapes
         #endregion
 
         [Inject]
-        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager)
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager)
         {
             _nodeGridBoardManager = nodeGridBoardManager;
+            _shapeManager = shapeManager;
         }
 
         #region MonoBeheviour Callbacks

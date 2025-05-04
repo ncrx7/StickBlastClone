@@ -11,6 +11,7 @@ namespace Installers.GameObject
         public override void InstallBindings()
         {
             Container.Bind<ShapeManager>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<ShapeLocomotionManager>().FromComponentsInHierarchy().AsTransient();
         }
     }
 }
