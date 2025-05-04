@@ -105,9 +105,9 @@ namespace NodeGridSystem.Controllers
 
                             midCell.OnAllEdgeFull();
 
-                            ColumnCheckerOnBoard();
+                            ColumnCheckerOnBoard(midCell.OnGridNodeObject.GetX);
 
-                            RowCheckerOnBoard();
+                            RowCheckerOnBoard(midCell.OnGridNodeObject.GetY);
                         }
                     }
                 }
@@ -154,95 +154,91 @@ namespace NodeGridSystem.Controllers
 
         }
 
-        private async void RowCheckerOnBoard()
+        private async void RowCheckerOnBoard(int y)
         {
             List<MiddleFillAreaManager> midCells = new();
 
-            for (int y = 0; y < _height - 1; y++)
-            {
-                midCells.Clear();
-                bool rowCanDestroy = true;
-
-                for (int x = 0; x < _width - 1; x++)
-                {
-                    var midCellGridObject = _middleObjectGrid.GetValue(x, y);
-                    MiddleFillAreaManager midCell = midCellGridObject.GetValue();
-
-                    if (!midCell.IsFilled)
-                    {
-                        rowCanDestroy = false;
-                        break;
-                    }
-
-                    midCells.Add(midCell);
-                }
-
-                if (rowCanDestroy)
-                {
-                    CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
-                    ComboManager.Instance.ResetCombo();
-
-                    foreach (var midCell in midCells)
-                    {
-                        midCell.GetSpriteRenderer.enabled = false;
-                        midCell.IsFilled = false;
-                        midCell.ResetEdges();
-
-                        MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
-                        MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
-                        MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
-                        MiniEventSystem.IncreaseScore?.Invoke(GameManager.Instance.GetScore + GameManager.Instance.GetScoreIncreaseAmountPerCellDestroy);
-
-                        await UniTask.Delay(50);
-                    }
-                }
-            }
-        }
-
-        private async void ColumnCheckerOnBoard()
-        {
-            List<MiddleFillAreaManager> midCells = new();
+            midCells.Clear();
+            bool rowCanDestroy = true;
 
             for (int x = 0; x < _width - 1; x++)
             {
-                midCells.Clear();
-                bool columnCanDestroy = true;
+                var midCellGridObject = _middleObjectGrid.GetValue(x, y);
+                MiddleFillAreaManager midCell = midCellGridObject.GetValue();
 
-                for (int y = 0; y < _height - 1; y++)
+                if (!midCell.IsFilled)
                 {
-                    var midCellGridObject = _middleObjectGrid.GetValue(x, y);
-                    MiddleFillAreaManager midCell = midCellGridObject.GetValue();
-
-                    if (!midCell.IsFilled)
-                    {
-                        columnCanDestroy = false;
-                        break;
-                    }
-
-                    midCells.Add(midCell);
+                    rowCanDestroy = false;
+                    break;
                 }
 
-                if (columnCanDestroy)
+                midCells.Add(midCell);
+            }
+
+            if (rowCanDestroy)
+            {
+                CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
+                ComboManager.Instance.ResetCombo();
+
+                foreach (var midCell in midCells)
                 {
-                    CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
-                    ComboManager.Instance.ResetCombo();
+                    midCell.GetSpriteRenderer.enabled = false;
+                    midCell.IsFilled = false;
+                    midCell.ResetEdges();
 
-                    foreach (var midCell in midCells)
-                    {
-                        midCell.GetSpriteRenderer.enabled = false;
-                        midCell.IsFilled = false;
-                        midCell.ResetEdges();
+                    MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
+                    MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
+                    MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
+                    MiniEventSystem.IncreaseScore?.Invoke(GameManager.Instance.GetScore + GameManager.Instance.GetScoreIncreaseAmountPerCellDestroy);
 
-                        MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
-
-                        MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
-                        MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
-                        MiniEventSystem.IncreaseScore?.Invoke(GameManager.Instance.GetScore + GameManager.Instance.GetScoreIncreaseAmountPerCellDestroy);
-
-                        await UniTask.Delay(50);
-                    }
+                    await UniTask.Delay(50);
                 }
             }
+
+        }
+
+        private async void ColumnCheckerOnBoard(int x)
+        {
+            List<MiddleFillAreaManager> midCells = new();
+
+            midCells.Clear();
+            bool columnCanDestroy = true;
+
+            for (int y = 0; y < _height - 1; y++)
+            {
+                var midCellGridObject = _middleObjectGrid.GetValue(x, y);
+                MiddleFillAreaManager midCell = midCellGridObject.GetValue();
+
+                if (!midCell.IsFilled)
+                {
+                    columnCanDestroy = false;
+                    break;
+                }
+
+                midCells.Add(midCell);
+            }
+
+            if (columnCanDestroy)
+            {
+                CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
+                ComboManager.Instance.ResetCombo();
+
+                foreach (var midCell in midCells)
+                {
+                    midCell.GetSpriteRenderer.enabled = false;
+                    midCell.IsFilled = false;
+                    midCell.ResetEdges();
+
+                    MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
+
+                    MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
+                    MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
+                    MiniEventSystem.IncreaseScore?.Invoke(GameManager.Instance.GetScore + GameManager.Instance.GetScoreIncreaseAmountPerCellDestroy);
+
+                    await UniTask.Delay(50);
+                }
+            }
+
         }
 
         public float GetCellSize => _cellSize;
