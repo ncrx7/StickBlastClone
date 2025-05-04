@@ -8,15 +8,15 @@ using UnityEngine.SceneManagement;
 
 namespace Mainpanel
 {
-    public class LevelManager : SingletonBehavior<LevelManager>
+    public class LevelManager : MonoBehaviour
     {
         [SerializeField] private List<LevelData> _levelDataList;
         [SerializeField] private int _currentLevel = 0;
 
-        private void Awake()
+        /* private void Awake()
         {
             DontDestroyOnLoad(this);
-        }
+        } */
 
         public LevelData GetCurrentLevelData()
         {

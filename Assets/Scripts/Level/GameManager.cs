@@ -4,14 +4,23 @@ using EntitiesData.Levels;
 using Mainpanel;
 using UnityUtils.BaseClasses;
 using UnityEngine;
+using Zenject;
 
 public class GameManager : SingletonBehavior<GameManager>
 {
+    private LevelManager _levelManager;
+
     [SerializeField] private LevelData _levelData;
     [SerializeField] private int _score;
     [SerializeField] private int _scoreIncreaseAmountPerCellDestroy;
 
     public bool IsGamePaused { get; set; } = false;
+
+    [Inject]
+    private void InitializeDependencies(LevelManager levelManager)
+    {
+        _levelManager = levelManager;
+    }
 
     private void OnEnable()
     {
@@ -25,7 +34,7 @@ public class GameManager : SingletonBehavior<GameManager>
 
     protected void Awake()
     {
-        _levelData = LevelManager.Instance.GetCurrentLevelData();
+        _levelData = _levelManager.GetCurrentLevelData();
     }
 
     private void Start()

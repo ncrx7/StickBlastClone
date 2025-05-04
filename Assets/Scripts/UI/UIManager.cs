@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using EntitiesData.Levels;
 using Enums;
 using Mainpanel;
 using TMPro;
@@ -10,6 +11,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using Zenject;
 
 namespace UI
 {
@@ -30,6 +32,14 @@ namespace UI
         [Header("Settings")]
         [SerializeField] private float _comboTextAnimationTime;
         [SerializeField] private Vector3 _comboTextScaleFactor;
+
+        private LevelManager _levelManager;
+
+        [Inject]
+        private void InitializeDependencies(LevelManager levelManager)
+        {
+            _levelManager = levelManager;
+        }
 
 
         private void OnEnable()
@@ -65,7 +75,7 @@ namespace UI
 
         private void UpdateLevelText()
         {
-            _levelText.text = "Level " + (LevelManager.Instance.GetLevel + 1).ToString();
+            _levelText.text = "Level " + (_levelManager.GetLevel + 1).ToString();
         }
 
         private void ActivateGameEndPanel(int gameEndID)
@@ -110,24 +120,24 @@ namespace UI
         private void HandleComboText()
         {
             _comboText.gameObject.SetActive(true);
-            _comboText.transform.localScale = Vector3.zero; 
+            _comboText.transform.localScale = Vector3.zero;
             _comboText.text = "Combo " + ComboManager.Instance.GetCurrentComboAmount.ToString();
-            
+
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.Combo);
-            
+
             _comboText.transform.DOScale(_comboTextScaleFactor, _comboTextAnimationTime)
-                .SetEase(Ease.OutBack) 
+                .SetEase(Ease.OutBack)
                 .OnComplete(() =>
                 {
                     _comboText.transform.DOScale(Vector3.zero, _comboTextAnimationTime)
-                        .SetEase(Ease.InBack) 
+                        .SetEase(Ease.InBack)
                         .OnComplete(() => _comboText.gameObject.SetActive(false));
                 });
         }
 
         public void NextLevelButton()
         {
-            LevelManager.Instance.NextLevel();
+            _levelManager.NextLevel();
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
