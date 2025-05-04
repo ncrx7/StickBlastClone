@@ -11,20 +11,11 @@ public class ShapeFactory<Ttype> : IFactory<Ttype, Vector3, ShapeManager> where 
 
     public ShapeManager Create(Ttype type, Vector3 targetPosition)
     {
-        if(_shapePoolMap == null)
-            Debug.Log("shape pool map is null");
-        else
-        {
-            Debug.Log("shape pool is not null -> " + _shapePoolMap.Count);
-        }
-        foreach (var kvp in _shapePoolMap)
-        {
-            Debug.Log($"key: {kvp.Key} value: {kvp.Value}");
-        }
+        var pool = _shapePoolMap[type];
 
-        var shapeObject = _shapePoolMap[type].Spawn();
+        var shapeObject = pool.Spawn();
 
-        shapeObject.transform.position = targetPosition;
+        shapeObject.Setup(() => pool.Despawn(shapeObject), targetPosition);
 
         return shapeObject;
     }

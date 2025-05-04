@@ -44,7 +44,7 @@ namespace Shapes
         {
             if(_shapeManager.GetCanMoveFlag == false || !_shapeManager.IsDragging)
             {
-                Debug.LogWarning("CAN T ON DRAG BECAUSE MOVE FLAG FALSE");
+                //Debug.LogWarning("CAN T ON DRAG BECAUSE MOVE FLAG FALSE");
                 return;
             }
             Move(eventData);

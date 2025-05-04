@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -18,6 +19,8 @@ namespace Shapes
         [SerializeField] private bool _canMove = false;
         public bool IsDragging;
 
+        public Action _placeCallBack;
+
         private void OnEnable()
         {
             MiniEventSystem.OnPlaceShape += PlaceShape;
@@ -34,6 +37,12 @@ namespace Shapes
             {
                 spriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
             }
+        }
+
+        public void Setup(Action placeCallBack, Vector3 targetPosition)
+        {
+            transform.position = targetPosition;
+            _placeCallBack = placeCallBack;
         }
 
         public void SetCanPlaceFlag(bool flag)
@@ -66,7 +75,8 @@ namespace Shapes
             NodeGridBoardManager.Instance.CheckMidCellFullnessOnBoard();
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.PlaceShape);
 
-            Destroy(this.gameObject);
+            _placeCallBack?.Invoke();
+            //Destroy(this.gameObject);
         }
 
         public bool CheckRelativeMatchExist()
@@ -94,6 +104,8 @@ namespace Shapes
         {
             SetCanMoveFlag(false);
             SetCanPlaceFlag(false);
+            _placeCallBack = null;
+            _edgesMatching.Clear();
         }
 
         public ShapeData GetShapeData => _shapeData;
