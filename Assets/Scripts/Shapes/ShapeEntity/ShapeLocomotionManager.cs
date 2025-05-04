@@ -61,7 +61,7 @@ namespace Shapes
 
             Move(eventData);
 
-            FindNearestNode();
+            PathChecker.HandleCheckShapePathByPointer(_nodeGridBoardManager, _shapeManager, _lastMousePositionOnGrid);
         }
 
         public void OnPointerUp(PointerEventData eventData)
@@ -98,32 +98,6 @@ namespace Shapes
             target += Vector3.up * _pointerYOffset;
             target.z = 0;
             _parentTransform.position = target;
-        }
-
-        private void FindNearestNode()
-        {
-            // Vector2 pointerWorldPos = Camera.main.ScreenToWorldPoint(eventData.position);
-
-            Vector2Int closestNodeCordinate = _nodeGridBoardManager.GetNodeGridSystem2D.GetXY(_shapeManager.GetHead.transform.position);
-
-
-            if (closestNodeCordinate == _lastMousePositionOnGrid)
-            {
-                return;
-            }
-
-            Debug.Log("closest cordinate -> " + closestNodeCordinate.x + " - " + closestNodeCordinate.y);
-
-            NodeManager closestNode = _nodeGridBoardManager.GetNodeGridSystem2D.GetValue(closestNodeCordinate.x, closestNodeCordinate.y)?.GetValue();
-
-            if (closestNode == null)
-                return;
-
-            //_shapeManager.GetEdgesMatching.Clear();
-
-            _lastMousePositionOnGrid = closestNodeCordinate;
-
-            PathChecker.CheckPath(_shapeManager, closestNode, _shapeManager.GetEdgesMatching, false);
         }
         #endregion
     }

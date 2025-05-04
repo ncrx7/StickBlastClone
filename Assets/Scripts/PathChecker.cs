@@ -7,9 +7,43 @@ using UnityEngine;
 public static class PathChecker
 {
     private static NodeManager _currentNodeManager;
-    
 
-    public static bool CheckPath(ShapeManager shapeManager, NodeManager mainNodeManager, List<EdgeManager> edgeList, bool onlyCheck)
+    public static void HandleCheckShapePathByPointer(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, Vector2Int lastMousePositionOnBoard)
+    {
+        var closestNode = FindClosestNeighbourByShapeHead(nodeGridBoardManager, shapeManager, lastMousePositionOnBoard);
+
+        if (closestNode == null)
+            return;
+
+        PathChecker.CheckPathFromANode(shapeManager, closestNode, shapeManager.GetEdgesMatching, false);
+    }
+
+    private static NodeManager FindClosestNeighbourByShapeHead(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, Vector2Int lastMousePositionOnBoard)
+    {
+        // Vector2 pointerWorldPos = Camera.main.ScreenToWorldPoint(eventData.position);
+
+        Vector2Int closestNodeCordinate = nodeGridBoardManager.GetNodeGridSystem2D.GetXY(shapeManager.GetHead.transform.position);
+
+
+        if (closestNodeCordinate == lastMousePositionOnBoard)
+        {
+            return null;
+        }
+
+        Debug.Log("closest cordinate -> " + closestNodeCordinate.x + " - " + closestNodeCordinate.y);
+
+        NodeManager closestNode = nodeGridBoardManager.GetNodeGridSystem2D.GetValue(closestNodeCordinate.x, closestNodeCordinate.y)?.GetValue();
+
+        if (closestNode == null)
+            return null;
+
+        //_shapeManager.GetEdgesMatching.Clear();
+
+        lastMousePositionOnBoard = closestNodeCordinate;
+        return closestNode;
+    }
+
+    public static bool CheckPathFromANode(ShapeManager shapeManager, NodeManager mainNodeManager, List<EdgeManager> edgeList, bool onlyCheck)
     {
         /* if(_currentNodeManager != null && _currentNodeManager != mainNodeManager)
         {
@@ -17,12 +51,12 @@ public static class PathChecker
             Debug.LogWarning("Exited from old node");
             
         } */
-        
+
         HideBlockShapeSlotSign(shapeManager);
         shapeManager.GetEdgesMatching.Clear();
 
         _currentNodeManager = mainNodeManager;
-        
+
 
 
         foreach (var direction in shapeManager.GetShapeData.ShapeDirections)
@@ -51,7 +85,7 @@ public static class PathChecker
         }
 
         Debug.Log("Can Place Shape!!");
-        
+
         ShowBlockShapeSlotSign(shapeManager);
 
         if (!onlyCheck) shapeManager.SetCanPlaceFlag(true);
@@ -79,7 +113,7 @@ public static class PathChecker
     {
         if (shapeManager.GetEdgesMatching.Count == 0)
         {
-            Debug.Log("NO EDGE TO HİDE");
+            Debug.Log("NO EDGE TO HIDE");
             return;
         }
 

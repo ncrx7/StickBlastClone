@@ -102,7 +102,7 @@ namespace Shapes
 
                     NodeManager nodeManager = gridNodeObject.GetValue();
 
-                    if (PathChecker.CheckPath(this, nodeManager, GetEdgesMatching, true)) //nodeManager.GetNodeCollisionManager.CheckShapePath(this, GetEdgesMatching, true)
+                    if (PathChecker.CheckPathFromANode(this, nodeManager, GetEdgesMatching, true)) //nodeManager.GetNodeCollisionManager.CheckShapePath(this, GetEdgesMatching, true)
                     {
                         return true;
                     }
