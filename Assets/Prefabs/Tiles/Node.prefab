@@ -11,8 +11,6 @@ GameObject:
   - component: {fileID: 4928687079623722477}
   - component: {fileID: 1163289047943036770}
   - component: {fileID: 4330924498566011489}
-  - component: {fileID: 1353402131668023912}
-  - component: {fileID: 5676994585695864002}
   - component: {fileID: 5618655445151326684}
   m_Layer: 0
   m_Name: Node
@@ -100,66 +98,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ce7a99edd48c5743bdb66ee40ba188b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _nodeCollisionManager: {fileID: 1353402131668023912}
+  _nodeCollisionManager: {fileID: 0}
   _nodeSpriteRenderer: {fileID: 1163289047943036770}
---- !u!114 &1353402131668023912
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9177824125330457333}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe07e0acce9c45d448c603f80d8b84c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainNodeManager: {fileID: 4330924498566011489}
---- !u!61 &5676994585695864002
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9177824125330457333}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 1
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0.049999997, y: 0.049999997, z: 0.049999997, w: 0.049999997}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.16, y: 0.16}
-    newSize: {x: 0.16, y: 0.16}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 0.32435206, y: 0.30229852}
-  m_EdgeRadius: 0
 --- !u!50 &5618655445151326684
 Rigidbody2D:
   serializedVersion: 4
