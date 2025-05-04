@@ -3,6 +3,13 @@ namespace Enums
     public enum ShapeType
     {
         LShape,
-        IShape
+        IShape,
+        HorizontalSingleLine,
+        HoriztontalDoubleLine,
+        VerticalIDoubleLine,
+        ReverseL,
+        Snake,
+        UShape
+
     }
 }
