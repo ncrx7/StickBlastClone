@@ -33,13 +33,13 @@ namespace Shapes
 
         private void OnEnable()
         {
-            MiniEventSystem.OnPlaceShape += () => DequeueShape().Forget();
+            MiniEventSystem.OnPlaceShape += HandleDequeue;
             MiniEventSystem.OnCompleteSceneInit += StartQueue;
         }
 
         private void OnDisable()
         {
-            MiniEventSystem.OnPlaceShape -= () => DequeueShape().Forget();
+            MiniEventSystem.OnPlaceShape -= HandleDequeue;
             MiniEventSystem.OnCompleteSceneInit -= StartQueue;
         }
 
@@ -104,12 +104,18 @@ namespace Shapes
             }
         }
 
+        private void HandleDequeue()
+        {
+            DequeueShape().Forget();
+        }
+
         private async UniTask DequeueShape()
         {
             _shapeQueue.Dequeue();
 
             //ShapeManager shapeSpawned = Instantiate(GetRandomShape(), _queueEndPoint.transform.position, Quaternion.identity, _transformHolder);
             ShapeManager shapeSpawned = _shapeFactory.Create(GetRandomShapeType(), _queueEndPoint.transform.position);
+            
             _shapeQueue.Enqueue(shapeSpawned);
 
             await RelocationShapes();
