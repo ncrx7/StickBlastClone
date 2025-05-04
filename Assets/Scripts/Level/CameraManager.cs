@@ -4,7 +4,7 @@ using DG.Tweening;
 using  UnityUtils.BaseClasses;
 using UnityEngine;
 
-public class CameraManager : SingletonBehavior<CameraManager>
+public class CameraManager : MonoBehaviour
 {
     [SerializeField] private Camera _camera;
     private float _defaultSize;

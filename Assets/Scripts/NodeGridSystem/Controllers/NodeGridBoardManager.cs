@@ -6,6 +6,7 @@ using UnityEngine;
 using Cysharp;
 using Cysharp.Threading.Tasks;
 using Enums;
+using Zenject;
 
 namespace NodeGridSystem.Controllers
 {
@@ -20,6 +21,14 @@ namespace NodeGridSystem.Controllers
 
         private NodeGridSystem2D<GridNodeObject<NodeManager>> _nodeGrid;
         private NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> _middleObjectGrid;
+
+        private CameraManager _cameraManager;
+
+        [Inject]
+        private void InitializeDependencies(CameraManager cameraManager)
+        {
+            _cameraManager = cameraManager;
+        }
 
         private void Start()
         {
@@ -177,7 +186,7 @@ namespace NodeGridSystem.Controllers
 
             if (rowCanDestroy)
             {
-                CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
+                _cameraManager.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
                 ComboManager.Instance.ResetCombo();
 
                 foreach (var midCell in midCells)
@@ -220,7 +229,7 @@ namespace NodeGridSystem.Controllers
 
             if (columnCanDestroy)
             {
-                CameraManager.Instance.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
+                _cameraManager.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
                 ComboManager.Instance.ResetCombo();
 
                 foreach (var midCell in midCells)

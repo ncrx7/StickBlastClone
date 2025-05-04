@@ -32,6 +32,7 @@ namespace Installers.Scene
             Container.Bind<Dictionary<VfxType, VfxPool<VfxType>>>().FromInstance(_vfxPoolMap).AsSingle();
 
             Container.Bind<NodeGridBoardManager>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<CameraManager>().FromComponentInHierarchy().AsSingle();
         }
 
         private void CreateShapePoolsBinding()
