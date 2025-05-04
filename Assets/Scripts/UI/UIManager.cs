@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using EntitiesData.Levels;
 using Enums;
+using Level;
 using Mainpanel;
 using TMPro;
 using Unity.VisualScripting;
@@ -19,6 +20,7 @@ namespace UI
     {
         [Header("References")]
         private GameManager _gameManager;
+        private ComboManager _comboManager;
         [SerializeField] private GameObject _loadingPanel;
         [SerializeField] private GameObject _gameOverPanelNoMatching;
         [SerializeField] private GameObject _gameOverPanelTimeOut;
@@ -37,10 +39,11 @@ namespace UI
         private LevelManager _levelManager;
 
         [Inject]
-        private void InitializeDependencies(LevelManager levelManager, GameManager gameManager)
+        private void InitializeDependencies(LevelManager levelManager, GameManager gameManager, ComboManager comboManager)
         {
             _levelManager = levelManager;
             _gameManager = gameManager;
+            _comboManager = comboManager;
         }
 
 
@@ -123,7 +126,7 @@ namespace UI
         {
             _comboText.gameObject.SetActive(true);
             _comboText.transform.localScale = Vector3.zero;
-            _comboText.text = "Combo " + ComboManager.Instance.GetCurrentComboAmount.ToString();
+            _comboText.text = "Combo " + _comboManager.GetCurrentComboAmount.ToString();
 
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.Combo);
 

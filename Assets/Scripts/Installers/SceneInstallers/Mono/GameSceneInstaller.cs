@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DataModel;
 using Enums;
+using Level;
 using Mainpanel;
 using NodeGridSystem.Controllers;
 using Shapes;
@@ -35,6 +36,7 @@ namespace Installers.Scene
             Container.Bind<NodeGridBoardManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<CameraManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<ComboManager>().FromComponentInHierarchy().AsSingle();
         }
 
         private void CreateShapePoolsBinding()

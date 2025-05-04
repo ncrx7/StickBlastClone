@@ -7,6 +7,7 @@ using Cysharp;
 using Cysharp.Threading.Tasks;
 using Enums;
 using Zenject;
+using Level;
 
 namespace NodeGridSystem.Controllers
 {
@@ -24,12 +25,15 @@ namespace NodeGridSystem.Controllers
 
         private GameManager _gameManager;
         private CameraManager _cameraManager;
+        private ComboManager _comboManager;
+
 
         [Inject]
-        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager)
+        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager)
         {
             _cameraManager = cameraManager;
             _gameManager = gameManager;
+            _comboManager = comboManager;
         }
 
         private void Start()
@@ -126,7 +130,7 @@ namespace NodeGridSystem.Controllers
 
             if (!MatchExist)
             {
-                ComboManager.Instance.ResetCombo();
+                _comboManager.ResetCombo();
             }
 
 
@@ -189,7 +193,7 @@ namespace NodeGridSystem.Controllers
             if (rowCanDestroy)
             {
                 _cameraManager.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
-                ComboManager.Instance.ResetCombo();
+                _comboManager.ResetCombo();
 
                 foreach (var midCell in midCells)
                 {
@@ -232,7 +236,7 @@ namespace NodeGridSystem.Controllers
             if (columnCanDestroy)
             {
                 _cameraManager.ZoomInAndOut(5.2f, 0.45f, 0.2f, 8);
-                ComboManager.Instance.ResetCombo();
+                _comboManager.ResetCombo();
 
                 foreach (var midCell in midCells)
                 {

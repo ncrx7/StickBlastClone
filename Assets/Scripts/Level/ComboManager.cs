@@ -3,33 +3,36 @@ using System.Collections.Generic;
 using UnityUtils.BaseClasses;
 using UnityEngine;
 
-public class ComboManager : SingletonBehavior<ComboManager>
+namespace Level
 {
-    [SerializeField] private int _currentComboAmount = 0;
-    public bool IsComboStreak { get; set; }
-
-    private void OnEnable()
+    public class ComboManager : MonoBehaviour
     {
-        MiniEventSystem.OnMidCellFill += IncreaseCombo;
+        [SerializeField] private int _currentComboAmount = 0;
+        public bool IsComboStreak { get; set; }
+
+        private void OnEnable()
+        {
+            MiniEventSystem.OnMidCellFill += IncreaseCombo;
+        }
+
+        private void OnDisable()
+        {
+            MiniEventSystem.OnMidCellFill -= IncreaseCombo;
+        }
+
+        public void IncreaseCombo()
+        {
+            _currentComboAmount++;
+
+            if (_currentComboAmount >= 2)
+                MiniEventSystem.OnComboIncrease?.Invoke();
+        }
+
+        public void ResetCombo()
+        {
+            _currentComboAmount = 0;
+        }
+
+        public int GetCurrentComboAmount => _currentComboAmount;
     }
-
-    private void OnDisable()
-    {
-        MiniEventSystem.OnMidCellFill -= IncreaseCombo;
-    }
-
-    public void IncreaseCombo()
-    {
-        _currentComboAmount++;
-
-        if(_currentComboAmount >= 2)
-            MiniEventSystem.OnComboIncrease?.Invoke();
-    }
-
-    public void ResetCombo()
-    {
-        _currentComboAmount = 0;
-    }
-
-    public int GetCurrentComboAmount => _currentComboAmount;
 }
