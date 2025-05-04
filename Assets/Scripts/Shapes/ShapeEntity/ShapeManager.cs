@@ -90,6 +90,12 @@ namespace Shapes
             return false;
         }
 
+        public void Reset()
+        {
+            SetCanMoveFlag(false);
+            SetCanPlaceFlag(false);
+        }
+
         public ShapeData GetShapeData => _shapeData;
         public List<EdgeManager> GetEdgesMatching => _edgesMatching;
         public bool GetCanPlaceFlag => _canPlace;

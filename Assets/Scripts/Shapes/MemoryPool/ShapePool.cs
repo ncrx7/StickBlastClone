@@ -20,6 +20,8 @@ public class ShapePool<Ttype> : MonoMemoryPool<ShapeManager> where Ttype : Enum
     protected override void OnDespawned(ShapeManager item)
     {
         item.gameObject.SetActive(false);
+
+        item.Reset();
     }
 
 }
