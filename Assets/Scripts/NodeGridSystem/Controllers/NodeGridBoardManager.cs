@@ -8,17 +8,13 @@ using Cysharp.Threading.Tasks;
 using Enums;
 using Zenject;
 using Level;
+using DataModel;
 
 namespace NodeGridSystem.Controllers
 {
     public class NodeGridBoardManager : MonoBehaviour
     {
-        [Header("Node Grid Settings")]
-        [SerializeField] private int _width = 6;
-        [SerializeField] private int _height = 6;
-        [SerializeField] private float _cellSize = 1f;
-        [SerializeField] private Vector3 _originPosition = Vector3.zero;
-        [SerializeField] private bool _debug = true;
+        private GameSettings _gameSettings;
 
         private NodeGridSystem2D<GridNodeObject<NodeManager>> _nodeGrid;
         private NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> _middleObjectGrid;
@@ -29,11 +25,12 @@ namespace NodeGridSystem.Controllers
 
 
         [Inject]
-        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager)
+        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings)
         {
             _cameraManager = cameraManager;
             _gameManager = gameManager;
             _comboManager = comboManager;
+            _gameSettings = gameSettings;
         }
 
         private void Start()
@@ -43,8 +40,8 @@ namespace NodeGridSystem.Controllers
 
         private async void InitializeBoard()
         {
-            _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_width, _height, _cellSize, _originPosition, _debug);
-            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_width - 1, _height - 1, _cellSize, _originPosition, _debug);
+            _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_gameSettings.Width, _gameSettings.height, _gameSettings.CellSize, _gameSettings.OriginPosition, _gameSettings.Debug);
+            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_gameSettings.Width - 1, _gameSettings.height - 1, _gameSettings.CellSize, _gameSettings.OriginPosition, _gameSettings.Debug);
 
             MiniEventSystem.ActivateLoadingUI?.Invoke();
             _gameManager.IsGamePaused = true;
@@ -60,9 +57,9 @@ namespace NodeGridSystem.Controllers
 
         private async UniTask InitNodes()
         {
-            for (int x = 0; x < _width; x++)
+            for (int x = 0; x < _gameSettings.Width; x++)
             {
-                for (int y = 0; y < _height; y++)
+                for (int y = 0; y < _gameSettings.height; y++)
                 {
                     MiniEventSystem.OnCreateEntity?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, _middleObjectGrid, 1);
                 }
@@ -73,9 +70,9 @@ namespace NodeGridSystem.Controllers
 
         private async UniTask InitNeigbours()
         {
-            for (int x = 0; x < _width; x++)
+            for (int x = 0; x < _gameSettings.Width; x++)
             {
-                for (int y = 0; y < _height; y++)
+                for (int y = 0; y < _gameSettings.height; y++)
                 {
                     var gridNodeObject = _nodeGrid.GetValue(x, y);
                     gridNodeObject.InitNeighbourGridObjects();
@@ -91,9 +88,9 @@ namespace NodeGridSystem.Controllers
 
         private async UniTask InitMiddleArea()
         {
-            for (int x = 0; x < _width - 1; x++)
+            for (int x = 0; x < _gameSettings.Width - 1; x++)
             {
-                for (int y = 0; y < _height - 1; y++)
+                for (int y = 0; y < _gameSettings.height - 1; y++)
                 {
                     MiniEventSystem.OnCreateEntity?.Invoke(EntityType.MidCell, x, y, _nodeGrid, _middleObjectGrid, 1);
                 }
@@ -176,7 +173,7 @@ namespace NodeGridSystem.Controllers
             midCells.Clear();
             bool rowCanDestroy = true;
 
-            for (int x = 0; x < _width - 1; x++)
+            for (int x = 0; x < _gameSettings.Width - 1; x++)
             {
                 var midCellGridObject = _middleObjectGrid.GetValue(x, y);
                 MiddleFillAreaManager midCell = midCellGridObject.GetValue();
@@ -219,7 +216,7 @@ namespace NodeGridSystem.Controllers
             midCells.Clear();
             bool columnCanDestroy = true;
 
-            for (int y = 0; y < _height - 1; y++)
+            for (int y = 0; y < _gameSettings.height - 1; y++)
             {
                 var midCellGridObject = _middleObjectGrid.GetValue(x, y);
                 MiddleFillAreaManager midCell = midCellGridObject.GetValue();
@@ -256,9 +253,9 @@ namespace NodeGridSystem.Controllers
 
         }
 
-        public float GetCellSize => _cellSize;
-        public int GetWidth => _width;
-        public int GetHeight => _height;
+        public float GetCellSize => _gameSettings.CellSize;
+        public int GetWidth => _gameSettings.Width;
+        public int GetHeight => _gameSettings.height;
         public NodeGridSystem2D<GridNodeObject<NodeManager>> GetNodeGridSystem2D => _nodeGrid;
 
     }

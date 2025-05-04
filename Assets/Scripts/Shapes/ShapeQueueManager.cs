@@ -7,6 +7,7 @@ using DG.Tweening;
 using UnityUtils.BaseClasses;
 using Enums;
 using Zenject;
+using DataModel;
 
 
 namespace Shapes
@@ -14,14 +15,12 @@ namespace Shapes
     public class ShapeQueueManager : MonoBehaviour
     {
         private GameManager _gameManager;
+        private GameSettings _gameSettings;
 
         [SerializeField] private Transform _transformHolder;
         [SerializeField] private Queue<ShapeManager> _shapeQueue = new();
-        [SerializeField] private List<ShapeManager> _shapePrefaps;
         [SerializeField] private Transform _queueStartingPoint;
         [SerializeField] private Transform _queueEndPoint;
-        [SerializeField] private float _margin;
-        [SerializeField] private float _animationTime;
 
         [SerializeField] private ShapeFactory<ShapeType> _shapeFactory;
 
@@ -29,10 +28,11 @@ namespace Shapes
 
 
         [Inject]
-        private void InitializeDependencies(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager)
+        private void InitializeDependencies(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings)
         {
             _shapeFactory = shapeFactory;
             _gameManager = gameManager;
+            _gameSettings = gameSettings;
         }
 
         private void OnEnable()
@@ -88,7 +88,7 @@ namespace Shapes
 
             foreach (ShapeManager shape in _shapeQueue)
             {
-                shape.transform.DOMove(_currentPosition, _animationTime).OnComplete(() =>
+                shape.transform.DOMove(_currentPosition, _gameSettings.AnimationTime).OnComplete(() =>
                 {
                     if (index == 0)
                     {
@@ -102,7 +102,7 @@ namespace Shapes
                 }
                 );
 
-                _currentPosition.x -= _margin;
+                _currentPosition.x -= _gameSettings.Margin;
 
                 await UniTask.Delay(50);
             }
@@ -124,11 +124,6 @@ namespace Shapes
 
             await RelocationShapes();
 
-        }
-
-        private ShapeManager GetRandomShape()
-        {
-            return _shapePrefaps[Random.Range(0, _shapePrefaps.Count)];
         }
 
         public static ShapeType GetRandomShapeType()

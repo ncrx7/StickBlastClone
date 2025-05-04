@@ -1144,29 +1144,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _transformHolder: {fileID: 322722672}
-  _shapePrefaps:
-  - {fileID: 4903789777972384193, guid: d6755efcf0d8d7344bac80089bf0b9d8, type: 3}
-  - {fileID: 3708746280459013173, guid: acf972dce571cf64796b69ea3ccbdd7c, type: 3}
-  - {fileID: 2598852815938893267, guid: 45c6c36d371a9f148a1a294b52cd9604, type: 3}
-  - {fileID: 1373498106380250343, guid: a0b495d4801363542862fc77a024c5a9, type: 3}
-  - {fileID: 9202095058957374721, guid: 03eaa325bb7fed44bb745e51b5ce2e30, type: 3}
-  - {fileID: 3510645640282081004, guid: b65c2dd5b0c737941a630a902544b0a1, type: 3}
-  - {fileID: 8221752164733170773, guid: 90ac32e1334b3c74aae3ac61a04b3a00, type: 3}
-  - {fileID: 3985799703507218235, guid: 2822422ca880c07408d120421ddc238a, type: 3}
-  - {fileID: 4903789777972384193, guid: d6755efcf0d8d7344bac80089bf0b9d8, type: 3}
-  - {fileID: 2598852815938893267, guid: 45c6c36d371a9f148a1a294b52cd9604, type: 3}
-  - {fileID: 4903789777972384193, guid: d6755efcf0d8d7344bac80089bf0b9d8, type: 3}
-  - {fileID: 2598852815938893267, guid: 45c6c36d371a9f148a1a294b52cd9604, type: 3}
-  - {fileID: 8221752164733170773, guid: 90ac32e1334b3c74aae3ac61a04b3a00, type: 3}
-  - {fileID: 3510645640282081004, guid: b65c2dd5b0c737941a630a902544b0a1, type: 3}
-  - {fileID: 2598852815938893267, guid: 45c6c36d371a9f148a1a294b52cd9604, type: 3}
-  - {fileID: 4903789777972384193, guid: d6755efcf0d8d7344bac80089bf0b9d8, type: 3}
-  - {fileID: 4903789777972384193, guid: d6755efcf0d8d7344bac80089bf0b9d8, type: 3}
-  - {fileID: 2598852815938893267, guid: 45c6c36d371a9f148a1a294b52cd9604, type: 3}
   _queueStartingPoint: {fileID: 1970185951}
   _queueEndPoint: {fileID: 1410631186}
-  _margin: 2.25
-  _animationTime: 0.5
 --- !u!114 &336230715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2759,7 +2738,7 @@ Transform:
   m_GameObject: {fileID: 1001947332}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -7.351202, y: -3.0615592, z: -0.12153616}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -4047,11 +4026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6190b2faf18174db8d5e78965958ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _width: 6
-  _height: 6
-  _cellSize: 1
-  _originPosition: {x: -3, y: -3, z: 0}
-  _debug: 0
 --- !u!1 &1538591328
 GameObject:
   m_ObjectHideFlags: 0
@@ -4829,8 +4803,6 @@ MonoBehaviour:
   _levelText: {fileID: 1547805591}
   _comboText: {fileID: 1325675692}
   _slider: {fileID: 1538591330}
-  _comboTextAnimationTime: 0.5
-  _comboTextScaleFactor: {x: 1.5, y: 1.5, z: 1.5}
 --- !u!1 &1970185950
 GameObject:
   m_ObjectHideFlags: 0
@@ -5136,8 +5108,8 @@ SceneRoots:
   m_Roots:
   - {fileID: 519420032}
   - {fileID: 339569515}
-  - {fileID: 630723602}
   - {fileID: 689431447}
+  - {fileID: 630723602}
   - {fileID: 662371123}
   - {fileID: 907511729}
   - {fileID: 683653277}

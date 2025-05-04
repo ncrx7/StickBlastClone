@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using DataModel;
 using DG.Tweening;
 using EntitiesData.Levels;
 using Enums;
@@ -32,18 +33,17 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _comboText;
         [SerializeField] private Slider _slider;
 
-        [Header("Settings")]
-        [SerializeField] private float _comboTextAnimationTime;
-        [SerializeField] private Vector3 _comboTextScaleFactor;
+        private GameSettings _gameSettings;
 
         private LevelManager _levelManager;
 
         [Inject]
-        private void InitializeDependencies(LevelManager levelManager, GameManager gameManager, ComboManager comboManager)
+        private void InitializeDependencies(LevelManager levelManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings)
         {
             _levelManager = levelManager;
             _gameManager = gameManager;
             _comboManager = comboManager;
+            _gameSettings = gameSettings;
         }
 
 
@@ -130,11 +130,11 @@ namespace UI
 
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.Combo);
 
-            _comboText.transform.DOScale(_comboTextScaleFactor, _comboTextAnimationTime)
+            _comboText.transform.DOScale(_gameSettings.ComboTextScaleFactor, _gameSettings.ComboTextAnimationTime)
                 .SetEase(Ease.OutBack)
                 .OnComplete(() =>
                 {
-                    _comboText.transform.DOScale(Vector3.zero, _comboTextAnimationTime)
+                    _comboText.transform.DOScale(Vector3.zero, _gameSettings.ComboTextAnimationTime)
                         .SetEase(Ease.InBack)
                         .OnComplete(() => _comboText.gameObject.SetActive(false));
                 });

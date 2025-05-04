@@ -47,3 +47,29 @@ MonoBehaviour:
       Type: 2
     - VfxPrefab: {fileID: 2102999931433593722, guid: 06f3d08da7e77854da6a7e0030c09c6e, type: 3}
       Type: 3
+    Width: 6
+    height: 6
+    CellSize: 1
+    OriginPosition: {x: -3, y: -3, z: 0}
+    Debug: 1
+    Margin: 2.25
+    AnimationTime: 0.5
+    ComboTextAnimationTime: 0.5
+    ComboTextScaleFactor: {x: 1.5, y: 1.5, z: 1.5}
+    Sounds:
+    - SoundType: 0
+      Clip: {fileID: 8300000, guid: 6d4aa81238cbc8348b000c8ee8e528df, type: 3}
+    - SoundType: 3
+      Clip: {fileID: 8300000, guid: 179a7a7e22aa5834b960a71935a30d1f, type: 3}
+    - SoundType: 1
+      Clip: {fileID: 8300000, guid: 6be930ea1efb0544a9482fdf2e4726a0, type: 3}
+    - SoundType: 2
+      Clip: {fileID: 8300000, guid: 75e0615e8a22ab641970f024a49c8520, type: 3}
+    - SoundType: 4
+      Clip: {fileID: 8300000, guid: 9935c0b699babee49837209b40ecf750, type: 3}
+    - SoundType: 5
+      Clip: {fileID: 8300000, guid: 63e9ec3723484154e82d76341197f85b, type: 3}
+    - SoundType: 6
+      Clip: {fileID: 8300000, guid: e6bc0f4e0a51554449d2d500103c9251, type: 3}
+    - SoundType: 7
+      Clip: {fileID: 8300000, guid: dc6ed9228fb8d864d93c280918974901, type: 3}
