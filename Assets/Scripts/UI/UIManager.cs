@@ -80,7 +80,7 @@ namespace UI
 
         private void UpdateLevelText()
         {
-            _levelText.text = "Level " + (_levelManager.GetLevel + 1).ToString();
+            _levelText.text = "Level " + _levelManager.GetLevel.ToString();
         }
 
         private void ActivateGameEndPanel(int gameEndID)
