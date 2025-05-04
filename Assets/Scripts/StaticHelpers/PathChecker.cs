@@ -30,7 +30,7 @@ public static class PathChecker
             return null;
         }
 
-        Debug.Log("closest cordinate -> " + closestNodeCordinate.x + " - " + closestNodeCordinate.y);
+        //Debug.Log("closest cordinate -> " + closestNodeCordinate.x + " - " + closestNodeCordinate.y);
 
         NodeManager closestNode = nodeGridBoardManager.GetNodeGridSystem2D.GetValue(closestNodeCordinate.x, closestNodeCordinate.y)?.GetValue();
 
@@ -61,7 +61,7 @@ public static class PathChecker
 
         foreach (var direction in shapeManager.GetShapeData.ShapeDirections)
         {
-            Debug.Log("current node: " + _currentNodeManager.gameObject.name);
+            //Debug.Log("current node: " + _currentNodeManager.gameObject.name);
             EdgeManager currentEdge = _currentNodeManager.GetNodeEdge(direction);
 
             if (currentEdge == null)
@@ -84,7 +84,7 @@ public static class PathChecker
             _currentNodeManager = _currentNodeManager.OnGridNodeObject.GetNeighbourGridObject(direction).GetValue();
         }
 
-        Debug.Log("Can Place Shape!!");
+        //Debug.Log("Can Place Shape!!");
 
         ShowBlockShapeSlotSign(shapeManager);
 
@@ -113,7 +113,7 @@ public static class PathChecker
     {
         if (shapeManager.GetEdgesMatching.Count == 0)
         {
-            Debug.Log("NO EDGE TO HIDE");
+            //Debug.Log("NO EDGE TO HIDE");
             return;
         }
 
