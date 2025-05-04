@@ -13,6 +13,8 @@ namespace Shapes
 {
     public class ShapeQueueManager : MonoBehaviour
     {
+        private GameManager _gameManager;
+
         [SerializeField] private Transform _transformHolder;
         [SerializeField] private Queue<ShapeManager> _shapeQueue = new();
         [SerializeField] private List<ShapeManager> _shapePrefaps;
@@ -25,10 +27,12 @@ namespace Shapes
 
         private Vector3 _currentPosition;
 
+
         [Inject]
-        private void InitializeDependencies(ShapeFactory<ShapeType> shapeFactory)
+        private void InitializeDependencies(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager)
         {
             _shapeFactory = shapeFactory;
+            _gameManager = gameManager;
         }
 
         private void OnEnable()
@@ -88,7 +92,7 @@ namespace Shapes
                 {
                     if (index == 0)
                     {
-                        if (!shape.CheckRelativeMatchExist() && !GameManager.Instance.IsGamePaused)
+                        if (!shape.CheckRelativeMatchExist() && !_gameManager.IsGamePaused)
                             MiniEventSystem.OnEndGame?.Invoke(0);
 
                         shape.SetCanMoveFlag(true);
@@ -115,7 +119,7 @@ namespace Shapes
 
             //ShapeManager shapeSpawned = Instantiate(GetRandomShape(), _queueEndPoint.transform.position, Quaternion.identity, _transformHolder);
             ShapeManager shapeSpawned = _shapeFactory.Create(GetRandomShapeType(), _queueEndPoint.transform.position);
-            
+
             _shapeQueue.Enqueue(shapeSpawned);
 
             await RelocationShapes();

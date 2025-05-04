@@ -4,11 +4,13 @@ using System.Collections.Generic;
 using NodeGridSystem.Controllers;
 using NodeGridSystem.Models;
 using UnityEngine;
+using Zenject;
 
 namespace NodeGridSystem.Controllers
 {
     public class EdgeManager : MonoBehaviour
     {
+        private GameManager _gameManager;
         [SerializeField] private SpriteRenderer _edgeSprite;
         [SerializeField] private SpriteRenderer _blockShapeSprite;
         private Color _blockShapeDefaultColor;
@@ -19,6 +21,13 @@ namespace NodeGridSystem.Controllers
 
 
         public bool IsEmpty = true;
+
+        [Inject]
+        private void InitializeDependencies(GameManager gameManager)
+        {
+            
+            _gameManager = gameManager;
+        }
 
         private void Start()
         {
@@ -61,7 +70,7 @@ namespace NodeGridSystem.Controllers
 
         public void PaintEdge()
         {
-            GetBlockShapeSpriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
+            GetBlockShapeSpriteRenderer.color = _gameManager.GetLevelData.LevelColor;
         }
 
         public void AddMidCellToList(MiddleFillAreaManager midCell)

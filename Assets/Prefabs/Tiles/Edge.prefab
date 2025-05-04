@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 2793889554105356535}
   - component: {fileID: 1652591754946761236}
   - component: {fileID: 650367425749872645}
+  - component: {fileID: 678950742805765403}
   m_Layer: 0
   m_Name: Edge
   m_TagString: Untagged
@@ -102,7 +103,21 @@ MonoBehaviour:
   _blockShapeSprite: {fileID: 1218442144212233322}
   StartNode: {fileID: 0}
   EndNode: {fileID: 0}
+  _midCellAreasBelongsTo: []
   IsEmpty: 1
+--- !u!114 &678950742805765403
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4674475780009464314}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 717a02054ef2699498e6bd4234fd7995, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _containerSource: 2
 --- !u!1 &9222721317181906386
 GameObject:
   m_ObjectHideFlags: 0

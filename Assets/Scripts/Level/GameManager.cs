@@ -6,7 +6,7 @@ using UnityUtils.BaseClasses;
 using UnityEngine;
 using Zenject;
 
-public class GameManager : SingletonBehavior<GameManager>
+public class GameManager : MonoBehaviour
 {
     private LevelManager _levelManager;
 

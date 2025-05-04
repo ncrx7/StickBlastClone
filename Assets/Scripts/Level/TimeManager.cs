@@ -5,15 +5,24 @@ using System.Threading;
 using Cysharp.Threading.Tasks;
 using Enums;
 using UnityEngine;
+using Zenject;
 
 public class TimeManager : MonoBehaviour
 {
     [SerializeField] private int _time;
     CancellationTokenSource _cts;
 
+    private GameManager _gameManager;
+
+    [Inject]
+    private void InitializeDependencies(GameManager gameManager)
+    {
+        _gameManager = gameManager;
+    }
+
     private void Start()
     {
-        _time = GameManager.Instance.GetLevelData.Timer;
+        _time = _gameManager.GetLevelData.Timer;
 
         _cts = new CancellationTokenSource();
 
@@ -38,9 +47,9 @@ public class TimeManager : MonoBehaviour
 
     private async UniTaskVoid StartCountdown(int duration, CancellationToken cancellationToken)
     {
-        await UniTask.WaitUntil(() => GameManager.Instance.IsGamePaused == false);
+        await UniTask.WaitUntil(() => _gameManager.IsGamePaused == false);
 
-        while (duration >= 0 && !GameManager.Instance.IsGamePaused)
+        while (duration >= 0 && !_gameManager.IsGamePaused)
         {
             if (cancellationToken.IsCancellationRequested)
                 return; 

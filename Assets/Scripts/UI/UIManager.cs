@@ -18,6 +18,7 @@ namespace UI
     public class UIManager : MonoBehaviour
     {
         [Header("References")]
+        private GameManager _gameManager;
         [SerializeField] private GameObject _loadingPanel;
         [SerializeField] private GameObject _gameOverPanelNoMatching;
         [SerializeField] private GameObject _gameOverPanelTimeOut;
@@ -36,9 +37,10 @@ namespace UI
         private LevelManager _levelManager;
 
         [Inject]
-        private void InitializeDependencies(LevelManager levelManager)
+        private void InitializeDependencies(LevelManager levelManager, GameManager gameManager)
         {
             _levelManager = levelManager;
+            _gameManager = gameManager;
         }
 
 
@@ -80,7 +82,7 @@ namespace UI
 
         private void ActivateGameEndPanel(int gameEndID)
         {
-            if (GameManager.Instance.IsGamePaused)
+            if (_gameManager.IsGamePaused)
                 return;
 
             switch (gameEndID)
@@ -103,18 +105,18 @@ namespace UI
             }
 
 
-            GameManager.Instance.IsGamePaused = true;
+            _gameManager.IsGamePaused = true;
         }
 
         private void SetInitialTextsOnScene()
         {
-            _levelReachScore.text = GameManager.Instance.GetLevelData.LevelReachScore.ToString();
+            _levelReachScore.text = _gameManager.GetLevelData.LevelReachScore.ToString();
         }
 
         private void UpdateScoreUI(int newScore)
         {
             _score.text = newScore.ToString();
-            _slider.value = (float)newScore / GameManager.Instance.GetLevelData.LevelReachScore;
+            _slider.value = (float)newScore / _gameManager.GetLevelData.LevelReachScore;
         }
 
         private void HandleComboText()

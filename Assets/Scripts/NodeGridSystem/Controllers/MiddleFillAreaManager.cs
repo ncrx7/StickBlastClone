@@ -5,17 +5,26 @@ using Enums;
 using NodeGridSystem.Controllers;
 using NodeGridSystem.Models;
 using UnityEngine;
+using Zenject;
 
 namespace NodeGridSystem.Controllers
 {
     [RequireComponent(typeof(SpriteRenderer))]
     public class MiddleFillAreaManager : MonoBehaviour
     {
+        private GameManager _gameManager;
+
         [SerializeField] private SpriteRenderer _rectangleSprite;
         [SerializeField] private float _scaleAnimationTime;
         public GridNodeObject<MiddleFillAreaManager> OnGridNodeObject { get; private set; }
         public List<EdgeManager> edges = new();
         public bool IsFilled = false;
+
+        [Inject]
+        private void InitializeDependencies(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
 
         public void AddEdgeToList(EdgeManager edgeManager)
         {
@@ -107,7 +116,7 @@ namespace NodeGridSystem.Controllers
 
         public void PaintMidCell()
         {
-            GetSpriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
+            GetSpriteRenderer.color = _gameManager.GetLevelData.LevelColor;
         }
 
         public SpriteRenderer GetSpriteRenderer => _rectangleSprite;

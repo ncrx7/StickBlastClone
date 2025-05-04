@@ -4,6 +4,7 @@ using NodeGridSystem.Models;
 using UnityEngine;
 using Enums;
 using System.Linq;
+using Zenject;
 
 namespace NodeGridSystem.Controllers
 {
@@ -11,12 +12,19 @@ namespace NodeGridSystem.Controllers
     public class NodeManager : MonoBehaviour
     {
         #region References
+        private GameManager _gameManager;
         [SerializeField] private SpriteRenderer _nodeSpriteRenderer;
         public GridNodeObject<NodeManager> OnGridNodeObject { get; private set; }
 
         public Dictionary<Direction, EdgeManager> _nodeEdges = new();
         public bool NodePainted { get; set; }
         #endregion
+
+        [Inject]
+        private void InitializeDependencies(GameManager gameManager)
+        {
+            _gameManager = gameManager;
+        }
 
         #region Public Methods
         public void SetGridObjectOnNode(GridNodeObject<NodeManager> gridNodeObject)
@@ -42,12 +50,12 @@ namespace NodeGridSystem.Controllers
         public void PaintNode()
         {
             NodePainted = true;
-            GetSpriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
+            GetSpriteRenderer.color = _gameManager.GetLevelData.LevelColor;
         }
 
         public void IndicatorPaintNode()
         {
-            GetSpriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
+            GetSpriteRenderer.color = _gameManager.GetLevelData.LevelColor;
         }
 
         public void ResetNode()

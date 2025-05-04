@@ -34,6 +34,7 @@ namespace Installers.Scene
 
             Container.Bind<NodeGridBoardManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<CameraManager>().FromComponentInHierarchy().AsSingle();
+            Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle();
         }
 
         private void CreateShapePoolsBinding()

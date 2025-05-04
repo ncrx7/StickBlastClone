@@ -13,6 +13,7 @@ namespace Shapes
 {
     public class ShapeManager : MonoBehaviour
     {
+        private GameManager _gameManager;
         private NodeGridBoardManager _nodeGridBoardManager;
         [SerializeField] private List<SpriteRenderer> _spriteRendererList;
         [SerializeField] private ShapeData _shapeData;
@@ -26,9 +27,10 @@ namespace Shapes
         public Action _placeCallBack;
 
         [Inject]
-        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager)
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, GameManager gameManager)
         {
             _nodeGridBoardManager = nodeGridBoardManager;
+            _gameManager = gameManager;
         }
 
 
@@ -46,7 +48,7 @@ namespace Shapes
         {
             foreach (var spriteRenderer in _spriteRendererList)
             {
-                spriteRenderer.color = GameManager.Instance.GetLevelData.LevelColor;
+                spriteRenderer.color = _gameManager.GetLevelData.LevelColor;
             }
         }
 

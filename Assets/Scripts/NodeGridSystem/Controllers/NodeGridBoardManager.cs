@@ -22,12 +22,14 @@ namespace NodeGridSystem.Controllers
         private NodeGridSystem2D<GridNodeObject<NodeManager>> _nodeGrid;
         private NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> _middleObjectGrid;
 
+        private GameManager _gameManager;
         private CameraManager _cameraManager;
 
         [Inject]
-        private void InitializeDependencies(CameraManager cameraManager)
+        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager)
         {
             _cameraManager = cameraManager;
+            _gameManager = gameManager;
         }
 
         private void Start()
@@ -41,14 +43,14 @@ namespace NodeGridSystem.Controllers
             _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_width - 1, _height - 1, _cellSize, _originPosition, _debug);
 
             MiniEventSystem.ActivateLoadingUI?.Invoke();
-            GameManager.Instance.IsGamePaused = true;
+            _gameManager.IsGamePaused = true;
 
             await InitNodes();
             await InitNeigbours();
             await InitMiddleArea();
             await UniTask.Delay(1000);
 
-            GameManager.Instance.IsGamePaused = false;
+            _gameManager.IsGamePaused = false;
             MiniEventSystem.DeactivateLoadingUI?.Invoke();
         }
 
@@ -198,7 +200,7 @@ namespace NodeGridSystem.Controllers
                     MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
-                    MiniEventSystem.IncreaseScore?.Invoke(GameManager.Instance.GetScore + GameManager.Instance.GetScoreIncreaseAmountPerCellDestroy);
+                    MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
 
                     await UniTask.Delay(50);
                 }
@@ -242,7 +244,7 @@ namespace NodeGridSystem.Controllers
 
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
-                    MiniEventSystem.IncreaseScore?.Invoke(GameManager.Instance.GetScore + GameManager.Instance.GetScoreIncreaseAmountPerCellDestroy);
+                    MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
 
                     await UniTask.Delay(50);
                 }
