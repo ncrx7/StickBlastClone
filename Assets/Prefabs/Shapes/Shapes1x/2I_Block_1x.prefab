@@ -292,6 +292,50 @@ MonoBehaviour:
   _shapeManager: {fileID: 9202095058957374721}
   _parentTransform: {fileID: 4539515784171508591}
   _pointerYOffset: 1.75
+--- !u!1 &5861315073432730399
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8894363226224593995}
+  - component: {fileID: 5568254473142952957}
+  m_Layer: 0
+  m_Name: Installer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8894363226224593995
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5861315073432730399}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4539515784171508591}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5568254473142952957
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5861315073432730399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f726e1fbe16ac340b04d340a6874649, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7778130991612247888
 GameObject:
   m_ObjectHideFlags: 0
@@ -303,6 +347,7 @@ GameObject:
   - component: {fileID: 4539515784171508591}
   - component: {fileID: 505644954597829991}
   - component: {fileID: 9202095058957374721}
+  - component: {fileID: -4962687344636564710}
   m_Layer: 0
   m_Name: 2I_Block_1x
   m_TagString: Untagged
@@ -325,6 +370,7 @@ Transform:
   m_Children:
   - {fileID: 7093409824584170485}
   - {fileID: 5733101502099952600}
+  - {fileID: 8894363226224593995}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!61 &505644954597829991
@@ -391,3 +437,21 @@ MonoBehaviour:
   _canPlace: 0
   _canMove: 0
   IsDragging: 0
+--- !u!114 &-4962687344636564710
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7778130991612247888}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08eca9f7688a0a24685b89133b020c8e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _scriptableObjectInstallers: []
+  _monoInstallers:
+  - {fileID: 5568254473142952957}
+  _installerPrefabs: []
+  _autoRun: 1
+  _kernel: {fileID: 0}

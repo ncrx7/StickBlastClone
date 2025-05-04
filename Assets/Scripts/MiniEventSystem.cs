@@ -8,6 +8,7 @@ using Enums;
 
 public static class MiniEventSystem 
 {
+    public static Action OnCompleteSceneInit;
     public static Action<EntityType, int, int, NodeGridSystem2D<GridNodeObject<NodeManager>>, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>, int> OnCreateEntity;
     public static Action OnPlaceShape;
     public static Action<SoundType> PlaySoundClip;
