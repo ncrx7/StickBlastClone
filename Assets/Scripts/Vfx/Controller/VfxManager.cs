@@ -2,13 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using Enums;
 using UnityEngine;
+using UnityUtils.Core.VfxSystem;
 using Vfx.Models;
+using Zenject;
 
 namespace Vfx.Controllers
 {
     public class VfxManager : MonoBehaviour
     {
-        [SerializeField] private List<VisualEffect> _visualEffects;
+        private VfxFactory<VfxType> _vfxFactory;
+
+        [Inject]
+        private void InitializeDependencies(VfxFactory<VfxType> vfxFactory)
+        {
+            _vfxFactory = vfxFactory;
+        }
 
         private void OnEnable()
         {
@@ -22,16 +30,7 @@ namespace Vfx.Controllers
 
         private void HandlePlayVfx(Vector2 targetPosition, VfxType vfxType)
         {
-            VisualEffect vfx = _visualEffects.Find(v => v.VfxType == vfxType);
-            if (vfx != null && vfx.VfxPrefab != null)
-            {
-                GameObject spawnedVfx = Instantiate(vfx.VfxPrefab, targetPosition, Quaternion.identity);
-                Destroy(spawnedVfx, vfx.Duration);
-            }
-            else
-            {
-                Debug.LogWarning("Undefined vfx TYPE!!");
-            }
+            _vfxFactory.Create(vfxType, targetPosition, 0.75f, 200);
         }
     }
 }
