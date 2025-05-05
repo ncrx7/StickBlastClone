@@ -14,7 +14,7 @@ namespace Mainpanel
     public class LevelManager : MonoBehaviour
     {
         [SerializeField] private List<LevelData> _levelDataList;
-        [SerializeField] private int _currentLevel = 0;
+        [SerializeField] private int _currentLevel;
 
         private GameDataHandler _gameDataHandler;
 
@@ -49,7 +49,8 @@ namespace Mainpanel
         {
             _currentLevel++;
 
-            _currentLevel %= _levelDataList.Count;
+            if(_currentLevel % (_levelDataList.Count + 1) == 0 )
+                _currentLevel = 1;
 
             _gameDataHandler.GetGameDataObjectReference().UserLevel = _currentLevel;
 
