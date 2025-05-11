@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using Data.Controllers;
 using DataModel;
 using Enums;
 using UnityEngine;
@@ -11,6 +12,7 @@ namespace Shapes
     public class ShapeHolderCreator : MonoBehaviour
     {
         public enum ShapeHolderType {Queue, UnOrdered}
+
         private IShapeHolderCreateService _shapeHolderCreateService;
         [SerializeField] private ShapeHolderType _shapeHolderType;
 
@@ -18,16 +20,19 @@ namespace Shapes
         [SerializeField] private Transform _queueStartingPoint;
         [SerializeField] private Transform _queueEndPoint;
 
+
+        private GameDataHandler _gameDataHandler;
         private GameManager _gameManager;
         private GameSettings _gameSettings;
         [SerializeField] private ShapeFactory<ShapeType> _shapeFactory;
 
         [Inject]
-        private void InitializeDependencies(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings)
+        private void InitializeDependencies(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings, GameDataHandler gameDataHandler)
         {
             _shapeFactory = shapeFactory;
             _gameManager = gameManager;
             _gameSettings = gameSettings;
+            _gameDataHandler = gameDataHandler;
         }
 
         private void OnEnable()
@@ -51,6 +56,8 @@ namespace Shapes
 
         private async void SetShapeHolderService()
         {
+            _shapeHolderType = _gameDataHandler.shapeHolderType;
+            
             switch (_shapeHolderType)
             {
                 case ShapeHolderType.Queue:

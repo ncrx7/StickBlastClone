@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Data.Model;
+using Shapes;
 using UnityEngine;
 using UnityUtils.Core.DataManagment;
 
@@ -13,6 +14,8 @@ namespace Data.Controllers
         [SerializeField] GameData _gameData;
         private DataWriterAndReader<GameData> _dataWriterAndReader;
         public bool IsDataLoadFinished = false;
+
+        public ShapeHolderCreator.ShapeHolderType shapeHolderType;
 
         private void Awake()
         {

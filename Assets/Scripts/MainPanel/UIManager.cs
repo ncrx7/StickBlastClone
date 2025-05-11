@@ -79,6 +79,11 @@ namespace Mainpanel
             _currentPanelDisplaying = _mainPanelMap[MainPanelType.HomePanel].gameObject;
 
             BindButtonActions();
+
+            if (TryGetPanel<SettingsPanel>(MainPanelType.SettingsPanel, out var settingsPanel))
+            {
+                settingsPanel.DropDownMatcher(settingsPanel.shapeHolderTypeDropDown.value);
+            }
         }
 
         private void CompleteGameDataLoadUIBehaviour(GameData gameData)
