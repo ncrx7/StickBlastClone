@@ -931,7 +931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7264a00be55834429e4e0f054afe749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapeHolderType: 0
+  _shapeHolderType: 1
   _transformHolder: {fileID: 322722672}
   _queueStartingPoint: {fileID: 1970185951}
   _queueEndPoint: {fileID: 1410631186}
