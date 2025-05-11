@@ -11,7 +11,7 @@ namespace Shapes
 {
     public class ShapeHolderCreator : MonoBehaviour
     {
-        public enum ShapeHolderType {Queue, UnOrdered}
+        public enum ShapeHolderType {UnOrdered, Queue}
 
         private IShapeHolderCreateService _shapeHolderCreateService;
         [SerializeField] private ShapeHolderType _shapeHolderType;
@@ -56,8 +56,8 @@ namespace Shapes
 
         private async void SetShapeHolderService()
         {
-            _shapeHolderType = _gameDataHandler.shapeHolderType;
-            
+            _shapeHolderType = _gameDataHandler.GetGameDataObjectReference().ShapeHolderType;
+
             switch (_shapeHolderType)
             {
                 case ShapeHolderType.Queue:

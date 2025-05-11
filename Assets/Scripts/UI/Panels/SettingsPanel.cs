@@ -43,18 +43,22 @@ namespace UI.MainMenu.Panels
 
         public void DropDownMatcher(int dropDownIndex)
         {
+            shapeHolderTypeDropDown.value = dropDownIndex;
+            
             switch (dropDownIndex)
             {
                 case 0:
-                    _gameDataHandler.shapeHolderType = ShapeHolderCreator.ShapeHolderType.UnOrdered;
+                    _gameDataHandler.GetGameDataObjectReference().ShapeHolderType = ShapeHolderCreator.ShapeHolderType.UnOrdered;
                     break;
                 case 1:
-                    _gameDataHandler.shapeHolderType = ShapeHolderCreator.ShapeHolderType.Queue;
+                    _gameDataHandler.GetGameDataObjectReference().ShapeHolderType = ShapeHolderCreator.ShapeHolderType.Queue;
                     break;
                 default:
                     Debug.LogError("Undefined dropdown value");
                     break;
             }
+
+            _gameDataHandler.UpdateGameDataFile();
         }
     }
 }

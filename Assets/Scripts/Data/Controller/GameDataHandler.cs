@@ -15,8 +15,6 @@ namespace Data.Controllers
         private DataWriterAndReader<GameData> _dataWriterAndReader;
         public bool IsDataLoadFinished = false;
 
-        public ShapeHolderCreator.ShapeHolderType shapeHolderType;
-
         private void Awake()
         {
             _dataWriterAndReader = new DataWriterAndReader<GameData>(Application.persistentDataPath, _jsonFileName);
