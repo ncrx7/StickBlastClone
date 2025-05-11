@@ -847,7 +847,6 @@ GameObject:
   - component: {fileID: 336230712}
   - component: {fileID: 336230713}
   - component: {fileID: 336230715}
-  - component: {fileID: 336230714}
   - component: {fileID: 336230716}
   m_Layer: 0
   m_Name: LevelCreator
@@ -906,21 +905,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 650367425749872645, guid: e1e203968a8a05143b2743e2faef95d3, type: 3}
   _transformHolder: {fileID: 400497970}
---- !u!114 &336230714
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 336230710}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5582210bcc607434589e81a88abceacd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _transformHolder: {fileID: 322722672}
-  _queueStartingPoint: {fileID: 1970185951}
-  _queueEndPoint: {fileID: 1410631186}
 --- !u!114 &336230715
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -944,13 +928,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 336230710}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c5b6097d39c75ad49914561f9f8de13c, type: 3}
+  m_Script: {fileID: 11500000, guid: c7264a00be55834429e4e0f054afe749, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _shapeHolderType: 0
   _transformHolder: {fileID: 322722672}
   _queueStartingPoint: {fileID: 1970185951}
   _queueEndPoint: {fileID: 1410631186}
-  _shapes: []
 --- !u!1 &339569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -4462,6 +4446,7 @@ MonoBehaviour:
   _gameOverPanelNoMatching: {fileID: 1868681742}
   _gameOverPanelTimeOut: {fileID: 848362914}
   _gameSuccessPanel: {fileID: 1795138950}
+  _queueLastItemPanel: {fileID: 963390619}
   _levelReachScore: {fileID: 78378959}
   _score: {fileID: 1297936597}
   _timer: {fileID: 943941612}

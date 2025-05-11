@@ -7,6 +7,7 @@ using EntitiesData.Levels;
 using Enums;
 using Level;
 using Mainpanel;
+using Shapes;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEditor.Rendering;
@@ -26,6 +27,9 @@ namespace UI
         [SerializeField] private GameObject _gameOverPanelNoMatching;
         [SerializeField] private GameObject _gameOverPanelTimeOut;
         [SerializeField] private GameObject _gameSuccessPanel;
+        [SerializeField] private GameObject _queueLastItemPanel;
+
+
         [SerializeField] private TextMeshProUGUI _levelReachScore;
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private TextMeshProUGUI _timer;
@@ -57,6 +61,7 @@ namespace UI
             MiniEventSystem.OnTimerWork += UpdateTimer;
             MiniEventSystem.OnStartGame += UpdateLevelText;
             MiniEventSystem.OnComboIncrease += HandleComboText;
+            MiniEventSystem.OnShapeHolderServiceSetted += SetShapeHolderServiceUI;
 
             UpdateScoreUI(0);
         }
@@ -71,6 +76,7 @@ namespace UI
             MiniEventSystem.OnTimerWork -= UpdateTimer;
             MiniEventSystem.OnStartGame -= UpdateLevelText;
             MiniEventSystem.OnComboIncrease -= HandleComboText;
+            MiniEventSystem.OnShapeHolderServiceSetted -= SetShapeHolderServiceUI;
         }
 
         private void UpdateTimer(int time)
@@ -159,6 +165,22 @@ namespace UI
         public void DeActivaiteLoadingUI()
         {
             _loadingPanel.SetActive(false);
+        }
+
+        private void SetShapeHolderServiceUI(ShapeHolderCreator.ShapeHolderType type)
+        {
+            switch (type)
+            {
+                case ShapeHolderCreator.ShapeHolderType.UnOrdered:
+                    _queueLastItemPanel.SetActive(false);
+                    break;
+                case ShapeHolderCreator.ShapeHolderType.Queue:
+                    _queueLastItemPanel.SetActive(true);
+                    break;
+                default:
+                    Debug.LogWarning("Undefined holder service type!!");
+                    break;
+            }
         }
     }
 }
