@@ -73,7 +73,8 @@ namespace Shapes
 
             if (_shapeManager.GetCanPlaceFlag)
             {
-                //_shapeManager.PlaceShape();
+                _shapeManager.PlaceShape();
+                
                 MiniEventSystem.OnPlaceShape?.Invoke(_shapeManager);
                 //transform.parent.gameObject.SetActive(false);
             }

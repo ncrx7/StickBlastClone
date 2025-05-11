@@ -41,8 +41,11 @@ namespace Shapes
             foreach (var shape in _shapes)
             {
                 if (shape.CheckRelativeMatchExist())
+                {
                     anyMatchExists = true;
+                }
             }
+
 
             if (!anyMatchExists && !_gameManager.IsGamePaused)
             {

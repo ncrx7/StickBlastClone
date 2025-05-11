@@ -33,17 +33,6 @@ namespace Shapes
             _gameManager = gameManager;
         }
 
-
-        private void OnEnable()
-        {
-            MiniEventSystem.OnPlaceShape += PlaceShape;
-        }
-
-        private void OnDisable()
-        {
-            MiniEventSystem.OnPlaceShape -= PlaceShape;
-        }
-
         private void Start()
         {
             foreach (var spriteRenderer in _spriteRendererList)
@@ -68,7 +57,7 @@ namespace Shapes
             _canMove = flag;
         }
 
-        public void PlaceShape(ShapeManager shapeManager)
+        public void PlaceShape()
         {
             if (GetEdgesMatching.Count == 0)
                 return;
