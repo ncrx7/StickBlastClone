@@ -6,13 +6,14 @@ using NodeGridSystem.Models;
 using UnityEngine;
 using Enums;
 using Data.Model;
+using Shapes;
 
 public static class MiniEventSystem 
 {
     public static Action<GameData> OnCompleteGameDataLoad;
     public static Action OnCompleteSceneInit;
     public static Action<EntityType, int, int, NodeGridSystem2D<GridNodeObject<NodeManager>>, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>, int> OnCreateEntity;
-    public static Action OnPlaceShape;
+    public static Action<ShapeManager> OnPlaceShape;
     public static Action<SoundType> PlaySoundClip;
     public static Action<Vector2, VfxType> PlayVfx;
     public static Action OnMidCellFill;

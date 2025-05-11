@@ -55,7 +55,7 @@ public class GameManager : MonoBehaviour
         if (_score >= _levelData.LevelReachScore)
         {
             MiniEventSystem.OnEndGame?.Invoke(2);
-            Debug.Log("GAME END SUCESSS");
+            //Debug.Log("GAME END SUCESSS");
         }
     }
 

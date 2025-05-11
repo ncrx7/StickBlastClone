@@ -108,7 +108,7 @@ namespace Shapes
             }
         }
 
-        private void HandleDequeue()
+        private void HandleDequeue(ShapeManager shapeManager)
         {
             DequeueShape().Forget();
         }

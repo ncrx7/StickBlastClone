@@ -848,6 +848,7 @@ GameObject:
   - component: {fileID: 336230713}
   - component: {fileID: 336230715}
   - component: {fileID: 336230714}
+  - component: {fileID: 336230716}
   m_Layer: 0
   m_Name: LevelCreator
   m_TagString: Untagged
@@ -912,7 +913,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 336230710}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 5582210bcc607434589e81a88abceacd, type: 3}
   m_Name: 
@@ -934,6 +935,22 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _entityPrefab: {fileID: 1944705445209255371, guid: 4fc0715847b1ed0409e74540724c7bff, type: 3}
   _transformHolder: {fileID: 776980122}
+--- !u!114 &336230716
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 336230710}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5b6097d39c75ad49914561f9f8de13c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _transformHolder: {fileID: 322722672}
+  _queueStartingPoint: {fileID: 1970185951}
+  _queueEndPoint: {fileID: 1410631186}
+  _shapes: []
 --- !u!1 &339569514
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,7 +2378,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &963390620
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4476,7 +4493,7 @@ Transform:
   m_GameObject: {fileID: 1970185950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.68, y: -4.5, z: 0}
+  m_LocalPosition: {x: 1.08, y: -4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -68,7 +68,7 @@ namespace Shapes
             _canMove = flag;
         }
 
-        public void PlaceShape()
+        public void PlaceShape(ShapeManager shapeManager)
         {
             if (GetEdgesMatching.Count == 0)
                 return;
