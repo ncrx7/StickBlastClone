@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using Data.Controllers;
 using Data.Model;
+using DG.Tweening;
 using Enums;
 using Mainpanel;
 using UI.MainMenu.Panels;
@@ -14,7 +15,9 @@ namespace Mainpanel
 {
     public class UIManager : BaseUIManager<MainPanelType, GameData>
     {
+        [SerializeField] private Vector3 _buttonScaleOnInactive;
         [SerializeField] private Vector3 _buttonScaleOnActive;
+        [SerializeField] private float _buttonScaleAnimationDuration;
         [SerializeField] private GameObject _currentPanelDisplaying;
         [SerializeField] private GameObject _currentButtonObject;
 
@@ -74,7 +77,7 @@ namespace Mainpanel
                 //_currentButtonObject = GetPanel<OverlayPanel>(MainPanelType.OverlayPanel).GetHomePanelButton.gameObject;
             }
 
-            _currentButtonObject.transform.localScale = _buttonScaleOnActive;
+            _currentButtonObject.transform.DOScale(_buttonScaleOnActive, _buttonScaleAnimationDuration);
 
             _currentPanelDisplaying = _mainPanelMap[MainPanelType.HomePanel].gameObject;
 
@@ -141,7 +144,7 @@ namespace Mainpanel
         private void BasePanelButtonBehaviour(GameObject buttonObject, BasePanel<MainPanelType, GameData> panelObject)
         {
             if (_currentButtonObject != null)
-                _currentButtonObject.transform.localScale = Vector3.one;
+                _currentButtonObject.transform.DOScale(_buttonScaleOnInactive, _buttonScaleAnimationDuration);
 
             if (_currentPanelDisplaying != null)
             {
@@ -149,7 +152,7 @@ namespace Mainpanel
                 panelObject.OnClosePanel(_gameDataHandler.GetGameDataObjectReference());
             }
 
-            buttonObject.transform.localScale = _buttonScaleOnActive;
+            buttonObject.transform.DOScale(_buttonScaleOnActive, _buttonScaleAnimationDuration);
             _currentButtonObject = buttonObject.gameObject;
 
             _currentPanelDisplaying = panelObject.gameObject;
