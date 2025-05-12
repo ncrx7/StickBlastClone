@@ -8,6 +8,7 @@ using Level;
 using Mainpanel;
 using NodeGridSystem.Controllers;
 using Shapes;
+using SignalEvents;
 using UnityEngine;
 using UnityUtils.Core.VfxSystem;
 using Zenject;
@@ -23,6 +24,10 @@ namespace Installers.Scene
 
         public override void InstallBindings()
         {
+            SignalBusInstaller.Install(Container);
+
+            DeclareSignals();
+
             CreateShapePoolsBinding();
 
             CreateVfxPoolsBinding();
@@ -37,6 +42,12 @@ namespace Installers.Scene
             Container.Bind<CameraManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ComboManager>().FromComponentInHierarchy().AsSingle();
+        }
+
+        private void DeclareSignals()
+        {
+            Container.DeclareSignal<ShapePlacedSignal>();
+            Container.DeclareSignal<PlaySoundClipSignal>();
         }
 
         private void CreateShapePoolsBinding()
