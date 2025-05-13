@@ -23,7 +23,7 @@ public static class MiniEventSystem
     public static Action OnComboIncrease;
     public static Action OnStartGame;
     public static Action<int> OnEndGame;
-    public static Action<int> IncreaseScore;
+    public static Action<int, int> IncreaseScore;
     public static Action ActivateLoadingUI;
     public static Action DeactivateLoadingUI;
     public static Action<int> OnTimerWork;

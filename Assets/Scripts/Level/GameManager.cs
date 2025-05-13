@@ -48,7 +48,7 @@ public class GameManager : MonoBehaviour
         _levelData = levelData;
     }
 
-    private void HandleIncreaseScore(int newScore)
+    private void HandleIncreaseScore(int oldScore, int newScore)
     {
         _score = newScore;
 

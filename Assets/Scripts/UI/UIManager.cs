@@ -1,6 +1,8 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
+using Data.Model;
 using DataModel;
 using DG.Tweening;
 using EntitiesData.Levels;
@@ -29,17 +31,22 @@ namespace UI
         [SerializeField] private GameObject _gameSuccessPanel;
         [SerializeField] private GameObject _queueLastItemPanel;
 
-
         [SerializeField] private TextMeshProUGUI _levelReachScore;
         [SerializeField] private TextMeshProUGUI _score;
         [SerializeField] private TextMeshProUGUI _timer;
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _comboText;
+
+
         [SerializeField] private Image _sliderLine;
 
         private GameSettings _gameSettings;
-
         private LevelManager _levelManager;
+
+        [Header("Tweens")]
+        private Tween _scoreSliderTween;
+
+        [SerializeField] int _numberAnimatorDelay;
 
         [Inject]
         private void InitializeDependencies(LevelManager levelManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings)
@@ -53,9 +60,9 @@ namespace UI
 
         private void OnEnable()
         {
-            MiniEventSystem.OnStartGame += SetInitialTextsOnScene;
+            MiniEventSystem.OnStartGame += InitializeItems;
             MiniEventSystem.OnEndGame += ActivateGameEndPanel;
-            MiniEventSystem.IncreaseScore += UpdateScoreUI;
+            MiniEventSystem.IncreaseScore += UpdateScoreItems;
             MiniEventSystem.ActivateLoadingUI += HandleActivaiateLoadingUI;
             MiniEventSystem.DeactivateLoadingUI += DeActivaiteLoadingUI;
             MiniEventSystem.OnTimerWork += UpdateTimer;
@@ -63,14 +70,14 @@ namespace UI
             MiniEventSystem.OnComboIncrease += HandleComboText;
             MiniEventSystem.OnShapeHolderServiceSetted += SetShapeHolderServiceUI;
 
-            UpdateScoreUI(0);
+            UpdateScoreItems(0, 0);
         }
 
         private void OnDisable()
         {
             MiniEventSystem.OnEndGame -= ActivateGameEndPanel;
-            MiniEventSystem.OnStartGame -= SetInitialTextsOnScene;
-            MiniEventSystem.IncreaseScore -= UpdateScoreUI;
+            MiniEventSystem.OnStartGame -= InitializeItems;
+            MiniEventSystem.IncreaseScore -= UpdateScoreItems;
             MiniEventSystem.ActivateLoadingUI -= HandleActivaiateLoadingUI;
             MiniEventSystem.DeactivateLoadingUI -= DeActivaiteLoadingUI;
             MiniEventSystem.OnTimerWork -= UpdateTimer;
@@ -86,7 +93,7 @@ namespace UI
 
         private void UpdateLevelText()
         {
-            _levelText.text = "Level " + _levelManager.GetLevel.ToString();
+            _levelText.text = "LVL." + _levelManager.GetLevel.ToString();
         }
 
         private void ActivateGameEndPanel(int gameEndID)
@@ -117,15 +124,19 @@ namespace UI
             _gameManager.IsGamePaused = true;
         }
 
-        private void SetInitialTextsOnScene()
+        private void InitializeItems()
         {
             _levelReachScore.text = _gameManager.GetLevelData.LevelReachScore.ToString();
+            _sliderLine.color = _gameManager.GetLevelData.LevelColor;
+            _score.text = _gameManager.GetScore.ToString();
+
         }
 
-        private void UpdateScoreUI(int newScore)
+        private void UpdateScoreItems(int oldScore, int newScore)
         {
-            _score.text = newScore.ToString();
-            _sliderLine.fillAmount = (float)newScore / _gameManager.GetLevelData.LevelReachScore;
+            AnimateNumberText(oldScore, newScore, _score);
+
+            AnimateSlider(_sliderLine, ref _scoreSliderTween, newScore);
         }
 
         private void HandleComboText()
@@ -165,6 +176,32 @@ namespace UI
         public void DeActivaiteLoadingUI()
         {
             _loadingPanel.SetActive(false);
+        }
+
+        private void AnimateSlider(Image sliderLine, ref Tween tween, int newScore)
+        {
+            if (tween != null)
+                tween.Kill();
+
+            sliderLine.fillAmount = 0;
+
+            float sliderValue = newScore / (float)_gameManager.GetLevelData.LevelReachScore; 
+
+            tween = sliderLine.DOFillAmount(sliderValue, 1).SetEase(Ease.OutCubic);
+        }
+
+        private async void AnimateNumberText(int startNum, int endNum, TextMeshProUGUI textMesh)
+        {
+            int currentNum = startNum;
+            Debug.Log("animate number text worked - current number (start) ->" + currentNum + " - end num -> " + endNum);
+            while(currentNum < endNum)
+            {
+                textMesh.text = currentNum.ToString();
+                currentNum++;
+                Debug.Log("current num -> " + currentNum);
+
+                await UniTask.Delay(_numberAnimatorDelay);
+            }
         }
 
         private void SetShapeHolderServiceUI(ShapeHolderCreator.ShapeHolderType type)

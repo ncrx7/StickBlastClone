@@ -38,6 +38,13 @@ namespace NodeGridSystem.Controllers
             InitializeBoard();
         }
 
+        private void Update() {
+            if(Input.GetKeyDown(KeyCode.L))
+            {
+                MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore, _gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
+            }
+        }
+
         private async void InitializeBoard()
         {
             _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_gameSettings.Width, _gameSettings.height, _gameSettings.CellSize, _gameSettings.OriginPosition, _gameSettings.Debug);
@@ -129,41 +136,6 @@ namespace NodeGridSystem.Controllers
             {
                 _comboManager.ResetCombo();
             }
-
-
-
-            /* bool MatchExist = false;
-
-            for (int x = 0; x < _width - 1; x++)
-            {
-                for (int y = 0; y < _height - 1; y++)
-                {
-                    var midCellGridObject = _middleObjectGrid.GetValue(x, y);
-                    MiddleFillAreaManager midCell = midCellGridObject.GetValue();
-
-                    bool checkResponse = midCell.CheckEdges();
-
-                    if (checkResponse)
-                    {
-                        if(!midCell.IsFilled)
-                        {
-                            MatchExist = true;
-
-                            midCell.OnAllEdgeFull();
-                        }
-
-                        ColumnCheckerOnBoard();
-
-                        RowCheckerOnBoard();
-                    }
-                }
-            }
-
-            if (!MatchExist)
-            {
-                ComboManager.Instance.ResetCombo();
-            } */
-
         }
 
         private async void RowCheckerOnBoard(int y)
@@ -201,7 +173,7 @@ namespace NodeGridSystem.Controllers
                     MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
-                    MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
+                    MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore, _gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
 
                     await UniTask.Delay(50);
                 }
@@ -245,7 +217,7 @@ namespace NodeGridSystem.Controllers
 
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
-                    MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
+                    MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore, _gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
 
                     await UniTask.Delay(50);
                 }
