@@ -24,6 +24,11 @@ namespace UI
             PlayAnimation();
         }
 
+        private void OnDisable()
+        {
+            StopAnimation();
+        }
+
         public void PlayAnimation()
         {
             // Önceki animasyon varsa iptal et
@@ -37,6 +42,7 @@ namespace UI
         public void StopAnimation()
         {
             _cts?.Cancel();
+            _cts?.Dispose();
         }
 
         private async UniTaskVoid AnimateAsync(CancellationToken token)

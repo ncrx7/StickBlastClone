@@ -193,7 +193,7 @@ namespace UI
         private async void AnimateNumberText(int startNum, int endNum, TextMeshProUGUI textMesh)
         {
             int currentNum = startNum;
-            Debug.Log("animate number text worked - current number (start) ->" + currentNum + " - end num -> " + endNum);
+ 
             while(currentNum < endNum)
             {
                 textMesh.text = currentNum.ToString();
