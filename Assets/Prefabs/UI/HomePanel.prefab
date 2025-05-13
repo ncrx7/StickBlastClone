@@ -88,7 +88,7 @@ GameObject:
   - component: {fileID: 103100681216855615}
   - component: {fileID: 6090458008452028578}
   m_Layer: 5
-  m_Name: SliderBackground (1)
+  m_Name: SliderLine
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -345,6 +345,10 @@ MonoBehaviour:
   _startGameButton: {fileID: 7005281469030289352}
   _questSlider: {fileID: 1626975993124545942}
   _questText: {fileID: 1886710023793432509}
+  _giftSlider: {fileID: 6090458008452028578}
+  _collectionButtonIcon: {fileID: 8159019794913660835}
+  _sliderAnimationDuration: 3
+  _collectionIconRotationSpeed: 130
 --- !u!1 &1203703046443578994
 GameObject:
   m_ObjectHideFlags: 0
