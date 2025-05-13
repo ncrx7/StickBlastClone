@@ -35,7 +35,7 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _timer;
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _comboText;
-        [SerializeField] private Slider _slider;
+        [SerializeField] private Image _sliderLine;
 
         private GameSettings _gameSettings;
 
@@ -125,7 +125,7 @@ namespace UI
         private void UpdateScoreUI(int newScore)
         {
             _score.text = newScore.ToString();
-            _slider.value = (float)newScore / _gameManager.GetLevelData.LevelReachScore;
+            _sliderLine.fillAmount = (float)newScore / _gameManager.GetLevelData.LevelReachScore;
         }
 
         private void HandleComboText()
