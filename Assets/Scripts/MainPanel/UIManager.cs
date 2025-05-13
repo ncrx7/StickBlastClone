@@ -18,8 +18,10 @@ namespace Mainpanel
         [SerializeField] private Vector3 _buttonScaleOnInactive;
         [SerializeField] private Vector3 _buttonScaleOnActive;
         [SerializeField] private float _buttonScaleAnimationDuration;
-        [SerializeField] private GameObject _currentPanelDisplaying;
+        [SerializeField] private BasePanel<MainPanelType, GameData> _currentPanelDisplaying;
         [SerializeField] private GameObject _currentButtonObject;
+
+        [SerializeField] private RectTransform _leftTransform, _rightTransform, _midTransform;
 
         private LevelManager _levelManager;
         private GameDataHandler _gameDataHandler;
@@ -79,7 +81,7 @@ namespace Mainpanel
 
             _currentButtonObject.transform.DOScale(_buttonScaleOnActive, _buttonScaleAnimationDuration);
 
-            _currentPanelDisplaying = _mainPanelMap[MainPanelType.HomePanel].gameObject;
+            _currentPanelDisplaying = _mainPanelMap[MainPanelType.HomePanel];
 
             BindButtonActions();
         }
@@ -88,10 +90,10 @@ namespace Mainpanel
         {
             ExecuteUIAction(UIActionType.SetPanelVisibility, false, _mainPanelMap[MainPanelType.LoadingPanel].gameObject);
 
-            if (TryGetPanel<SettingsPanel>(MainPanelType.SettingsPanel, out var settingsPanel))
+/*             if (TryGetPanel<SettingsPanel>(MainPanelType.SettingsPanel, out var settingsPanel))
             {
                 settingsPanel.DropDownMatcher((int)gameData.ShapeHolderType);
-            }
+            } */
         }
 
         private void BindButtonActions()
@@ -148,18 +150,54 @@ namespace Mainpanel
 
             if (_currentPanelDisplaying != null)
             {
-                ExecuteUIAction(UIActionType.SetPanelVisibility, false, _currentPanelDisplaying);
+                //ExecuteUIAction(UIActionType.SetPanelVisibility, false, _currentPanelDisplaying);
+                AnimatePanel(_currentPanelDisplaying, panelObject, true);
                 panelObject.OnClosePanel(_gameDataHandler.GetGameDataObjectReference());
             }
 
             buttonObject.transform.DOScale(_buttonScaleOnActive, _buttonScaleAnimationDuration);
             _currentButtonObject = buttonObject.gameObject;
 
-            _currentPanelDisplaying = panelObject.gameObject;
+            _currentPanelDisplaying = panelObject;
 
-            ExecuteUIAction(UIActionType.SetPanelVisibility, true, _currentPanelDisplaying);
+            //ExecuteUIAction(UIActionType.SetPanelVisibility, true, _currentPanelDisplaying);
+            AnimatePanel(_currentPanelDisplaying, panelObject, false);
 
             panelObject.OnOpenPanel(_gameDataHandler.GetGameDataObjectReference());
+        }
+
+        private void AnimatePanel(BasePanel<MainPanelType, GameData> panelToClose, BasePanel<MainPanelType, GameData> panelToOpen, bool willClose)
+        {
+            if (willClose)
+            {
+                switch (panelToClose.positionType)
+                {
+                    case PanelPositionType.Left:
+                        panelToClose.GetRectTransform.DOAnchorPos(_leftTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
+                        break;
+                    case PanelPositionType.Right:
+                        panelToClose.GetRectTransform.DOAnchorPos(_rightTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
+                        break;
+                    case PanelPositionType.Mid:
+                        if(panelToOpen.positionType == PanelPositionType.Left)
+                        {
+                            panelToClose.GetRectTransform.DOAnchorPos(_rightTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
+                            break;
+                        }
+                        else
+                        {
+                            panelToClose.GetRectTransform.DOAnchorPos(_leftTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
+                        }
+                        break;
+                    default:
+                        Debug.LogWarning("Undefined panel position type!!");
+                        break;
+                }
+            }
+            else
+            {
+                panelToClose.GetRectTransform.DOAnchorPos(_midTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
+            }
         }
 
         public void StartTheLevelButton()
