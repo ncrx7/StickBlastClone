@@ -183,10 +183,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 8825164592232392456}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.48913574, y: 0.68424666}
-  m_AnchorMax: {x: 0.51086426, y: 0.734}
-  m_AnchoredPosition: {x: 0, y: 0.5}
-  m_SizeDelta: {x: 168, y: 159.88}
+  m_AnchorMin: {x: 0.48913574, y: 0.67227733}
+  m_AnchorMax: {x: 0.52361745, y: 0.74}
+  m_AnchoredPosition: {x: 15.362, y: 1.5}
+  m_SizeDelta: {x: 238.775, y: 153.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &9076124935372000465
 CanvasRenderer:
@@ -216,7 +216,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 3/20
+  m_text: 0 / 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -340,7 +340,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PanelType: 2
+  positionType: 1
+  _rectTransform: {fileID: 7088554065780118889}
   _startGameButton: {fileID: 7005281469030289352}
+  _questSlider: {fileID: 1626975993124545942}
+  _questText: {fileID: 1886710023793432509}
 --- !u!1 &1203703046443578994
 GameObject:
   m_ObjectHideFlags: 0
@@ -1928,7 +1932,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 0.375
+  m_FillAmount: 0.33
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0

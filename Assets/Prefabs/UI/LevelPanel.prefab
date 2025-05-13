@@ -16,7 +16,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &953978264910826851
 RectTransform:
   m_ObjectHideFlags: 0
@@ -50,6 +50,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PanelType: 3
+  positionType: 0
+  _rectTransform: {fileID: 953978264910826851}
   _levelContainer: {fileID: 5817856004131807325}
   _levelPrefab: {fileID: -632541664934480406, guid: a0e09715fb668134aba26067b980f0e2, type: 3}
 --- !u!1 &8783564165226260568
@@ -109,6 +111,6 @@ MonoBehaviour:
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 600, y: 600}
-  m_Spacing: {x: 465.62, y: 245.35}
+  m_Spacing: {x: 500, y: 245.35}
   m_Constraint: 0
   m_ConstraintCount: 2

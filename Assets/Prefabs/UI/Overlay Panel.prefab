@@ -209,6 +209,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PanelType: 1
+  positionType: 0
+  _rectTransform: {fileID: 2695472306748853064}
   _homePanelButton: {fileID: 1063990248923417389}
   _levelPanelButton: {fileID: 4319450433880812575}
   _settingsPanelButton: {fileID: 7746275433651494319}

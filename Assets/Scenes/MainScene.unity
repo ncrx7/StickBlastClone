@@ -512,6 +512,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &731489898 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6090458008452028578, guid: ca50e7e8a2d03444091fb336f695cb18, type: 3}
+  m_PrefabInstance: {fileID: 1631835019269970445}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &826013958
 GameObject:
   m_ObjectHideFlags: 0
@@ -913,7 +924,7 @@ MonoBehaviour:
   _leftTransform: {fileID: 655414073}
   _rightTransform: {fileID: 1724809639}
   _midTransform: {fileID: 1871786060}
-  _upTransform: {fileID: 0}
+  _upTransform: {fileID: 103992930}
 --- !u!4 &1739560738
 Transform:
   m_ObjectHideFlags: 0
@@ -1314,22 +1325,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1705701831}
     m_Modifications:
+    - target: {fileID: 162361626834346063, guid: ca50e7e8a2d03444091fb336f695cb18, type: 3}
+      propertyPath: m_Name
+      value: SliderLine
+      objectReference: {fileID: 0}
     - target: {fileID: 863509326852892640, guid: ca50e7e8a2d03444091fb336f695cb18, type: 3}
       propertyPath: m_Name
       value: HomePanel
       objectReference: {fileID: 0}
-    - target: {fileID: 863509326852892640, guid: ca50e7e8a2d03444091fb336f695cb18, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6971181292343674147, guid: ca50e7e8a2d03444091fb336f695cb18, type: 3}
-      propertyPath: positionType
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6971181292343674147, guid: ca50e7e8a2d03444091fb336f695cb18, type: 3}
-      propertyPath: _rectTransform
+      propertyPath: _giftSlider
       value: 
-      objectReference: {fileID: 1090848272}
+      objectReference: {fileID: 731489898}
+    - target: {fileID: 6971181292343674147, guid: ca50e7e8a2d03444091fb336f695cb18, type: 3}
+      propertyPath: _sliderAnimationDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7088554065780118889, guid: ca50e7e8a2d03444091fb336f695cb18, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2134,10 +2145,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1705701831}
     m_Modifications:
-    - target: {fileID: 747041209369607360, guid: ad5e1c89ecead97479e04b8fe154c7e0, type: 3}
-      propertyPath: _rectTransform
-      value: 
-      objectReference: {fileID: 92318496}
     - target: {fileID: 953978264910826851, guid: ad5e1c89ecead97479e04b8fe154c7e0, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2218,17 +2225,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8248770112198498569, guid: ad5e1c89ecead97479e04b8fe154c7e0, type: 3}
-      propertyPath: m_Spacing.x
-      value: 500
-      objectReference: {fileID: 0}
     - target: {fileID: 8386166905013794801, guid: ad5e1c89ecead97479e04b8fe154c7e0, type: 3}
       propertyPath: m_Name
       value: LevelPanel
-      objectReference: {fileID: 0}
-    - target: {fileID: 8386166905013794801, guid: ad5e1c89ecead97479e04b8fe154c7e0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2426,10 +2425,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Overlay Panel
       objectReference: {fileID: 0}
-    - target: {fileID: 5392665653980603396, guid: f6dee684fce01d14a899babcf1b084c3, type: 3}
-      propertyPath: _rectTransform
-      value: 
-      objectReference: {fileID: 609214618}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []

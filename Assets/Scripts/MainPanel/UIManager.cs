@@ -90,10 +90,10 @@ namespace Mainpanel
         {
             ExecuteUIAction(UIActionType.SetPanelVisibility, false, _mainPanelMap[MainPanelType.LoadingPanel].gameObject);
 
-/*             if (TryGetPanel<SettingsPanel>(MainPanelType.SettingsPanel, out var settingsPanel))
+            if (TryGetPanel<HomePanel>(MainPanelType.HomePanel, out var homePanel))
             {
-                settingsPanel.DropDownMatcher((int)gameData.ShapeHolderType);
-            } */
+                homePanel.OnOpenPanel(gameData);
+            }
         }
 
         private void BindButtonActions()
