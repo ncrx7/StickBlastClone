@@ -21,7 +21,7 @@ namespace Mainpanel
         [SerializeField] private BasePanel<MainPanelType, GameData> _currentPanelDisplaying;
         [SerializeField] private GameObject _currentButtonObject;
 
-        [SerializeField] private RectTransform _leftTransform, _rightTransform, _midTransform;
+        [SerializeField] private RectTransform _leftTransform, _rightTransform, _midTransform, _upTransform;
 
         private LevelManager _levelManager;
         private GameDataHandler _gameDataHandler;
@@ -179,15 +179,7 @@ namespace Mainpanel
                         panelToClose.GetRectTransform.DOAnchorPos(_rightTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
                         break;
                     case PanelPositionType.Mid:
-                        if(panelToOpen.positionType == PanelPositionType.Left)
-                        {
-                            panelToClose.GetRectTransform.DOAnchorPos(_rightTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
-                            break;
-                        }
-                        else
-                        {
-                            panelToClose.GetRectTransform.DOAnchorPos(_leftTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
-                        }
+                        panelToClose.GetRectTransform.DOAnchorPos(_upTransform.anchoredPosition, 0.5f).SetEase(Ease.InOutCubic);
                         break;
                     default:
                         Debug.LogWarning("Undefined panel position type!!");
