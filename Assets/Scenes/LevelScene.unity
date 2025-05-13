@@ -3137,7 +3137,7 @@ Transform:
   m_GameObject: {fileID: 1410631185}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.05, y: -4.5, z: 0}
+  m_LocalPosition: {x: -9.05, y: -3.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -3435,10 +3435,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d6190b2faf18174db8d5e78965958ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  AutomaticBoardCellSize: 1
-  AutomaticOffset: {x: 0, y: 0, z: 0}
-  xScreenUsageRate: 0.75
-  yScreenUsageRate: 0.42
 --- !u!1 &1547805589
 GameObject:
   m_ObjectHideFlags: 0
@@ -4460,7 +4456,7 @@ Transform:
   m_GameObject: {fileID: 1970185950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.08, y: -4.5, z: 0}
+  m_LocalPosition: {x: 1.29, y: -3.67, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

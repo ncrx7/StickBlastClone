@@ -29,6 +29,10 @@ namespace DataModel
         public float Margin;
         public float AnimationTime;
 
+        [Header("Shape Scale Data")]
+        public Vector2 ShapeDefaultScale;
+        public Vector2 ShapeMovingScale;
+
         [Header("Combo Settings")]
         public float ComboTextAnimationTime;
         public Vector3 ComboTextScaleFactor;

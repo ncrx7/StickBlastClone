@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DataModel;
 using Enums;
 using NodeGridSystem.Controllers;
 using UnityEngine;
@@ -11,9 +12,11 @@ namespace Shapes
     public class ShapeLocomotionManager : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         #region References
-        private ShapeManager _shapeManager;
-        [SerializeField] private Transform _parentTransform;
         private NodeGridBoardManager _nodeGridBoardManager;
+        private GameSettings _gameSettings;
+        private ShapeManager _shapeManager;
+
+        [SerializeField] private Transform _parentTransform;
         #endregion
 
         #region Fields
@@ -24,10 +27,11 @@ namespace Shapes
         #endregion
 
         [Inject]
-        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager)
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, GameSettings gameSettings)
         {
             _nodeGridBoardManager = nodeGridBoardManager;
             _shapeManager = shapeManager;
+            _gameSettings = gameSettings;
         }
 
         #region MonoBeheviour Callbacks
@@ -48,6 +52,8 @@ namespace Shapes
 
             SetOffset(eventData);
             _homePosition = _parentTransform.position;
+
+            _parentTransform.localScale = _gameSettings.ShapeMovingScale;
 
             Move(eventData);
         }
@@ -70,6 +76,8 @@ namespace Shapes
                 return;
 
             _shapeManager.IsDragging = false;
+
+            _parentTransform.localScale = _gameSettings.ShapeDefaultScale;
 
             if (_shapeManager.GetCanPlaceFlag)
             {

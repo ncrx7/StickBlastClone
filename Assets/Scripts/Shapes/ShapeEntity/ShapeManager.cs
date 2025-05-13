@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using DataModel;
 using EntitiesData.Shapes;
 using Enums;
 using NodeGridSystem.Controllers;
@@ -15,6 +16,8 @@ namespace Shapes
     {
         private GameManager _gameManager;
         private NodeGridBoardManager _nodeGridBoardManager;
+        private GameSettings _gameSettings;
+
         [SerializeField] private List<SpriteRenderer> _spriteRendererList;
         [SerializeField] private ShapeData _shapeData;
         [SerializeField] private bool _canPlace;
@@ -27,10 +30,11 @@ namespace Shapes
         public Action _placeCallBack;
 
         [Inject]
-        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, GameManager gameManager)
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, GameManager gameManager, GameSettings gameSettings)
         {
             _nodeGridBoardManager = nodeGridBoardManager;
             _gameManager = gameManager;
+            _gameSettings = gameSettings;
         }
 
         private void Start()
@@ -44,6 +48,7 @@ namespace Shapes
         public void Setup(Action placeCallBack, Vector3 targetPosition)
         {
             transform.position = targetPosition;
+            transform.localScale = _gameSettings.ShapeDefaultScale;
             _placeCallBack = placeCallBack;
         }
 
