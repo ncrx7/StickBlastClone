@@ -21,6 +21,7 @@ namespace NodeGridSystem.Controllers
         private NodeGridSystem2D<GridNodeObject<NodeManager>> _nodeGrid;
         private NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> _middleObjectGrid;
 
+        private Camera _mainCam;
         private GameManager _gameManager;
         private CameraManager _cameraManager;
         private ComboManager _comboManager;
@@ -32,13 +33,14 @@ namespace NodeGridSystem.Controllers
         private Vector3 AutomaticOffset = Vector3.zero;
 
         [Inject]
-        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings, GameDataHandler gameDataHandler)
+        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings, GameDataHandler gameDataHandler, Camera mainCam)
         {
             _cameraManager = cameraManager;
             _gameManager = gameManager;
             _comboManager = comboManager;
             _gameSettings = gameSettings;
             _gameDataHandler = gameDataHandler;
+            _mainCam = mainCam;
         }
 
         private async void Start()
@@ -55,8 +57,8 @@ namespace NodeGridSystem.Controllers
             MiniEventSystem.ActivateLoadingUI?.Invoke();
             _gameManager.IsGamePaused = true;
 
-            float screenHeight = 2f * Camera.main.orthographicSize;
-            float screenWidth = screenHeight * Camera.main.aspect;
+            float screenHeight = 2f * _mainCam.orthographicSize;
+            float screenWidth = screenHeight * _mainCam.aspect;
 
             float maxGridWidth = screenWidth * _gameSettings.XScreenUsageRate;
             float maxGridHeight = screenHeight * _gameSettings.YScreenUsageRate;

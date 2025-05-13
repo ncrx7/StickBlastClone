@@ -12,11 +12,12 @@ namespace Shapes
     public class ShapeLocomotionManager : MonoBehaviour, IPointerDownHandler, IDragHandler, IPointerUpHandler
     {
         #region References
+        [SerializeField] private Transform _parentTransform;
+
+        private Camera _mainCam;
         private NodeGridBoardManager _nodeGridBoardManager;
         private GameSettings _gameSettings;
         private ShapeManager _shapeManager;
-
-        [SerializeField] private Transform _parentTransform;
         #endregion
 
         #region Fields
@@ -27,11 +28,12 @@ namespace Shapes
         #endregion
 
         [Inject]
-        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, GameSettings gameSettings)
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, GameSettings gameSettings, Camera mainCam)
         {
             _nodeGridBoardManager = nodeGridBoardManager;
             _shapeManager = shapeManager;
             _gameSettings = gameSettings;
+            _mainCam = mainCam;
         }
 
         #region MonoBeheviour Callbacks
@@ -96,13 +98,13 @@ namespace Shapes
         #region Private Methods
         private void SetOffset(PointerEventData eventData)
         {
-            var target = Camera.main.ScreenToWorldPoint(eventData.position);
+            var target = _mainCam.ScreenToWorldPoint(eventData.position);
             _offset = _parentTransform.position - target;
         }
 
         private void Move(PointerEventData eventData)
         {
-            var target = Camera.main.ScreenToWorldPoint(eventData.position);
+            var target = _mainCam.ScreenToWorldPoint(eventData.position);
             target += _offset;
             target += Vector3.up * _pointerYOffset;
             target.z = 0;

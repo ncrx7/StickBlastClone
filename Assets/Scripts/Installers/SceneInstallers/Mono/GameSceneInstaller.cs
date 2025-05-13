@@ -18,6 +18,7 @@ namespace Installers.Scene
 {
     public class GameSceneInstaller : MonoInstaller
     {
+        [SerializeField] private Camera _mainCam;
         [Inject] GameSettings _gameSettings;
 
         private Dictionary<ShapeType, ShapePool<ShapeType>> _shapePoolMap = new();
@@ -32,6 +33,8 @@ namespace Installers.Scene
             CreateShapePoolsBinding();
 
             CreateVfxPoolsBinding();
+
+            Container.BindInstance<Camera>(_mainCam);
 
             Container.Bind<ShapeFactory<ShapeType>>().AsSingle();
             Container.Bind<Dictionary<ShapeType, ShapePool<ShapeType>>>().FromInstance(_shapePoolMap).AsSingle();
