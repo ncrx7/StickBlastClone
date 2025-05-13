@@ -47,8 +47,10 @@ MonoBehaviour:
       Type: 2
     - VfxPrefab: {fileID: 2102999931433593722, guid: 06f3d08da7e77854da6a7e0030c09c6e, type: 3}
       Type: 3
-    Width: 50
-    height: 50
+    XScreenUsageRate: 0.75
+    YScreenUsageRate: 0.42
+    Width: 2
+    height: 24
     CellSize: 1
     OffsetFromCenter: {x: 0, y: 0.6, z: 0}
     Debug: 0

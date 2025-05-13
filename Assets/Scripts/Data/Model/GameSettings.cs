@@ -15,6 +15,10 @@ namespace DataModel
         public List<ShapeWrapper<ShapeType>> ShapeData;
         public List<VfxWrapper<VfxType>> VfxData;
 
+        [Header("Screen usage rate")]
+        [Range(0.1f, 1f)]
+        public float XScreenUsageRate, YScreenUsageRate;
+
         [Header("Grid Board Data")]
         public int Width = 6;
         public int height = 6;

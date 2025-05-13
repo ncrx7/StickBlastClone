@@ -23,13 +23,8 @@ namespace NodeGridSystem.Controllers
         private CameraManager _cameraManager;
         private ComboManager _comboManager;
 
-        public float AutomaticBoardCellSize = 1;
-        public Vector3 AutomaticOffset = Vector3.zero;
-
-        [Header("Screen usage rate")]
-        [Range(0.1f, 1f)]
-        public float screenCoverage = 0.8f;
-
+        public float AutomaticBoardCellSize { get; private set; }
+        private Vector3 AutomaticOffset = Vector3.zero;
 
         [Inject]
         private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings)
@@ -48,11 +43,14 @@ namespace NodeGridSystem.Controllers
 
         private async UniTask CalculateDimensions()
         {
+            MiniEventSystem.ActivateLoadingUI?.Invoke();
+            _gameManager.IsGamePaused = true;
+
             float screenHeight = 2f * Camera.main.orthographicSize;
             float screenWidth = screenHeight * Camera.main.aspect;
 
-            float maxGridWidth = screenWidth * screenCoverage;
-            float maxGridHeight = screenHeight * screenCoverage;
+            float maxGridWidth = screenWidth * _gameSettings.XScreenUsageRate;
+            float maxGridHeight = screenHeight * _gameSettings.YScreenUsageRate;
 
             float availableCellWidth = (maxGridWidth) / _gameSettings.Width;
             float availableCellHeight = (maxGridHeight) / _gameSettings.height;
@@ -73,9 +71,6 @@ namespace NodeGridSystem.Controllers
         {
             _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_gameSettings.Width, _gameSettings.height, AutomaticBoardCellSize, AutomaticOffset, _gameSettings.Debug);
             _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_gameSettings.Width - 1, _gameSettings.height - 1, AutomaticBoardCellSize, AutomaticOffset, _gameSettings.Debug);
-
-            MiniEventSystem.ActivateLoadingUI?.Invoke();
-            _gameManager.IsGamePaused = true;
 
             await InitNodes();
             await InitNeigbours();
