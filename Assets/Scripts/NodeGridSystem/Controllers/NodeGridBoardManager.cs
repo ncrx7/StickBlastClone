@@ -51,7 +51,6 @@ namespace NodeGridSystem.Controllers
             float screenHeight = 2f * Camera.main.orthographicSize;
             float screenWidth = screenHeight * Camera.main.aspect;
 
-            // Kullanılabilir alan
             float maxGridWidth = screenWidth * screenCoverage;
             float maxGridHeight = screenHeight * screenCoverage;
 
@@ -64,7 +63,10 @@ namespace NodeGridSystem.Controllers
 
             await UniTask.Delay(100);
 
-            AutomaticOffset.x = -((_gameSettings.Width / 2f * AutomaticBoardCellSize));
+            AutomaticOffset.x = -(_gameSettings.Width / 2f * AutomaticBoardCellSize);
+            AutomaticOffset.y = -(_gameSettings.height / 2f * AutomaticBoardCellSize);
+
+            AutomaticOffset += _gameSettings.OffsetFromCenter;
         }
 
         private async UniTask InitializeBoard()

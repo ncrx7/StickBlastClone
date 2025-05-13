@@ -47,11 +47,11 @@ MonoBehaviour:
       Type: 2
     - VfxPrefab: {fileID: 2102999931433593722, guid: 06f3d08da7e77854da6a7e0030c09c6e, type: 3}
       Type: 3
-    Width: 12
-    height: 12
+    Width: 50
+    height: 50
     CellSize: 1
-    OriginPosition: {x: 0, y: 0, z: 0}
-    Debug: 1
+    OffsetFromCenter: {x: 0, y: 0.6, z: 0}
+    Debug: 0
     Margin: 1.8
     AnimationTime: 0.5
     ComboTextAnimationTime: 0.5

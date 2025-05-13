@@ -19,7 +19,7 @@ namespace DataModel
         public int Width = 6;
         public int height = 6;
         public float CellSize = 1f;
-        public Vector3 OriginPosition = Vector3.zero;
+        public Vector3 OffsetFromCenter = Vector3.zero;
         public bool Debug = true;
 
         [Header("Shape Queue Data")]
