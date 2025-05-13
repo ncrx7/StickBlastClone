@@ -44,6 +44,9 @@ namespace Mainpanel
         {
             ExecuteUIAction(UIActionType.SetPanelVisibility, true, _mainPanelMap[MainPanelType.LoadingPanel].gameObject);
 
+            if(_gameDataHandler.IsDataLoadFinished) // ana sahne tekrar yuklendiginde eger datalar zaten yuklu ise loading paneli kapatıyorum.
+                ExecuteUIAction(UIActionType.SetPanelVisibility, false, _mainPanelMap[MainPanelType.LoadingPanel].gameObject);
+
             RegisterUIActions();
         }
 

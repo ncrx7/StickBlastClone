@@ -16,6 +16,7 @@ using UnityEditor.Rendering;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityUtils.StaticHelpers;
 using Zenject;
 
 namespace UI
@@ -25,6 +26,7 @@ namespace UI
         [Header("References")]
         private GameManager _gameManager;
         private ComboManager _comboManager;
+
         [SerializeField] private GameObject _loadingPanel;
         [SerializeField] private GameObject _gameOverPanelNoMatching;
         [SerializeField] private GameObject _gameOverPanelTimeOut;
@@ -36,6 +38,8 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _timer;
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _comboText;
+
+        [SerializeField] private Button _returnMainMenuButton;
 
 
         [SerializeField] private Image _sliderLine;
@@ -60,6 +64,12 @@ namespace UI
 
         private void OnEnable()
         {
+            _returnMainMenuButton.onClick.AddListener(async () => 
+            {
+                _loadingPanel.SetActive(true);
+                await SceneLoader.LoadSceneAsync(0);
+            });
+
             MiniEventSystem.OnStartGame += InitializeItems;
             MiniEventSystem.OnEndGame += ActivateGameEndPanel;
             MiniEventSystem.IncreaseScore += UpdateScoreItems;
@@ -84,6 +94,8 @@ namespace UI
             MiniEventSystem.OnStartGame -= UpdateLevelText;
             MiniEventSystem.OnComboIncrease -= HandleComboText;
             MiniEventSystem.OnShapeHolderServiceSetted -= SetShapeHolderServiceUI;
+
+            _returnMainMenuButton.onClick.RemoveAllListeners();
         }
 
         private void UpdateTimer(int time)
