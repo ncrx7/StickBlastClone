@@ -17,9 +17,14 @@ namespace UI.MainMenu.Panels
         public TMP_Dropdown shapeHolderTypeDropDown;
         [Inject] private GameDataHandler _gameDataHandler;
 
-        private void Start()
+        private void OnEnable()
         {
-            DropDownMatcher(shapeHolderTypeDropDown.value);
+            MiniEventSystem.OnCompleteGameDataLoad += InitializeDropDown;
+        }
+
+        private void OnDisable()
+        {
+            MiniEventSystem.OnCompleteGameDataLoad -= InitializeDropDown;
         }
 
         public override void OnOpenPanel(GameData gameData)
@@ -41,10 +46,15 @@ namespace UI.MainMenu.Panels
             DropDownMatcher(dropDownIndex);
         }
 
+        public void InitializeDropDown(GameData gameData)
+        {
+            DropDownMatcher((int)gameData.ShapeHolderType);
+        }
+
         public void DropDownMatcher(int dropDownIndex)
         {
             shapeHolderTypeDropDown.value = dropDownIndex;
-            
+
             switch (dropDownIndex)
             {
                 case 0:
