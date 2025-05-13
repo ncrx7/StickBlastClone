@@ -14,22 +14,27 @@ namespace NodeGridSystem.View
         #endregion
 
         #region MonoBehaviour Callbacks
-        private void OnEnable()
+        protected virtual void OnEnable()
         {
             MiniEventSystem.OnCreateEntity += CreateEntity;
+            MiniEventSystem.OnCompleteGridBoardDimensionCalculating += HandleEntityScale;
         }
 
-        private void OnDisable()
+        protected virtual void OnDisable()
         {
             MiniEventSystem.OnCreateEntity -= CreateEntity;
+            MiniEventSystem.OnCompleteGridBoardDimensionCalculating -= HandleEntityScale;
         }
         #endregion
 
-        #region Private Methods
+        #region Protected Methods
         protected virtual void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> middCellGrid, int entityPoolId)
         {
             //Debug.Log("Entity creating..");
         }
+
+        protected virtual void HandleEntityScale() {} 
+  
         #endregion
     }
 }

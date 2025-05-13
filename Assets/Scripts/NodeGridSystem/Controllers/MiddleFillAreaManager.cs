@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DG.Tweening;
 using Enums;
 using NodeGridSystem.Controllers;
+using NodeGridSystem.Controllers.EntityScalers;
 using NodeGridSystem.Models;
 using UnityEngine;
 using Zenject;
@@ -42,18 +43,13 @@ namespace NodeGridSystem.Controllers
             OnGridNodeObject = gridNodeObject;
         }
 
-        public void Setup(int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid)
+        public void Setup(int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, EntityScaler entityScaler)
         {
             var nodeObject = nodeGrid.GetValue(x, y);
             NodeManager currentNode = nodeObject.GetValue();
 
-            float spriteUnitSize = _rectangleSprite.sprite.bounds.size.x; 
-
-            float initialScaleFactor = (_nodeGridBoardManager.AutomaticBoardCellSize / 4) / spriteUnitSize;
-            float scaleFactorOnFilled = (_nodeGridBoardManager.AutomaticBoardCellSize) / spriteUnitSize;
-
-            _initialLocalScale = Vector2.one * initialScaleFactor;
-            _localScaleOnFilled = Vector2.one * scaleFactorOnFilled;
+            _initialLocalScale = entityScaler.MidCellTargetScaleOnInitial;
+            _localScaleOnFilled = entityScaler.MidCellTargetScaleOnFilled;
 
             AddEdgeToList(currentNode.GetNodeEdge(Direction.Right));
             AddEdgeToList(edges[^1].EndNode.GetNodeEdge(Direction.Up));

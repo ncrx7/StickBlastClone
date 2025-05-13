@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Enums;
 using NodeGridSystem.Controllers;
+using NodeGridSystem.Controllers.EntityScalers;
 using NodeGridSystem.Models;
 using NodeGridSystem.View;
 using UnityEngine;
@@ -13,21 +14,22 @@ namespace NodeGridSystem.View
     {
         [SerializeField] private Transform _transformHolder;
         private NodeGridBoardManager _nodeGridBoardManager;
+        private EntityScaler _entityScaler;
 
         [Inject]
-        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager)
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, EntityScaler entityScaler)
         {
             _nodeGridBoardManager = nodeGridBoardManager;
+            _entityScaler = entityScaler;
         }
 
         protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> midCellGrid, int nodePoolId)
         {
-            if(entityType != EntityType.MidCell)
+            if (entityType != EntityType.MidCell)
                 return;
-            
 
             base.CreateEntity(entityType, x, y, nodeGrid, midCellGrid, nodePoolId);
-            
+
             MiddleFillAreaManager middleArea = Instantiate(_entityPrefab, midCellGrid.GetWorldPositionCenter(x, y), Quaternion.identity, _transformHolder);
 
             middleArea.transform.position = midCellGrid.GetWorldPositionCenter(x, y) +
@@ -43,7 +45,12 @@ namespace NodeGridSystem.View
 
             middleArea.SetGridObjectOnMiddleArea(gridObject);
 
-            middleArea.Setup(x, y, nodeGrid);
+            middleArea.Setup(x, y, nodeGrid, _entityScaler);
+        }
+
+        protected override void HandleEntityScale()
+        {
+            _entityScaler.CalculateMidCellScaleFactor(_entityPrefab, _nodeGridBoardManager);
         }
     }
 }

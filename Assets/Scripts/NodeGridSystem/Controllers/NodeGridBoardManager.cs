@@ -65,6 +65,8 @@ namespace NodeGridSystem.Controllers
             AutomaticOffset.y = -(_gameSettings.height / 2f * AutomaticBoardCellSize);
 
             AutomaticOffset += _gameSettings.OffsetFromCenter;
+
+            MiniEventSystem.OnCompleteGridBoardDimensionCalculating?.Invoke();
         }
 
         private async UniTask InitializeBoard()
@@ -244,7 +246,6 @@ namespace NodeGridSystem.Controllers
 
         }
 
-        public float GetCellSize => _gameSettings.CellSize;
         public int GetWidth => _gameSettings.Width;
         public int GetHeight => _gameSettings.height;
         public NodeGridSystem2D<GridNodeObject<NodeManager>> GetNodeGridSystem2D => _nodeGrid;

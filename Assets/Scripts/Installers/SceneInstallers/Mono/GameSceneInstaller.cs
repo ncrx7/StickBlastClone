@@ -7,6 +7,7 @@ using Enums;
 using Level;
 using Mainpanel;
 using NodeGridSystem.Controllers;
+using NodeGridSystem.Controllers.EntityScalers;
 using Shapes;
 using SignalEvents;
 using UnityEngine;
@@ -42,6 +43,8 @@ namespace Installers.Scene
             Container.Bind<CameraManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<GameManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<ComboManager>().FromComponentInHierarchy().AsSingle();
+
+            Container.Bind<EntityScaler>().AsSingle();
         }
 
         private void DeclareSignals()

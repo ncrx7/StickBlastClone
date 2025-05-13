@@ -5,6 +5,7 @@ using NodeGridSystem.Models;
 using UnityEngine;
 using Enums;
 using Zenject;
+using NodeGridSystem.Controllers.EntityScalers;
 
 namespace NodeGridSystem.View
 {
@@ -13,6 +14,7 @@ namespace NodeGridSystem.View
         #region References
         [SerializeField] private Transform _transformHolder;
         [Inject] private NodeGridBoardManager _nodeGridBoardManager;
+        [Inject] private EntityScaler _entityScaler;
         #endregion
 
         #region MonoBehaviour Callbacks
@@ -31,12 +33,10 @@ namespace NodeGridSystem.View
             NodeManager node = Instantiate(_entityPrefab, nodeGrid.GetWorldPositionCenter(x, y), Quaternion.identity, _transformHolder);
 
             node.transform.position = nodeGrid.GetWorldPositionCenter(x, y);
-     
+
             node.transform.SetParent(_transformHolder);
 
-            float spriteUnitSize = node.GetSpriteRenderer.sprite.bounds.size.x; 
-            float scaleFactor = (_nodeGridBoardManager.AutomaticBoardCellSize / 2) / spriteUnitSize;
-            node.transform.localScale = Vector3.one * scaleFactor;
+            node.transform.localScale = _entityScaler.NodeTargetScale;
 
             var gridObject = new GridNodeObject<NodeManager>(nodeGrid, x, y);
             gridObject.InitNeighbourGridObjects();
@@ -45,6 +45,11 @@ namespace NodeGridSystem.View
             nodeGrid.SetValue(x, y, gridObject);
 
             node.SetGridObjectOnNode(gridObject);
+        }
+
+        protected override void HandleEntityScale()
+        {
+            _entityScaler.CalculateNodeScaleFactor(_entityPrefab, _nodeGridBoardManager);
         }
         #endregion
     }

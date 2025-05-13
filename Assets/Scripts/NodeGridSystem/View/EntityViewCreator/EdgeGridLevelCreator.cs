@@ -5,12 +5,17 @@ using NodeGridSystem.Controllers;
 using NodeGridSystem.Models;
 using UnityEngine;
 using Enums;
+using Zenject;
+using NodeGridSystem.Controllers.EntityScalers;
 
 namespace NodeGridSystem.View
 {
     public class EdgeGridLevelCreator : EntityLevelCreator<EdgeManager>
     {
         [SerializeField] private Transform _transformHolder;
+
+        [Inject] private NodeGridBoardManager _nodeGridBoardManager;
+        [Inject] private EntityScaler _entityScaler;
 
         protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> midCellGrid, int entityPoolId)
         {
@@ -26,14 +31,14 @@ namespace NodeGridSystem.View
             {
                 var rightGridNodeObject = startNodeObject.GetNeighbourGridObject(Direction.Right);
                 NodeManager rightNode = rightGridNodeObject.GetValue();
-                
+
                 EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity, _transformHolder);
 
                 startNode.SetEdge(Direction.Right, edgeManager);
                 rightNode.SetEdge(Direction.Left, edgeManager);
 
                 if (edgeManager != null)
-                    edgeManager.Setup(startNodeObject, rightGridNodeObject, nodeGrid);
+                    edgeManager.Setup(startNodeObject, rightGridNodeObject, nodeGrid, _entityScaler);
             }
 
             if (startNodeObject.GetNeighbourGridObject(Enums.Direction.Down) != null)
@@ -47,10 +52,15 @@ namespace NodeGridSystem.View
                 downNode.SetEdge(Direction.Up, edgeManager);
 
                 if (edgeManager != null)
-                    edgeManager.Setup(startNodeObject, downGridNodeObject, nodeGrid);
+                    edgeManager.Setup(startNodeObject, downGridNodeObject, nodeGrid, _entityScaler);
             }
 
             //await UniTask.DelayFrame(1);
+        }
+
+        protected override void HandleEntityScale()
+        {
+            _entityScaler.CalculateEdgeScaleFactor(_entityPrefab, _nodeGridBoardManager);
         }
     }
 }

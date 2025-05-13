@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using NodeGridSystem.Controllers;
+using NodeGridSystem.Controllers.EntityScalers;
 using NodeGridSystem.Models;
 using UnityEngine;
 using Zenject;
@@ -37,19 +38,9 @@ namespace NodeGridSystem.Controllers
             _blockShapeDefaultColor = _blockShapeSprite.color;
         }
 
-        public void Setup(GridNodeObject<NodeManager> startGridNodeObject, GridNodeObject<NodeManager> endGridNodeObject, NodeGridSystem2D<GridNodeObject<NodeManager>> gridNodeSystem) //Vector2 start, Vector2 end
+        public void Setup(GridNodeObject<NodeManager> startGridNodeObject, GridNodeObject<NodeManager> endGridNodeObject, NodeGridSystem2D<GridNodeObject<NodeManager>> gridNodeSystem, EntityScaler entityScaler) //Vector2 start, Vector2 end
         {
-            float spriteUnitSizeX = _edgeSprite.sprite.bounds.size.x;
-            float spriteUnitSizeY = _edgeSprite.sprite.bounds.size.y;  
-
-            float scaleFactorX = _nodeGridBoardManager.AutomaticBoardCellSize / spriteUnitSizeX;
-            float scaleFactorY = (_nodeGridBoardManager.AutomaticBoardCellSize / 4) / spriteUnitSizeY;
-
-            //float scaledX = 1 * scaleFactorX;
-
-            Vector2 targetScale = new Vector2(scaleFactorX, scaleFactorY);
-
-            transform.localScale = targetScale;
+            transform.localScale = entityScaler.EdgeTargetScale;
 
             StartNode = startGridNodeObject.GetValue();
             EndNode = endGridNodeObject.GetValue();
@@ -93,6 +84,7 @@ namespace NodeGridSystem.Controllers
             _midCellAreasBelongsTo.Add(midCell);
         }
 
+        public SpriteRenderer GetEdgeSprite => _edgeSprite;
         public SpriteRenderer GetBlockShapeSpriteRenderer => _blockShapeSprite;
         public Color GetDefaultColor => _blockShapeDefaultColor;
         public List<MiddleFillAreaManager> GetMidCells => _midCellAreasBelongsTo;
