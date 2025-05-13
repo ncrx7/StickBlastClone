@@ -20,8 +20,8 @@ namespace DataModel
         public float XScreenUsageRate, YScreenUsageRate;
 
         [Header("Grid Board Data")]
-        public int Width = 6;
-        public int height = 6;
+/*         public int Width = 6;
+        public int height = 6; */
         public Vector3 OffsetFromCenter = Vector3.zero;
         public bool Debug = true;
 

@@ -9,12 +9,14 @@ using Enums;
 using Zenject;
 using Level;
 using DataModel;
+using Data.Controllers;
 
 namespace NodeGridSystem.Controllers
 {
     public class NodeGridBoardManager : MonoBehaviour
     {
         private GameSettings _gameSettings;
+        private GameDataHandler _gameDataHandler;
 
         private NodeGridSystem2D<GridNodeObject<NodeManager>> _nodeGrid;
         private NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> _middleObjectGrid;
@@ -23,20 +25,27 @@ namespace NodeGridSystem.Controllers
         private CameraManager _cameraManager;
         private ComboManager _comboManager;
 
+        private int _width;
+        private int _height;
+
         public float AutomaticBoardCellSize { get; private set; }
         private Vector3 AutomaticOffset = Vector3.zero;
 
         [Inject]
-        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings)
+        private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings, GameDataHandler gameDataHandler)
         {
             _cameraManager = cameraManager;
             _gameManager = gameManager;
             _comboManager = comboManager;
             _gameSettings = gameSettings;
+            _gameDataHandler = gameDataHandler;
         }
 
         private async void Start()
         {
+            _width = _gameDataHandler.GetGameDataObjectReference().settings.GridWidth;
+            _height = _gameDataHandler.GetGameDataObjectReference().settings.GridHeight;
+
             await CalculateDimensions();
             await InitializeBoard();
         }
@@ -52,8 +61,8 @@ namespace NodeGridSystem.Controllers
             float maxGridWidth = screenWidth * _gameSettings.XScreenUsageRate;
             float maxGridHeight = screenHeight * _gameSettings.YScreenUsageRate;
 
-            float availableCellWidth = (maxGridWidth) / _gameSettings.Width;
-            float availableCellHeight = (maxGridHeight) / _gameSettings.height;
+            float availableCellWidth = (maxGridWidth) / _width;
+            float availableCellHeight = (maxGridHeight) / _height;
 
             float cellSize = Mathf.Min(availableCellWidth, availableCellHeight);
 
@@ -61,8 +70,8 @@ namespace NodeGridSystem.Controllers
 
             await UniTask.Delay(100);
 
-            AutomaticOffset.x = -(_gameSettings.Width / 2f * AutomaticBoardCellSize);
-            AutomaticOffset.y = -(_gameSettings.height / 2f * AutomaticBoardCellSize);
+            AutomaticOffset.x = -(_width / 2f * AutomaticBoardCellSize);
+            AutomaticOffset.y = -(_height / 2f * AutomaticBoardCellSize);
 
             AutomaticOffset += _gameSettings.OffsetFromCenter;
 
@@ -71,8 +80,8 @@ namespace NodeGridSystem.Controllers
 
         private async UniTask InitializeBoard()
         {
-            _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_gameSettings.Width, _gameSettings.height, AutomaticBoardCellSize, AutomaticOffset, _gameSettings.Debug);
-            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_gameSettings.Width - 1, _gameSettings.height - 1, AutomaticBoardCellSize, AutomaticOffset, _gameSettings.Debug);
+            _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_width, _height, AutomaticBoardCellSize, AutomaticOffset, _gameSettings.Debug);
+            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_width - 1, _height - 1, AutomaticBoardCellSize, AutomaticOffset, _gameSettings.Debug);
 
             await InitNodes();
             await InitNeigbours();
@@ -85,9 +94,9 @@ namespace NodeGridSystem.Controllers
 
         private async UniTask InitNodes()
         {
-            for (int x = 0; x < _gameSettings.Width; x++)
+            for (int x = 0; x < _width; x++)
             {
-                for (int y = 0; y < _gameSettings.height; y++)
+                for (int y = 0; y < _height; y++)
                 {
                     MiniEventSystem.OnCreateEntity?.Invoke(EntityType.NodeGrid, x, y, _nodeGrid, _middleObjectGrid, 1);
                 }
@@ -98,9 +107,9 @@ namespace NodeGridSystem.Controllers
 
         private async UniTask InitNeigbours()
         {
-            for (int x = 0; x < _gameSettings.Width; x++)
+            for (int x = 0; x < _width; x++)
             {
-                for (int y = 0; y < _gameSettings.height; y++)
+                for (int y = 0; y < _height; y++)
                 {
                     var gridNodeObject = _nodeGrid.GetValue(x, y);
                     gridNodeObject.InitNeighbourGridObjects();
@@ -116,9 +125,9 @@ namespace NodeGridSystem.Controllers
 
         private async UniTask InitMiddleArea()
         {
-            for (int x = 0; x < _gameSettings.Width - 1; x++)
+            for (int x = 0; x < _width - 1; x++)
             {
-                for (int y = 0; y < _gameSettings.height - 1; y++)
+                for (int y = 0; y < _height - 1; y++)
                 {
                     MiniEventSystem.OnCreateEntity?.Invoke(EntityType.MidCell, x, y, _nodeGrid, _middleObjectGrid, 1);
                 }
@@ -166,7 +175,7 @@ namespace NodeGridSystem.Controllers
             midCells.Clear();
             bool rowCanDestroy = true;
 
-            for (int x = 0; x < _gameSettings.Width - 1; x++)
+            for (int x = 0; x < _width - 1; x++)
             {
                 var midCellGridObject = _middleObjectGrid.GetValue(x, y);
                 MiddleFillAreaManager midCell = midCellGridObject.GetValue();
@@ -209,7 +218,7 @@ namespace NodeGridSystem.Controllers
             midCells.Clear();
             bool columnCanDestroy = true;
 
-            for (int y = 0; y < _gameSettings.height - 1; y++)
+            for (int y = 0; y < _height - 1; y++)
             {
                 var midCellGridObject = _middleObjectGrid.GetValue(x, y);
                 MiddleFillAreaManager midCell = midCellGridObject.GetValue();
@@ -246,8 +255,8 @@ namespace NodeGridSystem.Controllers
 
         }
 
-        public int GetWidth => _gameSettings.Width;
-        public int GetHeight => _gameSettings.height;
+        public int GetWidth => _width;
+        public int GetHeight => _height;
         public NodeGridSystem2D<GridNodeObject<NodeManager>> GetNodeGridSystem2D => _nodeGrid;
 
     }
