@@ -94,7 +94,7 @@ namespace UI.MainMenu.Panels
 
             _gameDataHandler.GetGameDataObjectReference().settings.GridWidth = ParseStringToInt(_gridXinputField.text);
             _gameDataHandler.GetGameDataObjectReference().settings.GridHeight = ParseStringToInt(_gridYinputField.text);
-            
+
             _gameDataHandler.UpdateGameDataFile();
         }
 
@@ -108,8 +108,8 @@ namespace UI.MainMenu.Panels
             {
                 //TODO: POP UP EKLEYEBILIRIM BURAYA UYARI ICIN
                 Debug.LogWarning("Enter a valid number!!!");
-                return -1;
-                
+                return 6;
+
             }
         }
 
