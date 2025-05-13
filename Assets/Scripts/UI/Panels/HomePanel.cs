@@ -4,15 +4,19 @@ using Data.Model;
 using DG.Tweening;
 using Enums;
 using Extensions;
+using Mainpanel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityUtils.BaseClasses;
+using Zenject;
 
 namespace UI.MainMenu.Panels
 {
     public class HomePanel : BasePanel<MainPanelType, GameData>
     {
+        [Inject] private LevelManager _levelManager;
+
         [Header("Buttons")]
         [SerializeField] private Button _startGameButton;
 
@@ -26,8 +30,9 @@ namespace UI.MainMenu.Panels
         [Header("Tweens")]
         Tween _questSliderTween, _giftSliderTween;
 
-        [Header("Image References")]
+        [Header("Other References")]
         [SerializeField] private RectTransform _collectionButtonIcon;
+        [SerializeField] private TextMeshProUGUI _levelButonLabel;
         
         [Header("Settings")]
         [SerializeField] private float _sliderAnimationDuration;
@@ -47,6 +52,8 @@ namespace UI.MainMenu.Panels
             _questText.text = gameData.UserLevel.ToString() + " /" + " 5";
 
             AnimateSlider(gameData, _giftSlider, ref _giftSliderTween);
+
+            _levelButonLabel.text = "Level " + (gameData.UserLevel % (_levelManager.GetAllLevelData.Count + 1)).ToString(); 
         }
 
         public override void OnClosePanel(GameData gameData)

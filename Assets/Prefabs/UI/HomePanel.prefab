@@ -347,6 +347,7 @@ MonoBehaviour:
   _questText: {fileID: 1886710023793432509}
   _giftSlider: {fileID: 6090458008452028578}
   _collectionButtonIcon: {fileID: 8159019794913660835}
+  _levelButonLabel: {fileID: 7159597028888097927}
   _sliderAnimationDuration: 3
   _collectionIconRotationSpeed: 130
 --- !u!1 &1203703046443578994
@@ -1157,7 +1158,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Reach Level 20
+  m_text: Reach Level 5
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
   m_sharedMaterial: {fileID: 2830636965969884548, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
