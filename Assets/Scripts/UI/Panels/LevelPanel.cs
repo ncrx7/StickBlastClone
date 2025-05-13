@@ -21,7 +21,7 @@ namespace UI.MainMenu.Panels
         public override void OnOpenPanel(GameData gameData)
         {
             base.OnOpenPanel(gameData);
-
+/* 
             if(_levelPrefabsLoaded)
                 return;
 
@@ -32,7 +32,7 @@ namespace UI.MainMenu.Panels
                 levelPrefab.OnOpenPanel(gameData);
             }
             
-            _levelPrefabsLoaded = true; //TODO: MAKE HERE FROM PANEL MEMORY POOL AND MAKE IT DYNAMIC WHEN CLOSE OPEN
+            _levelPrefabsLoaded = true; //TODO: MAKE HERE FROM PANEL MEMORY POOL AND MAKE IT DYNAMIC WHEN CLOSE OPEN */
         }
 
         public override void OnClosePanel(GameData gameData)

@@ -1800,15 +1800,15 @@ MonoBehaviour:
       m_Calls: []
   m_text: Unordered Shape Holder
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
+  m_sharedMaterial: {fileID: 2830636965969884548, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1825,12 +1825,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 80.84
+  m_fontSize: 94.7
   m_fontSizeBase: 14
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 80.84
+  m_fontSizeMax: 94.7
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -2042,6 +2042,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1705701831}
     m_Modifications:
+    - target: {fileID: 1455278776914468134, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_fontSize
+      value: 154.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 1455278776914468134, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
+    - target: {fileID: 1455278776914468134, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2830636965969884548, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
+    - target: {fileID: 1455278776914468134, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773279810928683457, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_fontSize
+      value: 113.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773279810928683457, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
+    - target: {fileID: 3773279810928683457, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_fontSizeMax
+      value: 113.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3773279810928683457, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2830636965969884548, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
+    - target: {fileID: 3773279810928683457, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6482055137451544301, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
       propertyPath: m_Name
       value: SettingsPanel
@@ -2062,6 +2098,18 @@ PrefabInstance:
       propertyPath: shapeHolderTypeDropDown
       value: 
       objectReference: {fileID: 1477744525644750577}
+    - target: {fileID: 8193974212841324458, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_fontAsset
+      value: 
+      objectReference: {fileID: 11400000, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
+    - target: {fileID: 8193974212841324458, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_sharedMaterial
+      value: 
+      objectReference: {fileID: 2830636965969884548, guid: 605433b68313d491a8ab88bc03a41651, type: 2}
+    - target: {fileID: 8193974212841324458, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: m_hasFontAssetChanged
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9021839001252974156, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -2397,7 +2445,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8386166905013794801, guid: ad5e1c89ecead97479e04b8fe154c7e0, type: 3}
       propertyPath: m_Name
-      value: LevelPanel
+      value: ShopPanel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -2702,7 +2750,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.05428951, y: 0.091479704}
   m_AnchorMax: {x: 0.9480001, y: 0.16816421}
-  m_AnchoredPosition: {x: 2.4441528, y: 20.999878}
+  m_AnchoredPosition: {x: 2.4440918, y: 20.999878}
   m_SizeDelta: {x: -242.668, y: 95.66202}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7713289244886314343
