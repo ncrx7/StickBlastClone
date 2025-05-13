@@ -8,9 +8,9 @@ public static class PathChecker
 {
     private static NodeManager _currentNodeManager;
 
-    public static void HandleCheckShapePathByPointer(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, Vector2Int lastMousePositionOnBoard)
+    public static void HandleCheckShapePathByPointer(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, ref Vector2Int lastMousePositionOnBoard)
     {
-        var closestNode = FindClosestNeighbourByShapeHead(nodeGridBoardManager, shapeManager, lastMousePositionOnBoard);
+        var closestNode = FindClosestNeighbourByShapeHead(nodeGridBoardManager, shapeManager, ref lastMousePositionOnBoard);
 
         if (closestNode == null)
             return;
@@ -18,7 +18,7 @@ public static class PathChecker
         PathChecker.CheckPathFromANode(shapeManager, closestNode, shapeManager.GetEdgesMatching, false);
     }
 
-    private static NodeManager FindClosestNeighbourByShapeHead(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, Vector2Int lastMousePositionOnBoard)
+    private static NodeManager FindClosestNeighbourByShapeHead(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, ref Vector2Int lastMousePositionOnBoard)
     {
         // Vector2 pointerWorldPos = Camera.main.ScreenToWorldPoint(eventData.position);
 

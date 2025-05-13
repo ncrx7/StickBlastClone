@@ -24,7 +24,7 @@ namespace Shapes
         [SerializeField] private float _pointerYOffset;
         private Vector3 _offset;
         private Vector3 _homePosition;
-        private Vector2Int _lastMousePositionOnGrid = new Vector2Int(-1, -1);
+        [SerializeField] private Vector2Int _lastMousePositionOnGrid = new Vector2Int(-1, -1);
         #endregion
 
         [Inject]
@@ -69,7 +69,7 @@ namespace Shapes
 
             Move(eventData);
 
-            PathChecker.HandleCheckShapePathByPointer(_nodeGridBoardManager, _shapeManager, _lastMousePositionOnGrid);
+            PathChecker.HandleCheckShapePathByPointer(_nodeGridBoardManager, _shapeManager, ref _lastMousePositionOnGrid);
         }
 
         public void OnPointerUp(PointerEventData eventData)
