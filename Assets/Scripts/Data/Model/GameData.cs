@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Shapes;
@@ -10,12 +11,20 @@ namespace Data.Model
         public string UserName;
         public int UserLevel;
         public bool FirstEntry;
-        public ShapeHolderCreator.ShapeHolderType ShapeHolderType;
-
+        public Settings settings;
+    
         public GameData(string userName, int userLevel)
         {
             UserName = userName;
             UserLevel = userLevel;
         }
+    }
+
+    [Serializable]
+    public class Settings
+    {
+        public ShapeHolderCreator.ShapeHolderType ShapeHolderType;
+        public int GridWidth;
+        public int GridHeight;
     }
 }

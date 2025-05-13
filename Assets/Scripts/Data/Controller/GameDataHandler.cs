@@ -48,6 +48,12 @@ namespace Data.Controllers
         public GameData CreateNewGameDataObject()
         {
             GameData gameData = new GameData("Garawell Games", 1);
+
+            gameData.settings = new();
+            
+            gameData.settings.GridWidth = 4;
+            gameData.settings.GridHeight = 4;
+
             return gameData;
         }
 

@@ -1195,7 +1195,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1802323200439984024}
         m_TargetAssemblyTypeName: UI.MainMenu.Panels.SettingsPanel, Assembly-CSharp
-        m_MethodName: OnDropDownValueChange
+        m_MethodName: OnGridSizeDropDownValueChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2520,7 +2520,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1802323200439984024}
         m_TargetAssemblyTypeName: UI.MainMenu.Panels.SettingsPanel, Assembly-CSharp
-        m_MethodName: OnDropDownValueChange
+        m_MethodName: OnShapeHolderDropDownValueChange
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4467,6 +4467,10 @@ PrefabInstance:
       propertyPath: _rectTransform
       value: 
       objectReference: {fileID: 4099522415561577195}
+    - target: {fileID: 7272949757857002451, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
+      propertyPath: gridSizeDropDown
+      value: 
+      objectReference: {fileID: 571292887}
     - target: {fileID: 7272949757857002451, guid: 4a0f2bc0227019b4495a05f5626c3d3f, type: 3}
       propertyPath: shapeHolderTypeDropDown
       value: 

@@ -56,7 +56,7 @@ namespace Shapes
 
         private async void SetShapeHolderService()
         {
-            _shapeHolderType = _gameDataHandler.GetGameDataObjectReference().ShapeHolderType;
+            _shapeHolderType = _gameDataHandler.GetGameDataObjectReference().settings.ShapeHolderType;
 
             switch (_shapeHolderType)
             {
