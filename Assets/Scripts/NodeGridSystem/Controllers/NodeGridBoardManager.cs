@@ -38,13 +38,6 @@ namespace NodeGridSystem.Controllers
             InitializeBoard();
         }
 
-        private void Update() {
-            if(Input.GetKeyDown(KeyCode.L))
-            {
-                MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore, _gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
-            }
-        }
-
         private async void InitializeBoard()
         {
             _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_gameSettings.Width, _gameSettings.height, _gameSettings.CellSize, _gameSettings.OriginPosition, _gameSettings.Debug);
