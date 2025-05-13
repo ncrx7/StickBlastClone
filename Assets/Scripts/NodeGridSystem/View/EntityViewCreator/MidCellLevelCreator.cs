@@ -30,7 +30,9 @@ namespace NodeGridSystem.View
             
             MiddleFillAreaManager middleArea = Instantiate(_entityPrefab, midCellGrid.GetWorldPositionCenter(x, y), Quaternion.identity, _transformHolder);
 
-            middleArea.transform.position = midCellGrid.GetWorldPositionCenter(x, y) + new Vector3(_nodeGridBoardManager.GetCellSize / 2, _nodeGridBoardManager.GetCellSize / 2 + 0);
+            middleArea.transform.position = midCellGrid.GetWorldPositionCenter(x, y) +
+                             new Vector3(_nodeGridBoardManager.AutomaticBoardCellSize / 2, _nodeGridBoardManager.AutomaticBoardCellSize / 2);
+
             middleArea.transform.SetParent(_transformHolder);
 
             var gridObject = new GridNodeObject<MiddleFillAreaManager>(midCellGrid, x, y);

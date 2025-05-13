@@ -23,6 +23,13 @@ namespace NodeGridSystem.Controllers
         private CameraManager _cameraManager;
         private ComboManager _comboManager;
 
+        public float AutomaticBoardCellSize = 1;
+        public Vector3 AutomaticOffset = Vector3.zero;
+
+        [Header("Screen usage rate")]
+        [Range(0.1f, 1f)]
+        public float screenCoverage = 0.8f;
+
 
         [Inject]
         private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings)
@@ -33,15 +40,37 @@ namespace NodeGridSystem.Controllers
             _gameSettings = gameSettings;
         }
 
-        private void Start()
+        private async void Start()
         {
-            InitializeBoard();
+            await CalculateDimensions();
+            await InitializeBoard();
         }
 
-        private async void InitializeBoard()
+        private async UniTask CalculateDimensions()
         {
-            _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_gameSettings.Width, _gameSettings.height, _gameSettings.CellSize, _gameSettings.OriginPosition, _gameSettings.Debug);
-            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_gameSettings.Width - 1, _gameSettings.height - 1, _gameSettings.CellSize, _gameSettings.OriginPosition, _gameSettings.Debug);
+            float screenHeight = 2f * Camera.main.orthographicSize;
+            float screenWidth = screenHeight * Camera.main.aspect;
+
+            // Kullanılabilir alan
+            float maxGridWidth = screenWidth * screenCoverage;
+            float maxGridHeight = screenHeight * screenCoverage;
+
+            float availableCellWidth = (maxGridWidth) / _gameSettings.Width;
+            float availableCellHeight = (maxGridHeight) / _gameSettings.height;
+
+            float cellSize = Mathf.Min(availableCellWidth, availableCellHeight);
+
+            AutomaticBoardCellSize = cellSize;
+
+            await UniTask.Delay(100);
+
+            AutomaticOffset.x = -((_gameSettings.Width / 2f * AutomaticBoardCellSize));
+        }
+
+        private async UniTask InitializeBoard()
+        {
+            _nodeGrid = NodeGridSystem2D<GridNodeObject<NodeManager>>.VerticalGrid(_gameSettings.Width, _gameSettings.height, AutomaticBoardCellSize, AutomaticOffset, _gameSettings.Debug);
+            _middleObjectGrid = NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>>.VerticalGrid(_gameSettings.Width - 1, _gameSettings.height - 1, AutomaticBoardCellSize, AutomaticOffset, _gameSettings.Debug);
 
             MiniEventSystem.ActivateLoadingUI?.Invoke();
             _gameManager.IsGamePaused = true;

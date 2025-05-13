@@ -12,18 +12,24 @@ namespace NodeGridSystem.Controllers
     [RequireComponent(typeof(SpriteRenderer))]
     public class MiddleFillAreaManager : MonoBehaviour
     {
-        private GameManager _gameManager;
-
         [SerializeField] private SpriteRenderer _rectangleSprite;
         [SerializeField] private float _scaleAnimationTime;
+        private GameManager _gameManager;
+        private NodeGridBoardManager _nodeGridBoardManager;
+
         public GridNodeObject<MiddleFillAreaManager> OnGridNodeObject { get; private set; }
         public List<EdgeManager> edges = new();
+
         public bool IsFilled = false;
 
+        private Vector2 _initialLocalScale;
+        private Vector2 _localScaleOnFilled;
+
         [Inject]
-        private void InitializeDependencies(GameManager gameManager)
+        private void InitializeDependencies(GameManager gameManager, NodeGridBoardManager nodeGridBoardManager)
         {
             _gameManager = gameManager;
+            _nodeGridBoardManager = nodeGridBoardManager;
         }
 
         public void AddEdgeToList(EdgeManager edgeManager)
@@ -41,27 +47,13 @@ namespace NodeGridSystem.Controllers
             var nodeObject = nodeGrid.GetValue(x, y);
             NodeManager currentNode = nodeObject.GetValue();
 
-            /*         AddEdgeToList(currentNode.GetNodeEdge(Direction.Right));
-                    AddEdgeToList(currentNode.GetNodeEdge(Direction.Up));
+            float spriteUnitSize = _rectangleSprite.sprite.bounds.size.x; 
 
-                    var rightNodeObject = nodeObject.GetNeighbourGridObject(Direction.Right);
-                    NodeManager rightNode = rightNodeObject.GetValue();
-                    AddEdgeToList(rightNode.GetNodeEdge(Direction.Up));
+            float initialScaleFactor = (_nodeGridBoardManager.AutomaticBoardCellSize / 4) / spriteUnitSize;
+            float scaleFactorOnFilled = (_nodeGridBoardManager.AutomaticBoardCellSize) / spriteUnitSize;
 
-                    var topNodeObject = nodeObject.GetNeighbourGridObject(Direction.Up);
-                    NodeManager topNode = topNodeObject.GetValue();
-                    AddEdgeToList(topNode.GetNodeEdge(Direction.Right)); */
-
-
-            /*         EdgeManager firstEdge = currentNode.GetNodeEdge(Direction.Right);
-                    EdgeManager secondEdge = firstEdge.EndNode.GetNodeEdge(Direction.Up);
-                    EdgeManager thirdNode = secondEdge.EndNode.GetNodeEdge(Direction.Left);
-                    EdgeManager fourthEdge = thirdNode.EndNode.GetNodeEdge(Direction.Down);
-
-                    AddEdgeToList(firstEdge);
-                    AddEdgeToList(secondEdge);
-                    AddEdgeToList(thirdNode);
-                    AddEdgeToList(fourthEdge); */
+            _initialLocalScale = Vector2.one * initialScaleFactor;
+            _localScaleOnFilled = Vector2.one * scaleFactorOnFilled;
 
             AddEdgeToList(currentNode.GetNodeEdge(Direction.Right));
             AddEdgeToList(edges[^1].EndNode.GetNodeEdge(Direction.Up));
@@ -76,11 +68,11 @@ namespace NodeGridSystem.Controllers
 
         public void OnAllEdgeFull()
         {
-            transform.localScale = new Vector3(0.7f, 0.7f, 0.7f);
+            transform.localScale = _initialLocalScale;
 
             GetSpriteRenderer.enabled = true;
 
-            transform.DOScale(new Vector3(7, 7, 7), _scaleAnimationTime);
+            transform.DOScale(_localScaleOnFilled, _scaleAnimationTime);
             
             IsFilled = true;
 

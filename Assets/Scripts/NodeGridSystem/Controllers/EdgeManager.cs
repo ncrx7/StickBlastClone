@@ -11,6 +11,8 @@ namespace NodeGridSystem.Controllers
     public class EdgeManager : MonoBehaviour
     {
         private GameManager _gameManager;
+        private NodeGridBoardManager _nodeGridBoardManager;
+
         [SerializeField] private SpriteRenderer _edgeSprite;
         [SerializeField] private SpriteRenderer _blockShapeSprite;
         private Color _blockShapeDefaultColor;
@@ -23,10 +25,11 @@ namespace NodeGridSystem.Controllers
         public bool IsEmpty = true;
 
         [Inject]
-        private void InitializeDependencies(GameManager gameManager)
+        private void InitializeDependencies(GameManager gameManager, NodeGridBoardManager nodeGridBoardManager)
         {
             
             _gameManager = gameManager;
+            _nodeGridBoardManager = nodeGridBoardManager;
         }
 
         private void Start()
@@ -36,6 +39,18 @@ namespace NodeGridSystem.Controllers
 
         public void Setup(GridNodeObject<NodeManager> startGridNodeObject, GridNodeObject<NodeManager> endGridNodeObject, NodeGridSystem2D<GridNodeObject<NodeManager>> gridNodeSystem) //Vector2 start, Vector2 end
         {
+            float spriteUnitSizeX = _edgeSprite.sprite.bounds.size.x;
+            float spriteUnitSizeY = _edgeSprite.sprite.bounds.size.y;  
+
+            float scaleFactorX = _nodeGridBoardManager.AutomaticBoardCellSize / spriteUnitSizeX;
+            float scaleFactorY = (_nodeGridBoardManager.AutomaticBoardCellSize / 4) / spriteUnitSizeY;
+
+            //float scaledX = 1 * scaleFactorX;
+
+            Vector2 targetScale = new Vector2(scaleFactorX, scaleFactorY);
+
+            transform.localScale = targetScale;
+
             StartNode = startGridNodeObject.GetValue();
             EndNode = endGridNodeObject.GetValue();
 

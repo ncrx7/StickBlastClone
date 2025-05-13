@@ -4,6 +4,7 @@ using NodeGridSystem.Controllers;
 using NodeGridSystem.Models;
 using UnityEngine;
 using Enums;
+using Zenject;
 
 namespace NodeGridSystem.View
 {
@@ -11,31 +12,37 @@ namespace NodeGridSystem.View
     {
         #region References
         [SerializeField] private Transform _transformHolder;
+        [Inject] private NodeGridBoardManager _nodeGridBoardManager;
         #endregion
 
         #region MonoBehaviour Callbacks
- 
+
         #endregion
 
         #region Private Methods
         protected override void CreateEntity(EntityType entityType, int x, int y, NodeGridSystem2D<GridNodeObject<NodeManager>> nodeGrid, NodeGridSystem2D<GridNodeObject<MiddleFillAreaManager>> middCellGrid, int nodePoolId)
         {
-            if(entityType != EntityType.NodeGrid)
+            if (entityType != EntityType.NodeGrid)
                 return;
 
             base.CreateEntity(entityType, x, y, nodeGrid, middCellGrid, nodePoolId);
 
             //TODO: PULL NODE OBJECT FROM OBJECT POOLER
-            NodeManager node = Instantiate(_entityPrefab, nodeGrid.GetWorldPositionCenter(x, y), Quaternion.identity, _transformHolder); 
+            NodeManager node = Instantiate(_entityPrefab, nodeGrid.GetWorldPositionCenter(x, y), Quaternion.identity, _transformHolder);
 
             node.transform.position = nodeGrid.GetWorldPositionCenter(x, y);
+     
             node.transform.SetParent(_transformHolder);
+
+            float spriteUnitSize = node.GetSpriteRenderer.sprite.bounds.size.x; 
+            float scaleFactor = (_nodeGridBoardManager.AutomaticBoardCellSize / 2) / spriteUnitSize;
+            node.transform.localScale = Vector3.one * scaleFactor;
 
             var gridObject = new GridNodeObject<NodeManager>(nodeGrid, x, y);
             gridObject.InitNeighbourGridObjects();
 
-            gridObject.SetValue(node); 
-            nodeGrid.SetValue(x, y, gridObject); 
+            gridObject.SetValue(node);
+            nodeGrid.SetValue(x, y, gridObject);
 
             node.SetGridObjectOnNode(gridObject);
         }
