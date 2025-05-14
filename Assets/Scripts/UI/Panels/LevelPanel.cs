@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Data.Model;
 using Enums;
 using Mainpanel;
+using StateMachine;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityUtils.BaseClasses;
@@ -17,10 +18,13 @@ namespace UI.MainMenu.Panels
         private bool _levelPrefabsLoaded = false;
 
         [Inject] private LevelManager _levelManager;
+        [Inject] private StateMachineController _stateMachineController;
 
         public override void OnOpenPanel(GameData gameData)
         {
             base.OnOpenPanel(gameData);
+
+            _stateMachineController.SwitchState(new ShopPanelDisplayingState());
 /* 
             if(_levelPrefabsLoaded)
                 return;

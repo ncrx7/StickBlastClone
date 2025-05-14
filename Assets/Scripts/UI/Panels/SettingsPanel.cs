@@ -4,6 +4,7 @@ using Data.Controllers;
 using Data.Model;
 using Enums;
 using Shapes;
+using StateMachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -20,6 +21,7 @@ namespace UI.MainMenu.Panels
         [SerializeField] private GameObject _gridSetPopUp;
 
         [Inject] private GameDataHandler _gameDataHandler;
+        [Inject] private StateMachineController _stateMachineController;
 
         private void OnEnable()
         {
@@ -39,6 +41,7 @@ namespace UI.MainMenu.Panels
         {
             base.OnOpenPanel(gameData);
 
+            _stateMachineController.SwitchState(new SettingsPanelDisplayingState());
         }
 
         public override void OnClosePanel(GameData gameData)

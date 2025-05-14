@@ -37,7 +37,6 @@ namespace UnityUtils.BaseClasses
             foreach (var mainPanel in _mainPanels)
             {
                 _mainPanelMap[mainPanel.PanelType] = mainPanel;
-                Debug.Log("main panel name: " + _mainPanelMap[mainPanel.PanelType].gameObject.name);
             }
         }
 

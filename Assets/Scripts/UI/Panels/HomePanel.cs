@@ -5,6 +5,7 @@ using DG.Tweening;
 using Enums;
 using Extensions;
 using Mainpanel;
+using StateMachine;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -16,6 +17,7 @@ namespace UI.MainMenu.Panels
     public class HomePanel : BasePanel<MainPanelType, GameData>
     {
         [Inject] private LevelManager _levelManager;
+        [Inject] private StateMachineController _stateMachineController;
 
         [Header("Buttons")]
         [SerializeField] private Button _startGameButton;
@@ -46,6 +48,8 @@ namespace UI.MainMenu.Panels
         public override void OnOpenPanel(GameData gameData)
         {
             base.OnOpenPanel(gameData);
+
+            _stateMachineController.SwitchState(new HomePanelDisplayingState());
 
             AnimateSlider(gameData, _questSlider, ref _questSliderTween);
 
