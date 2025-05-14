@@ -6,17 +6,23 @@ namespace StateMachine
     {
         public void OnEnterState()
         {
+            #if UNITY_EDITOR
             Debug.Log("Entering settings panel -> from state machine behaviour");
+            #endif
         }
 
         public void OnExitState()
         {
+            #if UNITY_EDITOR
             Debug.Log("Exiting settings panel -> from state machine behaviour");
+            #endif
         }
 
         public void OnUpdateState()
         {
+            #if UNITY_EDITOR
             Debug.Log("Updating settings panel -> from state machine behaviour");
+            #endif
         }
     }
 }

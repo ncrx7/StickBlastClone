@@ -8,17 +8,23 @@ namespace StateMachine
     {
         public void OnEnterState()
         {
+            #if UNITY_EDITOR
             Debug.Log("Entering shop panel -> from state machine behaviour");
+            #endif
         }
 
         public void OnExitState()
         {
+            #if UNITY_EDITOR
             Debug.Log("Exiting shop panel -> from state machine behaviour");
+            #endif
         }
 
         public void OnUpdateState()
         {
+            #if UNITY_EDITOR
             Debug.Log("Updating shop panel -> from state machine behaviour");
+            #endif
         }
     }
 }
