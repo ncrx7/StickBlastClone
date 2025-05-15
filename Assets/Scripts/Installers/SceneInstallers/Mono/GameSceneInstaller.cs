@@ -60,7 +60,7 @@ namespace Installers.Scene
         {
             foreach (var shape in _gameSettings.ShapeData)
             {
-                Container.BindMemoryPool<ShapeManager, ShapePool<ShapeType>>().WithId(shape.Type).WithInitialSize(10).FromSubContainerResolve().ByNewContextPrefab(shape.ShapePrefab).UnderTransformGroup("Shapes");
+                Container.BindMemoryPool<ShapeManager, ShapePool<ShapeType>>().WithId(shape.Type).WithInitialSize(10).FromSubContainerResolve().ByNewContextPrefab(shape.ShapePrefab.gameObject).UnderTransformGroup("Shapes");
             }
         }
 

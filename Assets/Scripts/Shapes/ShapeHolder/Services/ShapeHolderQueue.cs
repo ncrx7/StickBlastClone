@@ -8,6 +8,7 @@ using UnityUtils.BaseClasses;
 using Enums;
 using Zenject;
 using DataModel;
+using NodeGridSystem.Controllers;
 
 
 namespace Shapes
@@ -16,6 +17,7 @@ namespace Shapes
     {
         private GameManager _gameManager;
         private GameSettings _gameSettings;
+        private NodeGridBoardManager _nodeGridBoardManager;
 
         [SerializeField] private Queue<ShapeManager> _shapeQueue = new();
         [SerializeField] private ShapeFactory<ShapeType> _shapeFactory;
@@ -28,11 +30,12 @@ namespace Shapes
         private Transform _queueStartPoint;
         private Transform _queueEndPoint;
 
-        public ShapeHolderQueue(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings)
+        public ShapeHolderQueue(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings, NodeGridBoardManager nodeGridBoardManager)
         {
             _shapeFactory = shapeFactory;
             _gameManager = gameManager;
             _gameSettings = gameSettings;
+            _nodeGridBoardManager = nodeGridBoardManager;
         }
         public async void InitializeShapeHolder(Transform startpoint, Transform endPoint)
         {
@@ -64,11 +67,14 @@ namespace Shapes
 
             foreach (ShapeManager shape in _shapeQueue)
             {
-                shape.transform.DOMove(_currentPosition, _gameSettings.AnimationTime).OnComplete(() =>
+                shape.transform.DOMove(_currentPosition, _gameSettings.AnimationTime).OnComplete(async () =>
                 {
                     if (index == 0)
                     {
-                        if (!shape.CheckRelativeMatchExist() && !_gameManager.IsGamePaused)
+                        
+                        var response = await PathChecker.EmptyDirectionPathOnBoardChecker(_nodeGridBoardManager, shape);
+
+                        if (!response.IsThereEmptySlot)
                             MiniEventSystem.OnEndGame?.Invoke(0);
 
                         shape.SetCanMoveFlag(true);

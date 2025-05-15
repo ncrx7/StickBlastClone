@@ -210,7 +210,6 @@ namespace UI
             {
                 textMesh.text = currentNum.ToString();
                 currentNum++;
-                Debug.Log("current num -> " + currentNum);
 
                 await UniTask.Delay(_numberAnimatorDelay);
             }

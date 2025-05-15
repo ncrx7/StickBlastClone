@@ -1,8 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
+using Cysharp.Threading.Tasks;
 using NodeGridSystem.Controllers;
 using Shapes;
 using UnityEngine;
+using Zenject;
 
 public static class PathChecker
 {
@@ -93,6 +95,43 @@ public static class PathChecker
         return true;
     }
 
+    public async static UniTask<EmptyDirectionPathResponse> EmptyDirectionPathOnBoardChecker(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager)
+    {
+        bool isThereEmptySlot = false;
+        int matchCount = 0;
+
+        for (int x = 0; x < nodeGridBoardManager.GetWidth; x++)
+        {
+            for (int y = 0; y < nodeGridBoardManager.GetHeight; y++)
+            {
+                var gridNodeObject = nodeGridBoardManager.GetNodeGridSystem2D.GetValue(x, y);
+
+                NodeManager nodeManager = gridNodeObject.GetValue();
+
+                if (CheckPathFromANode(shapeManager, nodeManager, shapeManager.GetEdgesMatching, true)) 
+                {
+                    matchCount++;
+
+                    if (matchCount == 1) 
+                    {
+                        isThereEmptySlot =  true;
+                        continue;
+                    }
+                    else
+                    {
+                        await UniTask.DelayFrame(1);
+                        return new EmptyDirectionPathResponse(isThereEmptySlot, true); //Eger birden fazla eşleşme olursa  2. PARAMETRE true doner
+                    }
+                }
+
+            }
+        }
+
+        await UniTask.DelayFrame(1);
+
+        return new EmptyDirectionPathResponse(isThereEmptySlot, false);;
+    }
+
     private static void ShowBlockShapeSlotSign(ShapeManager shapeManager)
     {
         if (shapeManager.GetEdgesMatching.Count == 0)
@@ -125,6 +164,18 @@ public static class PathChecker
 
             if (!edge.StartNode.NodePainted) edge.StartNode.ResetNode();
             if (!edge.EndNode.NodePainted) edge.EndNode.ResetNode();
+        }
+    }
+
+    public class EmptyDirectionPathResponse
+    {
+        public bool IsThereEmptySlot;
+        public bool IsSlotCountUpperThanOne;
+
+        public EmptyDirectionPathResponse(bool isThereEmptySlot, bool isSlotCountUpperOne) 
+        {
+            IsThereEmptySlot = isThereEmptySlot;
+            IsSlotCountUpperThanOne = isSlotCountUpperOne;
         }
     }
 }

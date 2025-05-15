@@ -86,27 +86,6 @@ namespace Shapes
             //Destroy(this.gameObject);
         }
 
-        public bool CheckRelativeMatchExist()
-        {
-            for (int x = 0; x < _nodeGridBoardManager.GetWidth; x++)
-            {
-                for (int y = 0; y < _nodeGridBoardManager.GetHeight; y++)
-                {
-                    var gridNodeObject = _nodeGridBoardManager.GetNodeGridSystem2D.GetValue(x, y);
-
-                    NodeManager nodeManager = gridNodeObject.GetValue();
-
-                    if (PathChecker.CheckPathFromANode(this, nodeManager, GetEdgesMatching, true)) //nodeManager.GetNodeCollisionManager.CheckShapePath(this, GetEdgesMatching, true)
-                    {
-                        return true;
-                    }
-
-                }
-            }
-
-            return false;
-        }
-
         public void Reset()
         {
             SetCanMoveFlag(false);

@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
 using DataModel;
 using DG.Tweening;
+using EntitiesData.Shapes;
 using Enums;
+using NodeGridSystem.Controllers;
 using UnityEngine;
 using Zenject;
 
@@ -14,6 +16,7 @@ namespace Shapes
     {
         private GameManager _gameManager;
         private GameSettings _gameSettings;
+        private NodeGridBoardManager _nodeGridBoardManager;
 
    
         private ShapeFactory<ShapeType> _shapeFactory;
@@ -27,20 +30,23 @@ namespace Shapes
         private Transform _queueStartPoint;
         private Transform _queueEndPoint;
 
-        public ShapeHolderUnordered(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings)
+        public ShapeHolderUnordered(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings, NodeGridBoardManager nodeGridBoardManager)
         {
             _shapeFactory = shapeFactory;
             _gameManager = gameManager;
             _gameSettings = gameSettings;
+            _nodeGridBoardManager = nodeGridBoardManager;
         }
 
-        private void ShapeHolderMatchCheck()
+        private async void ShapeHolderItemsMatchCheck()
         {
             bool anyMatchExists = false;
 
             foreach (var shape in _shapes)
             {
-                if (shape.CheckRelativeMatchExist())
+                var response = await PathChecker.EmptyDirectionPathOnBoardChecker(_nodeGridBoardManager, shape);
+
+                if (response.IsThereEmptySlot)
                 {
                     anyMatchExists = true;
                 }
@@ -90,16 +96,43 @@ namespace Shapes
                 return;
             }
 
-            ShapeHolderMatchCheck();
+            ShapeHolderItemsMatchCheck();
         }
 
         public async UniTask HandleCreateShapes()
         {
+            List<ShapeType> _shapeTypeblackList = new();
+
             for (int i = 0; i < 3; i++)
             {
-                ShapeManager shape = _shapeFactory.Create(GetRandomShapeType(), QueueEndPoint.transform.position);
+                bool choosingCorrected = false;
 
-                _shapes.Add(shape);
+                while(!choosingCorrected)
+                {
+                    //ShapeManager shape = _shapeFactory.Create(GetRandomShapeType(), QueueEndPoint.transform.position);
+                    ShapeWrapper<ShapeType> candidateShapeWrapper = _gameSettings.ShapeData[UnityEngine.Random.Range(0, _gameSettings.ShapeData.Count)];
+
+                    if(_shapeTypeblackList.Contains(candidateShapeWrapper.Type))
+                    {
+                        Debug.Log("type of " + candidateShapeWrapper.Type + " is in the black list.");
+                        continue;
+                    }
+
+                    var response = await PathChecker.EmptyDirectionPathOnBoardChecker(_nodeGridBoardManager, candidateShapeWrapper.ShapePrefab);
+
+                    if(response.IsThereEmptySlot)
+                    {
+                        ShapeManager shape = _shapeFactory.Create(candidateShapeWrapper.Type, QueueEndPoint.transform.position);
+                        _shapes.Add(shape);
+                        choosingCorrected = true;
+
+                        if(!response.IsSlotCountUpperThanOne)
+                        {
+                            Debug.Log("shape : " + shape.name + " has only one match on board");
+                            _shapeTypeblackList.Add(candidateShapeWrapper.Type);
+                        }
+                    }
+                } 
             }
 
             await UniTask.DelayFrame(1);
@@ -125,7 +158,7 @@ namespace Shapes
                 await UniTask.Delay(50);
             }
 
-            ShapeHolderMatchCheck();
+            ShapeHolderItemsMatchCheck();
         }
 
     }

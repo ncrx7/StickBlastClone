@@ -62,7 +62,7 @@ namespace Shapes
 
         private void HandleShapeScale()
         {
-            _entityScaler.CalculateShapeScaleFactor(_gameSettings.ShapeData[0].ShapePrefab.GetComponent<ShapeManager>(), _nodeGridBoardManager);
+            _entityScaler.CalculateShapeScaleFactor(_gameSettings.ShapeData[0].ShapePrefab, _nodeGridBoardManager);
         }
 
         private void Setup()
@@ -77,10 +77,10 @@ namespace Shapes
             switch (_shapeHolderType)
             {
                 case ShapeHolderType.Queue:
-                    _shapeHolderCreateService = new ShapeHolderQueue(_shapeFactory, _gameManager, _gameSettings);
+                    _shapeHolderCreateService = new ShapeHolderQueue(_shapeFactory, _gameManager, _gameSettings, _nodeGridBoardManager);
                     break;
                 case ShapeHolderType.UnOrdered:
-                    _shapeHolderCreateService = new ShapeHolderUnordered(_shapeFactory, _gameManager, _gameSettings);
+                    _shapeHolderCreateService = new ShapeHolderUnordered(_shapeFactory, _gameManager, _gameSettings, _nodeGridBoardManager);
                     break;
             }
 
