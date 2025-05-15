@@ -129,9 +129,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5afc71f23684ce45b952267170781be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapeManager: {fileID: 3985799703507218235}
   _parentTransform: {fileID: 8620782562169882817}
   _pointerYOffset: 1.75
+  _lastMousePositionOnGrid: {x: -1, y: -1}
 --- !u!61 &7332077839821371582
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -164,7 +164,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12802768, y: 0}
+  m_Offset: {x: -0.5136006, y: 5.889434}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -175,7 +175,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.7117186, y: 3.04}
+  m_Size: {x: 3.4828644, y: 14.818871}
   m_EdgeRadius: 0
 --- !u!1 &3180896177980025194
 GameObject:
@@ -396,9 +396,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5afc71f23684ce45b952267170781be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapeManager: {fileID: 3985799703507218235}
   _parentTransform: {fileID: 8620782562169882817}
   _pointerYOffset: 1.75
+  _lastMousePositionOnGrid: {x: -1, y: -1}
 --- !u!61 &4432370448237799057
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -431,7 +431,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.042762756, y: 0}
+  m_Offset: {x: -0.4702462, y: 1.0812812}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -442,7 +442,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.5386705, y: 3.04}
+  m_Size: {x: 3.3936374, y: 5.2025633}
   m_EdgeRadius: 0
 --- !u!1 &8684812809996248024
 GameObject:
@@ -562,7 +562,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0.06983322}
+  m_Offset: {x: 0, y: -6.9300523}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -573,7 +573,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 3.05, y: 2.5487738}
+  m_Size: {x: 3.05, y: 16.548538}
   m_EdgeRadius: 0
 --- !u!114 &6389936063276643553
 MonoBehaviour:
@@ -587,6 +587,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d5afc71f23684ce45b952267170781be, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _shapeManager: {fileID: 3985799703507218235}
   _parentTransform: {fileID: 8620782562169882817}
   _pointerYOffset: 1.75
+  _lastMousePositionOnGrid: {x: -1, y: -1}
