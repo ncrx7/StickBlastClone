@@ -20,7 +20,7 @@ namespace StateMachine
             #endif
         }
 
-        public void OnUpdateState()
+        public void Tick()
         {
             #if UNITY_EDITOR
             Debug.Log("Updating shop panel -> from state machine behaviour");

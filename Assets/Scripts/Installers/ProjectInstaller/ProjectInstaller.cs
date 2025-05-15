@@ -14,7 +14,6 @@ namespace Installers.Project
         {
             Container.Bind<LevelManager>().FromComponentInHierarchy().AsSingle();
             Container.Bind<GameDataHandler>().FromComponentInHierarchy().AsSingle();
-            Container.Bind<StateMachineController>().FromComponentInHierarchy().AsSingle();
 
             Debug.Log("project context bindings have completed");
         }

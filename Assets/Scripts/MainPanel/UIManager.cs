@@ -6,6 +6,7 @@ using Data.Model;
 using DG.Tweening;
 using Enums;
 using Mainpanel;
+using StateMachine;
 using UI.MainMenu.Panels;
 using UnityEngine;
 using UnityUtils.BaseClasses;
@@ -15,6 +16,8 @@ namespace Mainpanel
 {
     public class UIManager : BaseUIManager<MainPanelType, GameData>
     {
+        private StateMachineController _stateMachine;
+
         [SerializeField] private Vector3 _buttonScaleOnInactive;
         [SerializeField] private Vector3 _buttonScaleOnActive;
         [SerializeField] private float _buttonScaleAnimationDuration;
@@ -40,13 +43,15 @@ namespace Mainpanel
             Application.targetFrameRate = 120;
 
             InitializeUI();
+
+            HandleStateMachine();
         }
 
         private void OnEnable()
         {
             ExecuteUIAction(UIActionType.SetPanelVisibility, true, _mainPanelMap[MainPanelType.LoadingPanel].gameObject);
 
-            if(_gameDataHandler.IsDataLoadFinished) // ana sahne tekrar yuklendiginde eger datalar zaten yuklu ise loading paneli kapatıyorum.
+            if (_gameDataHandler.IsDataLoadFinished) // ana sahne tekrar yuklendiginde eger datalar zaten yuklu ise loading paneli kapatıyorum.
                 ExecuteUIAction(UIActionType.SetPanelVisibility, false, _mainPanelMap[MainPanelType.LoadingPanel].gameObject);
 
             RegisterUIActions();
@@ -57,11 +62,26 @@ namespace Mainpanel
             UnRegisterUIActions();
         }
 
+        private void HandleStateMachine()
+        {
+            _stateMachine = new StateMachineController();
+
+            var homeState = new HomePanelDisplayingState();
+            var shopState = new ShopPanelDisplayingState();
+            var settingsState = new SettingsPanelDisplayingState();
+
+            _stateMachine.AddState(homeState);
+            _stateMachine.AddState(shopState);
+            _stateMachine.AddState(settingsState);
+
+            _stateMachine.SetInitialState<HomePanelDisplayingState>();
+        }
+
         private void RegisterUIActions()
         {
             MiniEventSystem.OnCompleteGameDataLoad += CompleteGameDataLoadUIBehaviour;
             MiniEventSystem.OnClickHomePanelButton += HomePanelButtonBehaviour;
-            MiniEventSystem.OnClickLevelPanelButton += LevelPanelButtonBehaviour;
+            MiniEventSystem.OnClickLevelPanelButton += ShopPanelButtonBehaviour;
             MiniEventSystem.OnClickSettingsPanelButton += SettingsPanelButtonBehaviour;
             MiniEventSystem.OnClickStartGameButton += StartGameButtonBehaviour;
         }
@@ -70,7 +90,7 @@ namespace Mainpanel
         {
             MiniEventSystem.OnCompleteGameDataLoad -= CompleteGameDataLoadUIBehaviour;
             MiniEventSystem.OnClickHomePanelButton -= HomePanelButtonBehaviour;
-            MiniEventSystem.OnClickLevelPanelButton -= LevelPanelButtonBehaviour;
+            MiniEventSystem.OnClickLevelPanelButton -= ShopPanelButtonBehaviour;
             MiniEventSystem.OnClickSettingsPanelButton -= SettingsPanelButtonBehaviour;
             MiniEventSystem.OnClickStartGameButton -= StartGameButtonBehaviour;
         }
@@ -121,14 +141,18 @@ namespace Mainpanel
             if (TryGetPanel<OverlayPanel>(MainPanelType.OverlayPanel, out OverlayPanel overlayPanel))
             {
                 BasePanelButtonBehaviour(overlayPanel.GetHomePanelButton.gameObject, _mainPanelMap[MainPanelType.HomePanel]);
+                
+                _stateMachine.ChangeState<HomePanelDisplayingState>();
             }
         }
 
-        private void LevelPanelButtonBehaviour()
+        private void ShopPanelButtonBehaviour()
         {
             if (TryGetPanel<OverlayPanel>(MainPanelType.OverlayPanel, out OverlayPanel overlayPanel))
             {
                 BasePanelButtonBehaviour(overlayPanel.GetLevelPanelButton.gameObject, _mainPanelMap[MainPanelType.LevelPanel]);
+
+                _stateMachine.ChangeState<ShopPanelDisplayingState>();
             }
         }
 
@@ -137,6 +161,8 @@ namespace Mainpanel
             if (TryGetPanel<OverlayPanel>(MainPanelType.OverlayPanel, out OverlayPanel overlayPanel))
             {
                 BasePanelButtonBehaviour(overlayPanel.GetSettingsPanelButton.gameObject, _mainPanelMap[MainPanelType.SettingsPanel]);
+
+                _stateMachine.ChangeState<SettingsPanelDisplayingState>();
             }
         }
 

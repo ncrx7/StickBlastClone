@@ -17,7 +17,6 @@ namespace UI.MainMenu.Panels
     public class HomePanel : BasePanel<MainPanelType, GameData>
     {
         [Inject] private LevelManager _levelManager;
-        [Inject] private StateMachineController _stateMachineController;
 
         [Header("Buttons")]
         [SerializeField] private Button _startGameButton;
@@ -49,7 +48,7 @@ namespace UI.MainMenu.Panels
         {
             base.OnOpenPanel(gameData);
 
-            _stateMachineController.SwitchState(new HomePanelDisplayingState());
+            //_stateMachineController.SwitchState(new HomePanelDisplayingState());
 
             AnimateSlider(gameData, _questSlider, ref _questSliderTween);
 

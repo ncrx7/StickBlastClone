@@ -18,13 +18,12 @@ namespace UI.MainMenu.Panels
         private bool _levelPrefabsLoaded = false;
 
         [Inject] private LevelManager _levelManager;
-        [Inject] private StateMachineController _stateMachineController;
 
         public override void OnOpenPanel(GameData gameData)
         {
             base.OnOpenPanel(gameData);
 
-            _stateMachineController.SwitchState(new ShopPanelDisplayingState());
+            //_stateMachineController.SwitchState(new ShopPanelDisplayingState());
 /* 
             if(_levelPrefabsLoaded)
                 return;

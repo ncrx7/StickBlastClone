@@ -8,7 +8,7 @@ namespace StateMachine
     {
         public void OnEnterState();
         
-        public void OnUpdateState();
+        public void Tick();
 
         public void OnExitState();
     }
