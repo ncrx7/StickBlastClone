@@ -141,6 +141,7 @@ namespace UI
             _levelReachScore.text = _gameManager.GetLevelData.LevelReachScore.ToString();
             _sliderLine.color = _gameManager.GetLevelData.LevelColor;
             _score.text = _gameManager.GetScore.ToString();
+            _sliderLine.fillAmount = 0;
 
         }
 
@@ -195,7 +196,7 @@ namespace UI
             if (tween != null)
                 tween.Kill();
 
-            sliderLine.fillAmount = 0;
+            //sliderLine.fillAmount = 0;
 
             float sliderValue = newScore / (float)_gameManager.GetLevelData.LevelReachScore; 
 
