@@ -37,6 +37,8 @@ namespace Mainpanel
         {
             base.Awake();
 
+            Application.targetFrameRate = 120;
+
             InitializeUI();
         }
 
