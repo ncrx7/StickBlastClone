@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Shapes;
 using UnityEngine;
 
 namespace NodeGridSystem.Controllers.EntityScalers
@@ -12,6 +13,8 @@ namespace NodeGridSystem.Controllers.EntityScalers
 
         public Vector2 MidCellTargetScaleOnInitial { get; set; }
         public Vector2 MidCellTargetScaleOnFilled { get; set; }
+
+        public Vector2 ShapeTargetScaleOnMove { get; set; }
 
 
         public void CalculateNodeScaleFactor(NodeManager node, NodeGridBoardManager nodeGridBoardManager)
@@ -41,6 +44,13 @@ namespace NodeGridSystem.Controllers.EntityScalers
 
             MidCellTargetScaleOnInitial = Vector2.one * initialScaleFactor;
             MidCellTargetScaleOnFilled = Vector2.one * scaleFactorOnFilled; 
+        }
+
+        public void CalculateShapeScaleFactor(ShapeManager shape, NodeGridBoardManager nodeGridBoardManager)
+        {
+            float spriteUnitSize = shape.GetAllSprites[0].sprite.bounds.size.x;
+            float shapeScaleFactor = (nodeGridBoardManager.AutomaticBoardCellSize) / spriteUnitSize;
+            ShapeTargetScaleOnMove = Vector3.one * shapeScaleFactor / 4;
         }
     }
 }

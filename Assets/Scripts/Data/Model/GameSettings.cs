@@ -31,7 +31,7 @@ namespace DataModel
 
         [Header("Shape Scale Data")]
         public Vector2 ShapeDefaultScale;
-        public Vector2 ShapeMovingScale;
+        //public Vector2 ShapeMovingScale;
 
         [Header("Combo Settings")]
         public float ComboTextAnimationTime;

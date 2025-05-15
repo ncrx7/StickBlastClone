@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using DataModel;
 using Enums;
 using NodeGridSystem.Controllers;
+using NodeGridSystem.Controllers.EntityScalers;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Zenject;
@@ -18,6 +19,7 @@ namespace Shapes
         private NodeGridBoardManager _nodeGridBoardManager;
         private GameSettings _gameSettings;
         private ShapeManager _shapeManager;
+        private EntityScaler _entityScaler;
         #endregion
 
         #region Fields
@@ -28,12 +30,13 @@ namespace Shapes
         #endregion
 
         [Inject]
-        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, GameSettings gameSettings, Camera mainCam)
+        private void InitializeDependencies(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, GameSettings gameSettings, Camera mainCam, EntityScaler entityScaler)
         {
             _nodeGridBoardManager = nodeGridBoardManager;
             _shapeManager = shapeManager;
             _gameSettings = gameSettings;
             _mainCam = mainCam;
+            _entityScaler = entityScaler;
         }
 
         #region MonoBeheviour Callbacks
@@ -55,7 +58,7 @@ namespace Shapes
             SetOffset(eventData);
             _homePosition = _parentTransform.position;
 
-            _parentTransform.localScale = _gameSettings.ShapeMovingScale;
+            _parentTransform.localScale =  _entityScaler.ShapeTargetScaleOnMove;    //_gameSettings.ShapeMovingScale;
 
             Move(eventData);
         }

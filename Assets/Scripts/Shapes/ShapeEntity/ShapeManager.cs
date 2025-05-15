@@ -120,5 +120,6 @@ namespace Shapes
         public bool GetCanPlaceFlag => _canPlace;
         public bool GetCanMoveFlag => _canMove;
         public Transform GetHead => _headTransform;
+        public List<SpriteRenderer> GetAllSprites => _spriteRendererList;
     }
 }

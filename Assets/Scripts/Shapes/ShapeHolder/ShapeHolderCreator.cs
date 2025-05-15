@@ -4,6 +4,8 @@ using Cysharp.Threading.Tasks;
 using Data.Controllers;
 using DataModel;
 using Enums;
+using NodeGridSystem.Controllers;
+using NodeGridSystem.Controllers.EntityScalers;
 using UnityEngine;
 using Zenject;
 
@@ -24,15 +26,20 @@ namespace Shapes
         private GameDataHandler _gameDataHandler;
         private GameManager _gameManager;
         private GameSettings _gameSettings;
+        private EntityScaler _entityScaler;
+        private NodeGridBoardManager _nodeGridBoardManager;
         [SerializeField] private ShapeFactory<ShapeType> _shapeFactory;
 
         [Inject]
-        private void InitializeDependencies(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings, GameDataHandler gameDataHandler)
+        private void InitializeDependencies(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings, GameDataHandler gameDataHandler,
+                         EntityScaler entityScaler, NodeGridBoardManager nodeGridBoardManager)
         {
             _shapeFactory = shapeFactory;
             _gameManager = gameManager;
             _gameSettings = gameSettings;
             _gameDataHandler = gameDataHandler;
+            _entityScaler = entityScaler;
+            _nodeGridBoardManager = nodeGridBoardManager;
         }
 
         private void OnEnable()
@@ -41,12 +48,21 @@ namespace Shapes
 
             MiniEventSystem.OnPlaceShape += _shapeHolderCreateService.OnPlaceCallBack;
             MiniEventSystem.OnCompleteSceneInit += Setup;
+
+            MiniEventSystem.OnCompleteGridBoardDimensionCalculating += HandleShapeScale;
         }
 
         private void OnDisable()
         {
             MiniEventSystem.OnPlaceShape -= _shapeHolderCreateService.OnPlaceCallBack;
             MiniEventSystem.OnCompleteSceneInit -= Setup;
+
+            MiniEventSystem.OnCompleteGridBoardDimensionCalculating -= HandleShapeScale;
+        }
+
+        private void HandleShapeScale()
+        {
+            _entityScaler.CalculateShapeScaleFactor(_gameSettings.ShapeData[0].ShapePrefab.GetComponent<ShapeManager>(), _nodeGridBoardManager);
         }
 
         private void Setup()
