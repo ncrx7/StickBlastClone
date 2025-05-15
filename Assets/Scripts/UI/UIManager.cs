@@ -39,7 +39,7 @@ namespace UI
         [SerializeField] private TextMeshProUGUI _levelText;
         [SerializeField] private TextMeshProUGUI _comboText;
 
-        [SerializeField] private Button _returnMainMenuButton;
+        [SerializeField] private Button _returnMainMenuButton, _noMatchHomeButton, _timeOutloseHomeButton, _successHomeButton;
 
 
         [SerializeField] private Image _sliderLine;
@@ -64,11 +64,10 @@ namespace UI
 
         private void OnEnable()
         {
-            _returnMainMenuButton.onClick.AddListener(async () => 
-            {
-                _loadingPanel.SetActive(true);
-                await SceneLoader.LoadSceneAsync(0);
-            });
+            _returnMainMenuButton.onClick.AddListener(LoadMainScene);
+            _noMatchHomeButton.onClick.AddListener(LoadMainScene);
+            _timeOutloseHomeButton.onClick.AddListener(LoadMainScene);
+            _successHomeButton.onClick.AddListener(LoadMainScene);
 
             MiniEventSystem.OnStartGame += InitializeItems;
             MiniEventSystem.OnEndGame += ActivateGameEndPanel;
@@ -96,6 +95,9 @@ namespace UI
             MiniEventSystem.OnShapeHolderServiceSetted -= SetShapeHolderServiceUI;
 
             _returnMainMenuButton.onClick.RemoveAllListeners();
+            _noMatchHomeButton.onClick.RemoveAllListeners();
+            _timeOutloseHomeButton.onClick.RemoveAllListeners();
+            _successHomeButton.onClick.RemoveAllListeners();
         }
 
         private void UpdateTimer(int time)
@@ -181,6 +183,12 @@ namespace UI
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
 
+        public async void LoadMainScene()
+        {
+            _loadingPanel.SetActive(true);
+            await SceneLoader.LoadSceneAsync(0);
+        }
+
         public void HandleActivaiateLoadingUI()
         {
             _loadingPanel.SetActive(true);
@@ -198,7 +206,7 @@ namespace UI
 
             //sliderLine.fillAmount = 0;
 
-            float sliderValue = newScore / (float)_gameManager.GetLevelData.LevelReachScore; 
+            float sliderValue = newScore / (float)_gameManager.GetLevelData.LevelReachScore;
 
             tween = sliderLine.DOFillAmount(sliderValue, 1).SetEase(Ease.OutCubic);
         }
@@ -206,8 +214,8 @@ namespace UI
         private async void AnimateNumberText(int startNum, int endNum, TextMeshProUGUI textMesh)
         {
             int currentNum = startNum;
- 
-            while(currentNum < endNum)
+
+            while (currentNum < endNum)
             {
                 textMesh.text = currentNum.ToString();
                 currentNum++;

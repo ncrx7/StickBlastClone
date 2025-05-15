@@ -2339,7 +2339,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 101
+  m_SortingOrder: 100
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -7265,11 +7265,11 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 219957326}
-  - {fileID: 597682740}
   - {fileID: 1325675691}
   - {fileID: 1795138951}
   - {fileID: 2049980226}
   - {fileID: 687526989}
+  - {fileID: 597682740}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -7774,7 +7774,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 101
+  m_SortingOrder: 100
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -12966,7 +12966,7 @@ ParticleSystemRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 101
+  m_SortingOrder: 100
   m_RenderMode: 0
   m_MeshDistribution: 0
   m_SortMode: 0
@@ -20174,6 +20174,9 @@ MonoBehaviour:
   _levelText: {fileID: 1547805591}
   _comboText: {fileID: 1325675692}
   _returnMainMenuButton: {fileID: 1878418561}
+  _noMatchHomeButton: {fileID: 88067336}
+  _timeOutloseHomeButton: {fileID: 2037728590}
+  _successHomeButton: {fileID: 1360705473}
   _sliderLine: {fileID: 337422154}
   _numberAnimatorDelay: 30
 --- !u!1 &1911894875
