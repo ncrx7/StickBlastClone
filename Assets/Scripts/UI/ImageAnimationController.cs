@@ -19,7 +19,7 @@ namespace UI
 
         private CancellationTokenSource _cts;
 
-        private void Start()
+        private void OnEnable()
         {
             PlayAnimation();
         }
