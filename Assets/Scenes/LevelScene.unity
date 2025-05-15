@@ -18170,7 +18170,7 @@ Transform:
   m_GameObject: {fileID: 1410631185}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -9.05, y: -3.67, z: 0}
+  m_LocalPosition: {x: -9.05, y: -3.587, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -20178,6 +20178,7 @@ MonoBehaviour:
   _timeOutloseHomeButton: {fileID: 2037728590}
   _successHomeButton: {fileID: 1360705473}
   _sliderLine: {fileID: 337422154}
+  _gameSuccessSliderLine: {fileID: 1086605962}
   _numberAnimatorDelay: 30
 --- !u!1 &1911894875
 GameObject:
@@ -20338,7 +20339,7 @@ Transform:
   m_GameObject: {fileID: 1970185950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1.29, y: -3.67, z: 0}
+  m_LocalPosition: {x: 1.364, y: -3.587, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

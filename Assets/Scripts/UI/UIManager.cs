@@ -42,13 +42,13 @@ namespace UI
         [SerializeField] private Button _returnMainMenuButton, _noMatchHomeButton, _timeOutloseHomeButton, _successHomeButton;
 
 
-        [SerializeField] private Image _sliderLine;
+        [SerializeField] private Image _sliderLine, _gameSuccessSliderLine;
 
         private GameSettings _gameSettings;
         private LevelManager _levelManager;
 
         [Header("Tweens")]
-        private Tween _scoreSliderTween;
+        private Tween _scoreSliderTween, _gameSucessPanelSliderTween;
 
         [SerializeField] int _numberAnimatorDelay;
 
@@ -119,18 +119,29 @@ namespace UI
             {
                 case 0:
                     _gameOverPanelNoMatching.SetActive(true);
+
                     MiniEventSystem.PlaySoundClip?.Invoke(SoundType.End);
+
                     break;
                 case 1:
                     _gameOverPanelTimeOut.SetActive(true);
+
                     MiniEventSystem.PlaySoundClip?.Invoke(SoundType.End);
+
                     break;
                 case 2:
+                    _gameSuccessSliderLine.fillAmount = 0;
+
+                    AnimateSlider(_gameSuccessSliderLine, ref _gameSucessPanelSliderTween, _levelManager.GetLevel, 5f);
+
                     _gameSuccessPanel.SetActive(true);
+
                     MiniEventSystem.PlaySoundClip?.Invoke(SoundType.SucessEnd);
+
                     break;
                 default:
                     Debug.LogWarning("Undefined gameEndId!!");
+                    
                     break;
             }
 
@@ -151,7 +162,7 @@ namespace UI
         {
             AnimateNumberText(oldScore, newScore, _score);
 
-            AnimateSlider(_sliderLine, ref _scoreSliderTween, newScore);
+            AnimateSlider(_sliderLine, ref _scoreSliderTween, newScore, _gameManager.GetLevelData.LevelReachScore);
         }
 
         private void HandleComboText()
@@ -199,14 +210,12 @@ namespace UI
             _loadingPanel.SetActive(false);
         }
 
-        private void AnimateSlider(Image sliderLine, ref Tween tween, int newScore)
+        private void AnimateSlider(Image sliderLine, ref Tween tween, int _currentValue, float totalValue)
         {
             if (tween != null)
                 tween.Kill();
 
-            //sliderLine.fillAmount = 0;
-
-            float sliderValue = newScore / (float)_gameManager.GetLevelData.LevelReachScore;
+            float sliderValue = _currentValue / totalValue;
 
             tween = sliderLine.DOFillAmount(sliderValue, 1).SetEase(Ease.OutCubic);
         }
