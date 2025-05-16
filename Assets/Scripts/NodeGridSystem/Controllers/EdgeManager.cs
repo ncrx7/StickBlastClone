@@ -55,11 +55,18 @@ namespace NodeGridSystem.Controllers
             transform.rotation = Quaternion.Euler(0, 0, angle);
         }
 
+        public void SetEdgeNonEmpty()
+        {
+            IsEmpty = false;
+            _nodeGridBoardManager.CheckAllEdgeIsFullOnBoard();
+
+        }
+
         public void ResetEdge()
         {
             foreach (var midCell in _midCellAreasBelongsTo)
             {
-                if(midCell.IsFilled)
+                if (midCell.IsFilled)
                     return;
             }
 

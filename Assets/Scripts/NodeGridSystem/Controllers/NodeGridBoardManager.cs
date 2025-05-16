@@ -30,7 +30,8 @@ namespace NodeGridSystem.Controllers
         private int _width;
         private int _height;
 
-        [SerializeField] private List<EdgeManager> _allEdges;
+        [SerializeField] private List<EdgeManager> _allEdges = new();
+        public bool AllEdgeIsFull;
 
         public float AutomaticBoardCellSize { get; private set; }
         private Vector3 AutomaticOffset = Vector3.zero;
@@ -211,7 +212,10 @@ namespace NodeGridSystem.Controllers
                     midCell.IsFilled = false;
                     midCell.ResetEdges();
 
+                    AllEdgeIsFull = false;
+
                     MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
+
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellSmoke);
                     MiniEventSystem.IncreaseScore?.Invoke(_gameManager.GetScore, _gameManager.GetScore + _gameManager.GetScoreIncreaseAmountPerCellDestroy);
@@ -254,6 +258,8 @@ namespace NodeGridSystem.Controllers
                     midCell.IsFilled = false;
                     midCell.ResetEdges();
 
+                    AllEdgeIsFull = false;
+
                     MiniEventSystem.PlaySoundClip?.Invoke(SoundType.QueueCellsExplosion);
 
                     MiniEventSystem.PlayVfx?.Invoke(midCell.transform.position, VfxType.CellDestroy);
@@ -266,9 +272,14 @@ namespace NodeGridSystem.Controllers
 
         }
 
-        public bool AllEdgeIsFull()
+        /*         public bool AllEdgeIsFull()
+                {
+                    return GetAllEdgesOnBoard.All(edge => !edge.IsEmpty);
+                } */
+
+        public void CheckAllEdgeIsFullOnBoard()
         {
-            return GetAllEdgesOnBoard.All(edge => !edge.IsEmpty);
+            AllEdgeIsFull = GetAllEdgesOnBoard.All(edge => !edge.IsEmpty);
         }
 
         public int GetWidth => _width;

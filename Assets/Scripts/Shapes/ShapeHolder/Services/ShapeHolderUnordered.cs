@@ -31,6 +31,8 @@ namespace Shapes
         private Transform _queueEndPoint;
 
         private List<ShapeType> _shapeTypeblackList = new();
+        private List<EdgeManager> _tempEdges = new();
+        ShapeType lastShapeType;
 
         public ShapeHolderUnordered(ShapeFactory<ShapeType> shapeFactory, GameManager gameManager, GameSettings gameSettings, NodeGridBoardManager nodeGridBoardManager)
         {
@@ -62,12 +64,11 @@ namespace Shapes
             {
                 await CreateMatchingShapeByBoard();
             }
-            await UniTask.Delay(200);
+            await UniTask.Delay(20);
 
             foreach (var item in _tempEdges)
             {
                 item.IsEmpty = true;
-                Debug.Log("Trued edge -> " + item.name);
             }
 
             _tempEdges.Clear();
@@ -94,18 +95,16 @@ namespace Shapes
 
                 await UniTask.Delay(50);
             }
-
+            
             ShapeHolderItemsMatchCheck();
         }
-        public List<EdgeManager> _tempEdges = new();
-        ShapeType lastShapeType;
+
         private async UniTask CreateMatchingShapeByBoard()
         {
             bool choosingCorrected = false;
 
             while (!choosingCorrected)
             {
-                //ShapeManager shape = _shapeFactory.Create(GetRandomShapeType(), QueueEndPoint.transform.position);
                 ShapeWrapper<ShapeType> candidateShapeWrapper = _gameSettings.ShapeData[UnityEngine.Random.Range(0, _gameSettings.ShapeData.Count)];
 
                 var response = await PathChecker.EmptyDirectionPathOnBoardChecker(_nodeGridBoardManager, candidateShapeWrapper.ShapePrefab, _tempEdges);
@@ -119,13 +118,13 @@ namespace Shapes
                     return;
                 }
 
-                 if (_nodeGridBoardManager.AllEdgeIsFull())
-                    break; 
+                if (_nodeGridBoardManager.AllEdgeIsFull)
+                    break;
             }
 
             ShapeManager shapeLast = _shapeFactory.Create(lastShapeType, QueueEndPoint.transform.position);
             _shapes.Add(shapeLast);
-            Debug.Log("last shape created outside of while!!!!!!!!!!!!!!!!");
+            //Debug.Log("last shape created outside of while!!!!!!!!!!!!!!!!");
         }
 
         public async void OnPlaceCallBack(ShapeManager shapeManager)
@@ -148,6 +147,8 @@ namespace Shapes
 
         private async void ShapeHolderItemsMatchCheck()
         {
+            await UniTask.WaitUntil(() => !_nodeGridBoardManager.CheckingMidCells);
+            
             bool anyMatchExists = false;
 
             foreach (var shape in _shapes)

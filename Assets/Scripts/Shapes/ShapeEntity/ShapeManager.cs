@@ -72,7 +72,7 @@ namespace Shapes
             foreach (var edge in GetEdgesMatching)
             {
                 edge.PaintEdge();
-                edge.IsEmpty = false;
+                edge.SetEdgeNonEmpty();
                 edge.StartNode.PaintNode();
                 edge.EndNode.PaintNode();
 
@@ -80,6 +80,7 @@ namespace Shapes
             }
             
             _nodeGridBoardManager.CheckMidCellFullnessOnBoard(_edgesMatching);
+
             MiniEventSystem.PlaySoundClip?.Invoke(SoundType.PlaceShape);
 
             _placeCallBack?.Invoke();

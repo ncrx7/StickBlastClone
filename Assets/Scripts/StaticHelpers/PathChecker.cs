@@ -99,7 +99,7 @@ public static class PathChecker
         {
             foreach (var item in edgeList)
             {
-                Debug.Log("edge added to temp edges -> " + item.name);
+                //Debug.Log("edge added to temp edges -> " + item.name);
                 tempEdges.Add(item);
             }
 
@@ -125,8 +125,8 @@ public static class PathChecker
                     {
                         foreach (var item in tempEdges)
                         {
-                            item.IsEmpty = false;
-                            Debug.Log("falsed edge -> " + item.name);
+                            item.SetEdgeNonEmpty();
+                            //Debug.Log("falsed edge -> " + item.name);
                         }
                     }
 
