@@ -54,7 +54,7 @@ public static class PathChecker
             
         } */
 
-        HideBlockShapeSlotSign(shapeManager);
+        if(!onlyCheck) HideBlockShapeSlotSign(shapeManager);
         shapeManager.GetEdgesMatching.Clear();
 
         _currentNodeManager = mainNodeManager;
@@ -88,9 +88,11 @@ public static class PathChecker
 
         //Debug.Log("Can Place Shape!!");
 
-        ShowBlockShapeSlotSign(shapeManager);
-
-        if (!onlyCheck) shapeManager.SetCanPlaceFlag(true);
+        if (!onlyCheck)
+        {
+            ShowBlockShapeSlotSign(shapeManager);
+            shapeManager.SetCanPlaceFlag(true);
+        }
 
         return true;
     }
