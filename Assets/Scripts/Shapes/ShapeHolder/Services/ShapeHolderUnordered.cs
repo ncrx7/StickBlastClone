@@ -58,12 +58,19 @@ namespace Shapes
 
         public async UniTask HandleCreateShapes()
         {
-            _shapeTypeblackList.Clear();
-
             for (int i = 0; i < 3; i++)
             {
                 await CreateMatchingShapeByBoard();
             }
+            await UniTask.Delay(200);
+
+            foreach (var item in _tempEdges)
+            {
+                item.IsEmpty = true;
+                Debug.Log("Trued edge -> " + item.name);
+            }
+
+            _tempEdges.Clear();
 
             await UniTask.DelayFrame(1);
         }
@@ -90,7 +97,8 @@ namespace Shapes
 
             ShapeHolderItemsMatchCheck();
         }
-
+        public List<EdgeManager> _tempEdges = new();
+        ShapeType lastShapeType;
         private async UniTask CreateMatchingShapeByBoard()
         {
             bool choosingCorrected = false;
@@ -100,27 +108,24 @@ namespace Shapes
                 //ShapeManager shape = _shapeFactory.Create(GetRandomShapeType(), QueueEndPoint.transform.position);
                 ShapeWrapper<ShapeType> candidateShapeWrapper = _gameSettings.ShapeData[UnityEngine.Random.Range(0, _gameSettings.ShapeData.Count)];
 
-                if (_shapeTypeblackList.Contains(candidateShapeWrapper.Type))
-                {
-                    //Debug.Log("type of " + candidateShapeWrapper.Type + " is in the black list.");
-                    continue;
-                }
-
-                var response = await PathChecker.EmptyDirectionPathOnBoardChecker(_nodeGridBoardManager, candidateShapeWrapper.ShapePrefab);
+                var response = await PathChecker.EmptyDirectionPathOnBoardChecker(_nodeGridBoardManager, candidateShapeWrapper.ShapePrefab, _tempEdges);
 
                 if (response.IsThereEmptySlot)
                 {
                     ShapeManager shape = _shapeFactory.Create(candidateShapeWrapper.Type, QueueEndPoint.transform.position);
+                    lastShapeType = candidateShapeWrapper.Type;
                     _shapes.Add(shape);
                     choosingCorrected = true;
-
-                    if (!response.IsSlotCountUpperThanOne)
-                    {
-                        //Debug.Log("shape : " + shape.name + " has only one match on board");
-                        _shapeTypeblackList.Add(candidateShapeWrapper.Type);
-                    }
+                    return;
                 }
+
+                 if (_nodeGridBoardManager.AllEdgeIsFull())
+                    break; 
             }
+
+            ShapeManager shapeLast = _shapeFactory.Create(lastShapeType, QueueEndPoint.transform.position);
+            _shapes.Add(shapeLast);
+            Debug.Log("last shape created outside of while!!!!!!!!!!!!!!!!");
         }
 
         public async void OnPlaceCallBack(ShapeManager shapeManager)

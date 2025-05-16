@@ -34,6 +34,8 @@ namespace NodeGridSystem.View
 
                 EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity, _transformHolder);
 
+                _nodeGridBoardManager.GetAllEdgesOnBoard.Add(edgeManager);
+
                 startNode.SetEdge(Direction.Right, edgeManager);
                 rightNode.SetEdge(Direction.Left, edgeManager);
 
@@ -47,6 +49,8 @@ namespace NodeGridSystem.View
                 NodeManager downNode = downGridNodeObject.GetValue();
 
                 EdgeManager edgeManager = Instantiate(_entityPrefab, Vector3.zero, Quaternion.identity, _transformHolder);
+
+                _nodeGridBoardManager.GetAllEdgesOnBoard.Add(edgeManager);
 
                 startNode.SetEdge(Direction.Down, edgeManager);
                 downNode.SetEdge(Direction.Up, edgeManager);

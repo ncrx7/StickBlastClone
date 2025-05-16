@@ -45,7 +45,7 @@ public static class PathChecker
         return closestNode;
     }
 
-    public static bool CheckPathFromANode(ShapeManager shapeManager, NodeManager mainNodeManager, List<EdgeManager> edgeList, bool onlyCheck)
+    public static bool CheckPathFromANode(ShapeManager shapeManager, NodeManager mainNodeManager, List<EdgeManager> edgeList, bool onlyCheck, List<EdgeManager> tempEdges = null)
     {
         /* if(_currentNodeManager != null && _currentNodeManager != mainNodeManager)
         {
@@ -54,7 +54,7 @@ public static class PathChecker
             
         } */
 
-        if(!onlyCheck) HideBlockShapeSlotSign(shapeManager);
+        if (!onlyCheck) HideBlockShapeSlotSign(shapeManager);
         shapeManager.GetEdgesMatching.Clear();
 
         _currentNodeManager = mainNodeManager;
@@ -73,11 +73,12 @@ public static class PathChecker
                 return false;
             }
 
-            if (!onlyCheck) edgeList.Add(currentEdge);
+            if (!onlyCheck || tempEdges != null) edgeList.Add(currentEdge);
 
             if (currentEdge.IsEmpty == false)
             {
                 edgeList.Clear();
+
                 //Debug.LogError("Edge is not empty, cant place!!" + currentEdge.gameObject.name);
                 shapeManager.SetCanPlaceFlag(false);
                 return false;
@@ -94,13 +95,21 @@ public static class PathChecker
             shapeManager.SetCanPlaceFlag(true);
         }
 
+        if (tempEdges != null)
+        {
+            foreach (var item in edgeList)
+            {
+                Debug.Log("edge added to temp edges -> " + item.name);
+                tempEdges.Add(item);
+            }
+
+        }
         return true;
     }
 
-    public async static UniTask<EmptyDirectionPathResponse> EmptyDirectionPathOnBoardChecker(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager)
+    public async static UniTask<EmptyDirectionPathResponse> EmptyDirectionPathOnBoardChecker(NodeGridBoardManager nodeGridBoardManager, ShapeManager shapeManager, List<EdgeManager> tempEdges = null)
     {
         bool isThereEmptySlot = false;
-        int matchCount = 0;
 
         for (int x = 0; x < nodeGridBoardManager.GetWidth; x++)
         {
@@ -110,20 +119,23 @@ public static class PathChecker
 
                 NodeManager nodeManager = gridNodeObject.GetValue();
 
-                if (CheckPathFromANode(shapeManager, nodeManager, shapeManager.GetEdgesMatching, true)) 
+                if (CheckPathFromANode(shapeManager, nodeManager, shapeManager.GetEdgesMatching, true, tempEdges))
                 {
-                    matchCount++;
+                    if (tempEdges != null)
+                    {
+                        foreach (var item in tempEdges)
+                        {
+                            item.IsEmpty = false;
+                            Debug.Log("falsed edge -> " + item.name);
+                        }
+                    }
 
-                    if (matchCount == 1) 
-                    {
-                        isThereEmptySlot =  true;
-                        continue;
-                    }
-                    else
-                    {
-                        await UniTask.DelayFrame(1);
-                        return new EmptyDirectionPathResponse(isThereEmptySlot, true); //Eger birden fazla eşleşme olursa  2. PARAMETRE true doner
-                    }
+
+                    isThereEmptySlot = true;
+
+                    return new EmptyDirectionPathResponse(isThereEmptySlot, true);
+
+
                 }
 
             }
@@ -131,7 +143,7 @@ public static class PathChecker
 
         await UniTask.DelayFrame(1);
 
-        return new EmptyDirectionPathResponse(isThereEmptySlot, false);;
+        return new EmptyDirectionPathResponse(isThereEmptySlot, false); ;
     }
 
     private static void ShowBlockShapeSlotSign(ShapeManager shapeManager)
@@ -174,7 +186,7 @@ public static class PathChecker
         public bool IsThereEmptySlot;
         public bool IsSlotCountUpperThanOne;
 
-        public EmptyDirectionPathResponse(bool isThereEmptySlot, bool isSlotCountUpperOne) 
+        public EmptyDirectionPathResponse(bool isThereEmptySlot, bool isSlotCountUpperOne)
         {
             IsThereEmptySlot = isThereEmptySlot;
             IsSlotCountUpperThanOne = isSlotCountUpperOne;

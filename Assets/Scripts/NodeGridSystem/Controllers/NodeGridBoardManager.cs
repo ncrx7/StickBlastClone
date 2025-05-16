@@ -30,6 +30,8 @@ namespace NodeGridSystem.Controllers
         private int _width;
         private int _height;
 
+        [SerializeField] private List<EdgeManager> _allEdges;
+
         public float AutomaticBoardCellSize { get; private set; }
         private Vector3 AutomaticOffset = Vector3.zero;
 
@@ -264,9 +266,15 @@ namespace NodeGridSystem.Controllers
 
         }
 
+        public bool AllEdgeIsFull()
+        {
+            return GetAllEdgesOnBoard.All(edge => !edge.IsEmpty);
+        }
+
         public int GetWidth => _width;
         public int GetHeight => _height;
         public NodeGridSystem2D<GridNodeObject<NodeManager>> GetNodeGridSystem2D => _nodeGrid;
+        public List<EdgeManager> GetAllEdgesOnBoard => _allEdges;
 
     }
 }
