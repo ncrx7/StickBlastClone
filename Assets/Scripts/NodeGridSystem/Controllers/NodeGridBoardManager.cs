@@ -10,6 +10,7 @@ using Zenject;
 using Level;
 using DataModel;
 using Data.Controllers;
+using System.Linq;
 
 namespace NodeGridSystem.Controllers
 {
@@ -31,6 +32,8 @@ namespace NodeGridSystem.Controllers
 
         public float AutomaticBoardCellSize { get; private set; }
         private Vector3 AutomaticOffset = Vector3.zero;
+
+        public bool CheckingMidCells;
 
         [Inject]
         private void InitializeDependencies(CameraManager cameraManager, GameManager gameManager, ComboManager comboManager, GameSettings gameSettings, GameDataHandler gameDataHandler, Camera mainCam)
@@ -138,11 +141,13 @@ namespace NodeGridSystem.Controllers
             await UniTask.DelayFrame(1);
         }
 
-        public void CheckMidCellFullnessOnBoard(List<EdgeManager> edgeManagers)
+        public async void CheckMidCellFullnessOnBoard(List<EdgeManager> edgeManagers)
         {
+            CheckingMidCells = true;
+
             bool MatchExist = false;
 
-            foreach (var edge in edgeManagers)
+            foreach (var edge in edgeManagers.ToList()) //await işlemleri eklendiginden dolayı ve islemler sırasında bu liste degistirilebileceğinden hata oluşmaması adına kopyasını olusturdum
             {
                 foreach (var midCell in edge.GetMidCells)
                 {
@@ -156,13 +161,15 @@ namespace NodeGridSystem.Controllers
 
                             midCell.OnAllEdgeFull();
 
-                            ColumnCheckerOnBoard(midCell.OnGridNodeObject.GetX);
+                            await ColumnCheckerOnBoard(midCell.OnGridNodeObject.GetX);
 
-                            RowCheckerOnBoard(midCell.OnGridNodeObject.GetY);
+                            await RowCheckerOnBoard(midCell.OnGridNodeObject.GetY);
                         }
                     }
                 }
             }
+
+            CheckingMidCells = false;
 
             if (!MatchExist)
             {
@@ -170,7 +177,7 @@ namespace NodeGridSystem.Controllers
             }
         }
 
-        private async void RowCheckerOnBoard(int y)
+        private async UniTask RowCheckerOnBoard(int y)
         {
             List<MiddleFillAreaManager> midCells = new();
 
@@ -213,7 +220,7 @@ namespace NodeGridSystem.Controllers
 
         }
 
-        private async void ColumnCheckerOnBoard(int x)
+        private async UniTask ColumnCheckerOnBoard(int x)
         {
             List<MiddleFillAreaManager> midCells = new();
 

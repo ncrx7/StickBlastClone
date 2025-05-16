@@ -125,6 +125,8 @@ namespace Shapes
 
         public async void OnPlaceCallBack(ShapeManager shapeManager)
         {
+            await UniTask.WaitUntil(() => !_nodeGridBoardManager.CheckingMidCells); //Board Kontrollerinin bitmesini bekliyoruz
+
             _shapes.Remove(shapeManager);
 
 
